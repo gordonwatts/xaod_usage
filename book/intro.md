@@ -30,3 +30,10 @@ Further, `func_adl` libraries can use this type information to configure the bac
 - Arbitrary C++ code can be downloaded and executed as part of the query to ServiceX
 
 Examples of all of this follow in this book.
+
+## Setup and config
+
+Everything in this book can be executed and, at the time when the book was published, ran. For
+this to work we need an up-to-date version of ServiceX running. We call this backend `xaod_r21` for
+the C++ ATLAS xAOD backend based on the release 21. As per normal for ServiceX, `xaod_r21` should
+be defined in your `servicex.yaml` or `.servicex` file in your `$HOME` directory.
