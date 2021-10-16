@@ -37,3 +37,8 @@ Everything in this book can be executed and, at the time when the book was publi
 this to work we need an up-to-date version of ServiceX running. We call this backend `xaod_r21` for
 the C++ ATLAS xAOD backend based on the release 21. As per normal for ServiceX, `xaod_r21` should
 be defined in your `servicex.yaml` or `.servicex` file in your `$HOME` directory.
+
+
+## More about this book
+
+You can't run this on `binder` because `ServiceX` and `binder` aren't compatible.
