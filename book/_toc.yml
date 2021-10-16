@@ -1,0 +1,13 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: intro
+parts:
+  - caption: The Collections
+    chapters:
+    - file: chapters/jets
+  - caption: Appendices
+    chapters:
+    - file: appendix/old_access
+    - file: notebooks
