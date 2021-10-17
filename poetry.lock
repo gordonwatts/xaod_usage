@@ -301,7 +301,7 @@ python-versions = ">=2.7"
 
 [[package]]
 name = "func-adl"
-version = "2.4b4"
+version = "2.4b6"
 description = "Functional Analysis Description Language Base Package"
 category = "main"
 optional = false
@@ -2235,8 +2235,8 @@ entrypoints = [
     {file = "entrypoints-0.3.tar.gz", hash = "sha256:c70dd71abe5a8c85e55e12c19bd91ccfeec11a6e99044204511f9ed547d48451"},
 ]
 func-adl = [
-    {file = "func_adl-2.4b4-py3-none-any.whl", hash = "sha256:b9d01e84ad375c8fb73c93d2e8a794a9fecd38c37f27f421dd12a25b3930ab50"},
-    {file = "func_adl-2.4b4.tar.gz", hash = "sha256:cd64a541474d4970d62cf1f4457608dec0e4c0136e7ad6f994dbcaeaaffea2f2"},
+    {file = "func_adl-2.4b6-py3-none-any.whl", hash = "sha256:ef909dbbcc48384b4ffdea673a290bb0f5fd64505b7edf67edb652deeead0510"},
+    {file = "func_adl-2.4b6.tar.gz", hash = "sha256:335905e730699cbbab8c123c80b0b8dc200c93280fbcb13324a8f76125702675"},
 ]
 func-adl-servicex = [
     {file = "func_adl_servicex-1.2b2-py3-none-any.whl", hash = "sha256:ba32682c20b743b149bb0caa9ec3a264724fb1b866446ed0aeaa323718bcdced"},

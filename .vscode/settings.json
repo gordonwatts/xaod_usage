@@ -9,6 +9,8 @@
         "STDM",
         "SXDS",
         "XAOD",
-        "xaodr"
+        "xaodr",
+        "xlabel",
+        "ylabel"
     ]
 }
