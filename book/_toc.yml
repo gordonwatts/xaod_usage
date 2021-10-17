@@ -6,6 +6,7 @@ root: intro
 parts:
   - caption: The Collections
     chapters:
+    - file: chapters/py_help
     - file: chapters/jets
   - caption: Appendices
     chapters:
