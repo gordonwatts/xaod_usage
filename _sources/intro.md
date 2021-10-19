@@ -12,6 +12,8 @@ I'm taking it for granted you already:
 - Basic knowledge of the ATLAS xAOD data model
 - The names of the xAOD collections you are interested in, etc.
 
+This is under rapid development, no review has been done, etc. etc.
+
 ## Typed?
 
 Normally, one does not think of Python as a `typed` language, like C++ or many other languages.
