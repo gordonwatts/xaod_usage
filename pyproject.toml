@@ -10,6 +10,7 @@ python = ">=3.9,<3.10"
 jupyter-book = "^0.12.0"
 matplotlib = "^3.4.3"
 func-adl-servicex-xaodr21 = { path = "../func_adl_servicex_xaodr21/", develop = true }
+ghp-import = "^2.0.2"
 
 [tool.poetry.dev-dependencies]
 
