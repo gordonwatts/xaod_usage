@@ -11,4 +11,3 @@ parts:
   - caption: Appendices
     chapters:
     - file: appendix/old_access
-    - file: notebooks
