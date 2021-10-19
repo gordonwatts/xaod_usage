@@ -8,6 +8,7 @@ parts:
     chapters:
     - file: chapters/py_help
     - file: chapters/jets
+    - file: chapters/met
   - caption: Appendices
     chapters:
     - file: appendix/old_access
