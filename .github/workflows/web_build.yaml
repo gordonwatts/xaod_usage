@@ -1,26 +1,27 @@
-name: Jupyter Book Publish
+# name: Jupyter Book Publish
+# Turn on when we get all the packages into pypi (missing the func adl right now)
 
-on:
-  push:
-  pull_request:
+# on:
+#   push:
+#   pull_request:
 
-jobs:
-  publish:
-    runs-on: ubuntu-latest
+# jobs:
+#   publish:
+#     runs-on: ubuntu-latest
 
-    steps:
-    - uses: actions/checkout@master
-    - name: Set up Python 3.9
-      uses: actions/setup-python@v1
-      with:
-        python-version: 3.9
-    - name: Install dependencies
-      run: |
-        python -m pip install poetry
-        poetry install
-        pip list
-    - name: Build the jupyter Book
-      run: |
-        jupyter-book build ./book
-    - name: Publish
-      run: ghp-import -n -p -f ./book/_build/html
+#     steps:
+#     - uses: actions/checkout@master
+#     - name: Set up Python 3.9
+#       uses: actions/setup-python@v1
+#       with:
+#         python-version: 3.9
+#     - name: Install dependencies
+#       run: |
+#         python -m pip install poetry
+#         poetry install
+#         pip list
+#     - name: Build the jupyter Book
+#       run: |
+#         jupyter-book build ./book
+#     - name: Publish
+#       run: ghp-import -n -p -f ./book/_build/html
