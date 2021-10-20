@@ -6,9 +6,10 @@ root: intro
 parts:
   - caption: The Collections
     chapters:
-    - file: chapters/py_help
     - file: chapters/jets
     - file: chapters/met
+    - file: chapters/eventinfo
+    - file: chapters/py_help
   - caption: Appendices
     chapters:
     - file: appendix/old_access
