@@ -51,8 +51,8 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="The Jets Collection" href="jets.html" />
-    <link rel="prev" title="Using the ATLAS xAOD typed Backend" href="../intro.html" />
+    <link rel="next" title="Old Collection Access Pattern" href="../appendix/old_access.html" />
+    <link rel="prev" title="Event Info" href="eventinfo.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -99,14 +99,27 @@
  </span>
 </p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   Using Python Help
-  </a>
- </li>
  <li class="toctree-l1">
   <a class="reference internal" href="jets.html">
    The Jets Collection
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="met.html">
+   Missing
+   <span class="math notranslate nohighlight">
+    \(E_T\)
+   </span>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="eventinfo.html">
+   Event Info
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Using Python Help
   </a>
  </li>
 </ul>
@@ -119,11 +132,6 @@
  <li class="toctree-l1">
   <a class="reference internal" href="../appendix/old_access.html">
    Old Collection Access Pattern
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../notebooks.html">
-   Content with notebooks
   </a>
  </li>
 </ul>
@@ -269,6 +277,8 @@ class Event(builtins.object)
  |  
  |  Electrons(self, name: str) -&gt; Iterator[func_adl_servicex_xaodr21.xAOD.electron_v1.Electron_v1]
  |  
+ |  EventInfo(self, name: str) -&gt; func_adl_servicex_xaodr21.xAOD.eventinfo_v1.EventInfo_v1
+ |  
  |  EventInfos(self, name: str) -&gt; Iterator[func_adl_servicex_xaodr21.xAOD.eventinfo_v1.EventInfo_v1]
  |  
  |  IParticles(self, name: str) -&gt; Iterator[func_adl_servicex_xaodr21.xAOD.iparticle.IParticle]
@@ -298,6 +308,8 @@ class Event(builtins.object)
  |  TrackParticles(self, name: str) -&gt; Iterator[func_adl_servicex_xaodr21.xAOD.trackparticle_v1.TrackParticle_v1]
  |  
  |  TruthEvents(self, name: str) -&gt; Iterator[func_adl_servicex_xaodr21.xAOD.truthevent_v1.TruthEvent_v1]
+ |  
+ |  TruthMetaDatas(self, name: str) -&gt; Iterator[func_adl_servicex_xaodr21.xAOD.truthmetadata_v1.TruthMetaData_v1]
  |  
  |  TruthParticles(self, name: str) -&gt; Iterator[func_adl_servicex_xaodr21.xAOD.truthparticle_v1.TruthParticle_v1]
  |  
@@ -409,19 +421,19 @@ class Jet_v1(builtins.object)
 <div class='prev-next-bottom'>
     
     <div id="prev">
-        <a class="left-prev" href="../intro.html" title="previous page">
+        <a class="left-prev" href="eventinfo.html" title="previous page">
             <i class="prevnext-label fas fa-angle-left"></i>
             <div class="prevnext-info">
                 <p class="prevnext-label">previous</p>
-                <p class="prevnext-title">Using the ATLAS xAOD typed Backend</p>
+                <p class="prevnext-title">Event Info</p>
             </div>
         </a>
     </div>
      <div id="next">
-        <a class="right-next" href="jets.html" title="next page">
+        <a class="right-next" href="../appendix/old_access.html" title="next page">
             <div class="prevnext-info">
                 <p class="prevnext-label">next</p>
-                <p class="prevnext-title">The Jets Collection</p>
+                <p class="prevnext-title">Old Collection Access Pattern</p>
             </div>
             <i class="prevnext-label fas fa-angle-right"></i>
         </a>
