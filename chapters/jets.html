@@ -273,22 +273,30 @@
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">SXDSAtlasxAODR21</span><span class="p">(</span><span class="n">rucio_zee_r21_mc</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="s1">&#39;xaod_r21&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">SXDSAtlasxAODR21</span><span class="p">(</span><span class="n">rucio_zee_r21_mc</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="s1">&#39;dev_xaod&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">jets</span> <span class="o">=</span> <span class="p">(</span><span class="n">ds</span>
-          <span class="o">.</span><span class="n">SelectMany</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">Jets</span><span class="p">(</span><span class="s2">&quot;AntiKt4EMTopoJets&quot;</span><span class="p">))</span>
-          <span class="o">.</span><span class="n">Where</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="p">(</span><span class="n">j</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">30</span><span class="p">)</span>
-          <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">)</span>
-          <span class="o">.</span><span class="n">AsAwkwardArray</span><span class="p">(</span><span class="s1">&#39;JetPt&#39;</span><span class="p">)</span>
-          <span class="o">.</span><span class="n">value</span><span class="p">())</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">servicex</span> <span class="kn">import</span> <span class="n">ignore_cache</span>
+<span class="k">with</span> <span class="n">ignore_cache</span><span class="p">():</span> 
+    <span class="n">jets</span> <span class="o">=</span> <span class="p">(</span><span class="n">ds</span>
+            <span class="o">.</span><span class="n">SelectMany</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">Jets</span><span class="p">(</span><span class="s2">&quot;AntiKt4EMTopoJets&quot;</span><span class="p">))</span>
+            <span class="o">.</span><span class="n">Where</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="p">(</span><span class="n">j</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">30</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">AsAwkwardArray</span><span class="p">(</span><span class="s1">&#39;JetPt&#39;</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">value</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">
+{"version_major": 2, "version_minor": 0, "model_id": "95ef6a85a0764837b901d96e99459a8c"}
+</script><script type="application/vnd.jupyter.widget-view+json">
+{"version_major": 2, "version_minor": 0, "model_id": "dd71fee849224b59af8ee71557876f26"}
+</script></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">

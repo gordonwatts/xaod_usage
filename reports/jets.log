@@ -32,11 +32,13 @@ nbclient.exceptions.CellTimeoutError: A cell timed out while it was being execut
 The message was: Cell execution timed out.
 Here is a preview of the cell contents:
 -------------------
-jets = (ds
-          .SelectMany(lambda e: e.Jets("AntiKt4EMTopoJets"))
-          .Where(lambda j: (j.pt() / 1000) > 30)
-          .Select(lambda j: j.pT() / 1000.0)
-          .AsAwkwardArray('JetPt')
-          .value())
+from servicex import ignore_cache
+with ignore_cache(): 
+    jets = (ds
+            .SelectMany(lambda e: e.Jets("AntiKt4EMTopoJets"))
+            .Where(lambda j: (j.pt() / 1000) > 30)
+            .Select(lambda j: j.pt() / 1000.0)
+            .AsAwkwardArray('JetPt')
+            .value())
 -------------------
 
