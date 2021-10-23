@@ -9,6 +9,7 @@ parts:
     - file: chapters/jets
     - file: chapters/met
     - file: chapters/eventinfo
+    - file: chapters/caloclusters
     - file: chapters/py_help
   - caption: Appendices
     chapters:
