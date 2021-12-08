@@ -7,14 +7,18 @@
         "caloclusters",
         "DAOD",
         "eventinfo",
+        "EXOT",
+        "Localx",
         "missinget",
         "pyplot",
         "servicex",
         "STDM",
         "SXDS",
+        "Topo",
         "XAOD",
         "xaodr",
         "xlabel",
         "ylabel"
-    ]
+    ],
+    "jupyter.debugJustMyCode": false
 }
