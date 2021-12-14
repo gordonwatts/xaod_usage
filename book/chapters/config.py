@@ -11,3 +11,5 @@ class xAODLocalTyped(SXLocalxAOD[Event]):
         super().__init__(file_path, item_type=Event)
 
 local_xaod_path = Path(r"C:\Users\gordo\Code\atlas\data\xAODSampleFiles\DAOD_EXOT15.26710781._000001.pool.root.1")
+if not local_xaod_path.exists():
+    local_xaod_path = Path(r"C:\Users\gordo\Code\atlas\xAODSampleData\DAOD_EXOT15.26710781._000001.pool.root.1")
