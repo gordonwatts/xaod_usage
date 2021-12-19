@@ -20,7 +20,7 @@
         "xlabel",
         "ylabel"
     ],
-    "jupyter.debugJustMyCode": false,
     "cmake.configureOnOpen": false,
-    "restructuredtext.languageServer.disabled": true
+    "restructuredtext.languageServer.disabled": true,
+    "jupyter.debugJustMyCode": false
 }
