@@ -13,3 +13,8 @@ class xAODLocalTyped(SXLocalxAOD[Event]):
 local_xaod_path = Path(r"C:\Users\gordo\Code\atlas\data\xAODSampleFiles\DAOD_EXOT15.26710781._000001.pool.root.1")
 if not local_xaod_path.exists():
     local_xaod_path = Path(r"C:\Users\gordo\Code\atlas\xAODSampleData\DAOD_EXOT15.26710781._000001.pool.root.1")
+
+# The following two lines will cause the servicex front end to ignore the cache
+# from servicex import ignore_cache
+# ic = ignore_cache()
+# ic.__enter__()
