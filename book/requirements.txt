@@ -2,3 +2,5 @@ jupyter-book
 matplotlib
 numpy
 func-adl-servicex
+particle
+hist[plot]

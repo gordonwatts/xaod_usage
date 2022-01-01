@@ -1,6 +1,7 @@
 {
     "cSpell.words": [
         "AODR",
+        "astype",
         "Atlasx",
         "AZNLOCTEQ",
         "Calo",
@@ -8,8 +9,10 @@
         "DAOD",
         "eventinfo",
         "EXOT",
+        "hadronizes",
         "Localx",
         "missinget",
+        "pdgid",
         "pyplot",
         "rucio",
         "servicex",
@@ -19,6 +22,7 @@
         "XAOD",
         "xaodr",
         "xlabel",
+        "xscale",
         "ylabel"
     ],
     "cmake.configureOnOpen": false,
