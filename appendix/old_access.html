@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Old Collection Access Pattern &#8212; Using the ATLAS xAOD ServiceX Backend</title>
     
-  <link href="../_static/css/theme.css" rel="stylesheet" />
-  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -31,7 +31,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -53,7 +53,10 @@
     <link rel="search" title="Search" href="../search.html" />
     <link rel="prev" title="Using Python Help" href="../chapters/py_help.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
     
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
@@ -92,7 +95,7 @@
   </a>
  </li>
 </ul>
-<p class="caption" role="heading">
+<p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   The Collections
  </span>
@@ -122,12 +125,17 @@
   </a>
  </li>
  <li class="toctree-l1">
+  <a class="reference internal" href="../chapters/truth.html">
+   The Truth Particles Collection
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="../chapters/py_help.html">
    Using Python Help
   </a>
  </li>
 </ul>
-<p class="caption" role="heading">
+<p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Appendices
  </span>
@@ -264,6 +272,58 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ServiceXException</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Temp</span><span class="o">/</span><span class="n">ipykernel_347504</span><span class="o">/</span><span class="mf">3574249015.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">ds</span> <span class="o">=</span> <span class="n">ServiceXSourceXAOD</span><span class="p">(</span><span class="n">rucio_zee_r21_mc</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="s1">&#39;xaod_r21&#39;</span><span class="p">)</span>
+
+<span class="nn">c:\users\gordo\code\iris-hep\func_adl_servicex\func_adl_servicex\ServiceX.py</span> in <span class="ni">__init__</span><span class="nt">(self, sx, backend, item_type)</span>
+<span class="g g-Whitespace">    </span><span class="mi">198</span>         <span class="n">Create</span> <span class="n">a</span> <span class="n">servicex</span> <span class="n">dataset</span> <span class="n">sequence</span> <span class="kn">from</span> <span class="nn">a</span> <span class="n">servicex</span> <span class="n">dataset</span>
+<span class="g g-Whitespace">    </span><span class="mi">199</span>         <span class="sd">&#39;&#39;&#39;</span>
+<span class="ne">--&gt; </span><span class="mi">200</span><span class="sd">         super().__init__(sx, backend, item_type)</span>
+<span class="g g-Whitespace">    </span><span class="mi">201</span><span class="sd"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">202</span><span class="sd"> </span>
+
+<span class="nn">c:\users\gordo\code\iris-hep\func_adl_servicex\func_adl_servicex\ServiceX.py</span> in <span class="ni">__init__</span><span class="nt">(self, sx, backend_name, item_type)</span>
+<span class="g g-Whitespace">    </span><span class="mi">187</span><span class="sd">             backend_name (str): The backend type, `xaod`, for example, for the ATLAS R21 xaod</span>
+<span class="g g-Whitespace">    </span><span class="mi">188</span><span class="sd">         &#39;&#39;&#39;</span>
+<span class="ne">--&gt; </span><span class="mi">189</span>         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">sx</span><span class="p">,</span> <span class="n">backend_name</span><span class="p">,</span> <span class="n">item_type</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">190</span> 
+<span class="g g-Whitespace">    </span><span class="mi">191</span>         <span class="c1"># Add the filename</span>
+
+<span class="nn">c:\users\gordo\code\iris-hep\func_adl_servicex\func_adl_servicex\ServiceX.py</span> in <span class="ni">__init__</span><span class="nt">(self, sx, backend_name, item_type)</span>
+<span class="g g-Whitespace">     </span><span class="mi">58</span>         <span class="c1"># Get the base created</span>
+<span class="g g-Whitespace">     </span><span class="mi">59</span>         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sx</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">)):</span>
+<span class="ne">---&gt; </span><span class="mi">60</span>             <span class="n">ds</span> <span class="o">=</span> <span class="n">ServiceXDataset</span><span class="p">(</span><span class="n">sx</span><span class="p">,</span> <span class="n">backend_name</span><span class="o">=</span><span class="n">backend_name</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">61</span>         <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">62</span>             <span class="n">ds</span> <span class="o">=</span> <span class="n">sx</span>
+
+<span class="nn">c:\users\gordo\appdata\local\pypoetry\cache\virtualenvs\xaod-usage-w68kx7k0-py3.9\lib\site-packages\servicex\servicex.py</span> in <span class="ni">__init__</span><span class="nt">(self, dataset, backend_name, image, max_workers, servicex_adaptor, minio_adaptor, cache_adaptor, status_callback_factory, local_log, session_generator, config_adaptor, data_convert_adaptor, ignore_cache)</span>
+<span class="g g-Whitespace">    </span><span class="mi">218</span>         <span class="k">if</span> <span class="ow">not</span> <span class="n">servicex_adaptor</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">219</span>             <span class="c1"># Given servicex adaptor is none, this should be ok. Fixes type checkers</span>
+<span class="ne">--&gt; </span><span class="mi">220</span>             <span class="n">end_point</span><span class="p">,</span> <span class="n">token</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get_servicex_adaptor_config</span><span class="p">(</span><span class="n">backend_name</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">221</span>             <span class="n">servicex_adaptor</span> <span class="o">=</span> <span class="n">ServiceXAdaptor</span><span class="p">(</span><span class="n">end_point</span><span class="p">,</span> <span class="n">token</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">222</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_servicex_adaptor</span> <span class="o">=</span> <span class="n">servicex_adaptor</span>
+
+<span class="nn">c:\users\gordo\appdata\local\pypoetry\cache\virtualenvs\xaod-usage-w68kx7k0-py3.9\lib\site-packages\servicex\servicex_config.py</span> in <span class="ni">get_servicex_adaptor_config</span><span class="nt">(self, backend_name)</span>
+<span class="g g-Whitespace">    </span><span class="mi">171</span>             <span class="n">token</span> <span class="p">(</span><span class="n">optionally</span><span class="p">)</span><span class="o">.</span>
+<span class="g g-Whitespace">    </span><span class="mi">172</span>         <span class="s1">&#39;&#39;&#39;</span>
+<span class="ne">--&gt; </span><span class="mi">173</span><span class="s1">         config = self._get_backend_info(backend_name)</span>
+<span class="g g-Whitespace">    </span><span class="mi">174</span><span class="s1"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">175</span><span class="s1">         endpoint = config[&#39;endpoint&#39;]</span>
+
+<span class="nn">c:\users\gordo\appdata\local\pypoetry\cache\virtualenvs\xaod-usage-w68kx7k0-py3.9\lib\site-packages\servicex\servicex_config.py</span> in <span class="ni">_get_backend_info</span><span class="nt">(self, backend_name)</span>
+<span class="g g-Whitespace">    </span><span class="mi">119</span><span class="s1">                               if ep[&#39;name&#39;].exists()]</span>
+<span class="g g-Whitespace">    </span><span class="mi">120</span><span class="s1"> </span>
+<span class="ne">--&gt; </span><span class="mi">121</span><span class="s1">                 raise ServiceXException(f&#39;Unable to find name/type </span><span class="si">{backend_name}</span><span class="s1"> &#39;</span>
+<span class="g g-Whitespace">    </span><span class="mi">122</span><span class="s1">                                         &#39;in api_endpoints in servicex.yaml configuration file. Saw&#39;</span>
+<span class="g g-Whitespace">    </span><span class="mi">123</span><span class="s1">                                         f&#39; only names ({&quot;, &quot;.join(seen_names)}) and types &#39;</span>
+
+<span class="nn">ServiceXException: (ServiceXException(...), &#39;Unable to find name/type xaod_r21 in api_endpoints</span> in <span class="ni">servicex.yaml configuration file. Saw only names (open_uproot, default, atlas, dev_atlas) and types </span><span class="nt">(uproot, cms_run1_aod, cms_run1_aod_2, dev_uproot, xaod, xaod)&#39;)</span>
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -315,22 +375,15 @@
               </div>
               
         
-            
-
-
-
-<div class='prev-next-bottom'>
-    
-    <div id="prev">
-        <a class="left-prev" href="../chapters/py_help.html" title="previous page">
-            <i class="prevnext-label fas fa-angle-left"></i>
-            <div class="prevnext-info">
-                <p class="prevnext-label">previous</p>
-                <p class="prevnext-title">Using Python Help</p>
-            </div>
-        </a>
-    </div>
-
+            <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="../chapters/py_help.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Using Python Help</p>
+        </div>
+    </a>
 </div>
         
         </div>
@@ -351,8 +404,7 @@
       </div>
     </div>
   
-  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
 
-  
   </body>
 </html>

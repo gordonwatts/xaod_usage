@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>The Jets Collection &#8212; Using the ATLAS xAOD ServiceX Backend</title>
     
-  <link href="../_static/css/theme.css" rel="stylesheet" />
-  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -31,7 +31,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -54,7 +54,10 @@
     <link rel="next" title="Missing \(E_T\)" href="met.html" />
     <link rel="prev" title="Using the ATLAS xAOD typed Backend" href="../intro.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
     
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
@@ -93,7 +96,7 @@
   </a>
  </li>
 </ul>
-<p class="caption" role="heading">
+<p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   The Collections
  </span>
@@ -123,12 +126,17 @@
   </a>
  </li>
  <li class="toctree-l1">
+  <a class="reference internal" href="truth.html">
+   The Truth Particles Collection
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="py_help.html">
    Using Python Help
   </a>
  </li>
 </ul>
-<p class="caption" role="heading">
+<p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Appendices
  </span>
@@ -244,6 +252,11 @@
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#jet-constituents">
+   Jet Constituents
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#the-datamodel">
    The Datamodel
   </a>
@@ -271,37 +284,38 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">func_adl_servicex_xaodr21</span> <span class="kn">import</span> <span class="n">SXDSAtlasxAODR21</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">config</span> <span class="kn">import</span> <span class="n">rucio_zee_r21_mc</span>
+<span class="kn">from</span> <span class="nn">config</span> <span class="kn">import</span> <span class="n">rucio_zee_r21_mc</span><span class="p">,</span> <span class="n">xAODLocalTyped</span><span class="p">,</span> <span class="n">local_xaod_path</span>
+<span class="kn">import</span> <span class="nn">awkward</span> <span class="k">as</span> <span class="nn">ak</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">SXDSAtlasxAODR21</span><span class="p">(</span><span class="n">rucio_zee_r21_mc</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="s1">&#39;dev_xaod&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">servicex</span> <span class="kn">import</span> <span class="n">ignore_cache</span>
-<span class="k">with</span> <span class="n">ignore_cache</span><span class="p">():</span> 
-    <span class="n">jets</span> <span class="o">=</span> <span class="p">(</span><span class="n">ds</span>
-            <span class="o">.</span><span class="n">SelectMany</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">Jets</span><span class="p">(</span><span class="s2">&quot;AntiKt4EMTopoJets&quot;</span><span class="p">))</span>
-            <span class="o">.</span><span class="n">Where</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="p">(</span><span class="n">j</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">30</span><span class="p">)</span>
-            <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">)</span>
-            <span class="o">.</span><span class="n">AsAwkwardArray</span><span class="p">(</span><span class="s1">&#39;JetPt&#39;</span><span class="p">)</span>
-            <span class="o">.</span><span class="n">value</span><span class="p">())</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#ds = SXDSAtlasxAODR21(rucio_zee_r21_mc, backend=&#39;dev_xaod&#39;)</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">xAODLocalTyped</span><span class="p">(</span><span class="n">local_xaod_path</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">
-{"version_major": 2, "version_minor": 0, "model_id": "86a4a69321574d1da8998fefcf8071c4"}
-</script><script type="application/vnd.jupyter.widget-view+json">
-{"version_major": 2, "version_minor": 0, "model_id": "5adcbcedf1d64fca974b33b14806f1fd"}
-</script></div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># from servicex import ignore_cache</span>
+<span class="c1"># with ignore_cache(): </span>
+<span class="n">jets</span> <span class="o">=</span> <span class="p">(</span><span class="n">ds</span>
+        <span class="o">.</span><span class="n">SelectMany</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">Jets</span><span class="p">(</span><span class="s2">&quot;AntiKt4EMTopoJets&quot;</span><span class="p">))</span>
+        <span class="o">.</span><span class="n">Where</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="p">(</span><span class="n">j</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">30</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">AsAwkwardArray</span><span class="p">(</span><span class="s1">&#39;JetPt&#39;</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">value</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -314,6 +328,38 @@
 </div>
 <div class="cell_output docutils container">
 <img alt="../_images/jets_4_0.png" src="../_images/jets_4_0.png" />
+</div>
+</div>
+<div class="section" id="jet-constituents">
+<h2>Jet Constituents<a class="headerlink" href="#jet-constituents" title="Permalink to this headline">¶</a></h2>
+<p>Jets are composed of <code class="docutils literal notranslate"><span class="pre">TopoClusters</span></code> in ATLAS, and the AntiKt algorithm normally clusters them into a jet. In R21 files, the <code class="docutils literal notranslate"><span class="pre">TopoClusters</span></code> are easily accessible.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">servicex</span> <span class="kn">import</span> <span class="n">ignore_cache</span>
+<span class="k">with</span> <span class="n">ignore_cache</span><span class="p">():</span>
+    <span class="n">topo_clusters</span> <span class="o">=</span> <span class="p">(</span><span class="n">ds</span>
+                     <span class="o">.</span><span class="n">SelectMany</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">Jets</span><span class="p">(</span><span class="s2">&quot;AntiKt4EMTopoJets&quot;</span><span class="p">))</span>
+                     <span class="o">.</span><span class="n">SelectMany</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">getConstituents</span><span class="p">())</span>
+                     <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">tc</span><span class="p">:</span> <span class="n">tc</span><span class="o">.</span><span class="n">pt</span><span class="p">())</span>
+                     <span class="o">.</span><span class="n">AsAwkwardArray</span><span class="p">(</span><span class="s1">&#39;JetClusterPt&#39;</span><span class="p">)</span>
+                     <span class="o">.</span><span class="n">value</span><span class="p">()</span>
+                    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">topo_clusters</span><span class="o">.</span><span class="n">JetClusterPt</span><span class="o">/</span><span class="mf">1000.0</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Jet Cluster $p_T$ [GeV]&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Number of jets&#39;</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Jet Cluster $p_T$ distribution for jets in $Z</span><span class="se">\\</span><span class="s1">rightarrow ee$ events&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/jets_7_0.png" src="../_images/jets_7_0.png" />
+</div>
 </div>
 </div>
 <div class="section" id="the-datamodel">
@@ -334,37 +380,130 @@ class Jet_v1(builtins.object)
  |  
  |  Methods defined here:
  |  
- |  e(self) -&gt; float
+ |  Jet_v1(self) -&gt; &#39;func_adl_servicex_xaodr21.xAOD.jet_v1.Jet_v1&#39;
  |      A method
  |  
- |  eta(self) -&gt; float
+ |  btagging(self) -&gt; &#39;func_adl_servicex_xaodr21.xAOD.btagging_v1.BTagging_v1&#39;
  |      A method
  |  
- |  getConstituents(self) -&gt; func_adl_servicex_xaodr21.xAOD.jetconstituentvector.JetConstituentVector
+ |  btaggingLink(self) -&gt; &#39;func_adl_servicex_xaodr21.elementlink_datavector_xaod_btagging_v1__.ElementLink_DataVector_xAOD_BTagging_v1__&#39;
  |      A method
  |  
- |  getSizeParameter(self) -&gt; float
+ |  clearDecorations(self) -&gt; &#39;bool&#39;
  |      A method
  |  
- |  m(self) -&gt; float
+ |  constituentLinks(self) -&gt; &#39;func_adl_servicex_xaodr21.vector_elementlink_datavector_xaod_iparticle___.vector_ElementLink_DataVector_xAOD_IParticle___&#39;
  |      A method
  |  
- |  phi(self) -&gt; float
+ |  e(self) -&gt; &#39;float&#39;
  |      A method
  |  
- |  pt(self) -&gt; float
+ |  eta(self) -&gt; &#39;float&#39;
  |      A method
  |  
- |  px(self) -&gt; float
+ |  getConstituents(self) -&gt; &#39;func_adl_servicex_xaodr21.xAOD.jetconstituentvector.JetConstituentVector&#39;
  |      A method
  |  
- |  py(self) -&gt; float
+ |  getSizeParameter(self) -&gt; &#39;float&#39;
  |      A method
  |  
- |  pz(self) -&gt; float
+ |  hasNonConstStore(self) -&gt; &#39;bool&#39;
  |      A method
  |  
- |  rapidity(self) -&gt; float
+ |  hasStore(self) -&gt; &#39;bool&#39;
+ |      A method
+ |  
+ |  index(self) -&gt; &#39;int&#39;
+ |      A method
+ |  
+ |  m(self) -&gt; &#39;float&#39;
+ |      A method
+ |  
+ |  numConstituents(self) -&gt; &#39;int&#39;
+ |      A method
+ |  
+ |  p4(self) -&gt; &#39;func_adl_servicex_xaodr21.tlorentzvector.TLorentzVector&#39;
+ |      A method
+ |  
+ |  phi(self) -&gt; &#39;float&#39;
+ |      A method
+ |  
+ |  pt(self) -&gt; &#39;float&#39;
+ |      A method
+ |  
+ |  px(self) -&gt; &#39;float&#39;
+ |      A method
+ |  
+ |  py(self) -&gt; &#39;float&#39;
+ |      A method
+ |  
+ |  pz(self) -&gt; &#39;float&#39;
+ |      A method
+ |  
+ |  rapidity(self) -&gt; &#39;float&#39;
+ |      A method
+ |  
+ |  rawConstituent(self, i: &#39;int&#39;) -&gt; &#39;func_adl_servicex_xaodr21.xAOD.iparticle.IParticle&#39;
+ |      A method
+ |  
+ |  usingPrivateStore(self) -&gt; &#39;bool&#39;
+ |      A method
+ |  
+ |  usingStandaloneStore(self) -&gt; &#39;bool&#39;
+ |      A method
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data descriptors defined here:
+ |  
+ |  __dict__
+ |      dictionary for instance variables (if defined)
+ |  
+ |  __weakref__
+ |      list of weak references to the object (if defined)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">func_adl_servicex_xaodr21.xAOD.jetconstituent</span> <span class="kn">import</span> <span class="n">JetConstituent</span>
+<span class="n">help</span><span class="p">(</span><span class="n">JetConstituent</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Help on class JetConstituent in module func_adl_servicex_xaodr21.xAOD.jetconstituent:
+
+class JetConstituent(builtins.object)
+ |  A class
+ |  
+ |  Methods defined here:
+ |  
+ |  e(self) -&gt; &#39;float&#39;
+ |      A method
+ |  
+ |  eta(self) -&gt; &#39;float&#39;
+ |      A method
+ |  
+ |  isSpacelike(self) -&gt; &#39;bool&#39;
+ |      A method
+ |  
+ |  isTimelike(self) -&gt; &#39;bool&#39;
+ |      A method
+ |  
+ |  m(self) -&gt; &#39;float&#39;
+ |      A method
+ |  
+ |  phi(self) -&gt; &#39;float&#39;
+ |      A method
+ |  
+ |  pt(self) -&gt; &#39;float&#39;
+ |      A method
+ |  
+ |  rapidity(self) -&gt; &#39;float&#39;
+ |      A method
+ |  
+ |  rawConstituent(self) -&gt; &#39;func_adl_servicex_xaodr21.xAOD.iparticle.IParticle&#39;
  |      A method
  |  
  |  ----------------------------------------------------------------------
@@ -384,6 +523,7 @@ class Jet_v1(builtins.object)
 <h2>Further Information<a class="headerlink" href="#further-information" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>The <a class="reference external" href="https://gitlab.cern.ch/atlas/athena/-/blob/21.2/Event/xAOD/xAODJet/xAODJet/versions/Jet_v1.h"><code class="docutils literal notranslate"><span class="pre">xAOD::Jet_v1</span></code> C++ header file</a> with all the inline documentation.</p></li>
+<li><p>The <a class="reference external" href="https://gitlab.cern.ch/atlas/athena/-/blob/21.2/Event/xAOD/xAODJet/xAODJet/JetConstituentVector.h"><code class="docutils literal notranslate"><span class="pre">xAOD::JetConstituent</span></code> C++ header File</a> with all the inline documentation.</p></li>
 </ul>
 </div>
 </div>
@@ -411,31 +551,22 @@ class Jet_v1(builtins.object)
               </div>
               
         
-            
-
-
-
-<div class='prev-next-bottom'>
-    
-    <div id="prev">
-        <a class="left-prev" href="../intro.html" title="previous page">
-            <i class="prevnext-label fas fa-angle-left"></i>
-            <div class="prevnext-info">
-                <p class="prevnext-label">previous</p>
-                <p class="prevnext-title">Using the ATLAS xAOD typed Backend</p>
-            </div>
-        </a>
+            <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="../intro.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Using the ATLAS xAOD typed Backend</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="met.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Missing <span class="math notranslate nohighlight">\(E_T\)</span></p>
     </div>
-     <div id="next">
-        <a class="right-next" href="met.html" title="next page">
-            <div class="prevnext-info">
-                <p class="prevnext-label">next</p>
-                <p class="prevnext-title">Missing <span class="math notranslate nohighlight">\(E_T\)</span></p>
-            </div>
-            <i class="prevnext-label fas fa-angle-right"></i>
-        </a>
-     </div>
-
+    <i class="fas fa-angle-right"></i>
+    </a>
 </div>
         
         </div>
@@ -456,8 +587,7 @@ class Jet_v1(builtins.object)
       </div>
     </div>
   
-  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
 
-  
   </body>
 </html>

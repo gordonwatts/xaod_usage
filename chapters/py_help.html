@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Using Python Help &#8212; Using the ATLAS xAOD ServiceX Backend</title>
     
-  <link href="../_static/css/theme.css" rel="stylesheet" />
-  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -31,7 +31,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -52,9 +52,12 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Old Collection Access Pattern" href="../appendix/old_access.html" />
-    <link rel="prev" title="Calorimeter Clusters Collection" href="caloclusters.html" />
+    <link rel="prev" title="The Truth Particles Collection" href="truth.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
     
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
@@ -93,7 +96,7 @@
   </a>
  </li>
 </ul>
-<p class="caption" role="heading">
+<p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   The Collections
  </span>
@@ -122,13 +125,18 @@
    Calorimeter Clusters Collection
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="truth.html">
+   The Truth Particles Collection
+  </a>
+ </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    Using Python Help
   </a>
  </li>
 </ul>
-<p class="caption" role="heading">
+<p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Appendices
  </span>
@@ -270,59 +278,59 @@ class Event(builtins.object)
  |  
  |  Methods defined here:
  |  
- |  BTagVertexs(self, name: str) -&gt; Iterator[func_adl_servicex_xaodr21.xAOD.btagvertex_v1.BTagVertex_v1]
+ |  BTagVertexs(self, name: &#39;str&#39;) -&gt; &#39;Iterable[func_adl_servicex_xaodr21.xAOD.btagvertex_v1.BTagVertex_v1]&#39;
  |  
- |  BTaggings(self, name: str) -&gt; Iterator[func_adl_servicex_xaodr21.xAOD.btagging_v1.BTagging_v1]
+ |  BTaggings(self, name: &#39;str&#39;) -&gt; &#39;Iterable[func_adl_servicex_xaodr21.xAOD.btagging_v1.BTagging_v1]&#39;
  |  
- |  CaloClusters(self, name: str) -&gt; Iterator[func_adl_servicex_xaodr21.xAOD.calocluster_v1.CaloCluster_v1]
+ |  CaloClusters(self, name: &#39;str&#39;) -&gt; &#39;Iterable[func_adl_servicex_xaodr21.xAOD.calocluster_v1.CaloCluster_v1]&#39;
  |  
- |  CaloTowers(self, name: str) -&gt; Iterator[func_adl_servicex_xaodr21.xAOD.calotower_v1.CaloTower_v1]
+ |  CaloTowers(self, name: &#39;str&#39;) -&gt; &#39;Iterable[func_adl_servicex_xaodr21.xAOD.calotower_v1.CaloTower_v1]&#39;
  |  
- |  DiTauJets(self, name: str) -&gt; Iterator[func_adl_servicex_xaodr21.xAOD.ditaujet_v1.DiTauJet_v1]
+ |  DiTauJets(self, name: &#39;str&#39;) -&gt; &#39;Iterable[func_adl_servicex_xaodr21.xAOD.ditaujet_v1.DiTauJet_v1]&#39;
  |  
- |  Egammas(self, name: str) -&gt; Iterator[func_adl_servicex_xaodr21.xAOD.egamma_v1.Egamma_v1]
+ |  Egammas(self, name: &#39;str&#39;) -&gt; &#39;Iterable[func_adl_servicex_xaodr21.xAOD.egamma_v1.Egamma_v1]&#39;
  |  
- |  Electrons(self, name: str) -&gt; Iterator[func_adl_servicex_xaodr21.xAOD.electron_v1.Electron_v1]
+ |  Electrons(self, name: &#39;str&#39;) -&gt; &#39;Iterable[func_adl_servicex_xaodr21.xAOD.electron_v1.Electron_v1]&#39;
  |  
- |  EventInfo(self, name: str) -&gt; func_adl_servicex_xaodr21.xAOD.eventinfo_v1.EventInfo_v1
+ |  EventInfo(self, name: &#39;str&#39;) -&gt; &#39;func_adl_servicex_xaodr21.xAOD.eventinfo_v1.EventInfo_v1&#39;
  |  
- |  EventInfos(self, name: str) -&gt; Iterator[func_adl_servicex_xaodr21.xAOD.eventinfo_v1.EventInfo_v1]
+ |  EventInfos(self, name: &#39;str&#39;) -&gt; &#39;Iterable[func_adl_servicex_xaodr21.xAOD.eventinfo_v1.EventInfo_v1]&#39;
  |  
- |  IParticles(self, name: str) -&gt; Iterator[func_adl_servicex_xaodr21.xAOD.iparticle.IParticle]
+ |  IParticles(self, name: &#39;str&#39;) -&gt; &#39;Iterable[func_adl_servicex_xaodr21.xAOD.iparticle.IParticle]&#39;
  |  
- |  Jets(self, name: str) -&gt; Iterator[func_adl_servicex_xaodr21.xAOD.jet_v1.Jet_v1]
+ |  Jets(self, name: &#39;str&#39;) -&gt; &#39;Iterable[func_adl_servicex_xaodr21.xAOD.jet_v1.Jet_v1]&#39;
  |  
- |  MissingET(self, name: str) -&gt; Iterator[func_adl_servicex_xaodr21.xAOD.missinget_v1.MissingET_v1]
+ |  MissingET(self, name: &#39;str&#39;) -&gt; &#39;Iterable[func_adl_servicex_xaodr21.xAOD.missinget_v1.MissingET_v1]&#39;
  |  
- |  MuonSegments(self, name: str) -&gt; Iterator[func_adl_servicex_xaodr21.xAOD.muonsegment_v1.MuonSegment_v1]
+ |  MuonSegments(self, name: &#39;str&#39;) -&gt; &#39;Iterable[func_adl_servicex_xaodr21.xAOD.muonsegment_v1.MuonSegment_v1]&#39;
  |  
- |  Muons(self, name: str) -&gt; Iterator[func_adl_servicex_xaodr21.xAOD.muon_v1.Muon_v1]
+ |  Muons(self, name: &#39;str&#39;) -&gt; &#39;Iterable[func_adl_servicex_xaodr21.xAOD.muon_v1.Muon_v1]&#39;
  |  
- |  NeutralParticles(self, name: str) -&gt; Iterator[func_adl_servicex_xaodr21.xAOD.neutralparticle_v1.NeutralParticle_v1]
+ |  NeutralParticles(self, name: &#39;str&#39;) -&gt; &#39;Iterable[func_adl_servicex_xaodr21.xAOD.neutralparticle_v1.NeutralParticle_v1]&#39;
  |  
- |  PFOs(self, name: str) -&gt; Iterator[func_adl_servicex_xaodr21.xAOD.pfo_v1.PFO_v1]
+ |  PFOs(self, name: &#39;str&#39;) -&gt; &#39;Iterable[func_adl_servicex_xaodr21.xAOD.pfo_v1.PFO_v1]&#39;
  |  
- |  Photons(self, name: str) -&gt; Iterator[func_adl_servicex_xaodr21.xAOD.photon_v1.Photon_v1]
+ |  Photons(self, name: &#39;str&#39;) -&gt; &#39;Iterable[func_adl_servicex_xaodr21.xAOD.photon_v1.Photon_v1]&#39;
  |  
- |  SlowMuons(self, name: str) -&gt; Iterator[func_adl_servicex_xaodr21.xAOD.slowmuon_v1.SlowMuon_v1]
+ |  SlowMuons(self, name: &#39;str&#39;) -&gt; &#39;Iterable[func_adl_servicex_xaodr21.xAOD.slowmuon_v1.SlowMuon_v1]&#39;
  |  
- |  TauJets(self, name: str) -&gt; Iterator[func_adl_servicex_xaodr21.xAOD.taujet_v3.TauJet_v3]
+ |  TauJets(self, name: &#39;str&#39;) -&gt; &#39;Iterable[func_adl_servicex_xaodr21.xAOD.taujet_v3.TauJet_v3]&#39;
  |  
- |  TauTracks(self, name: str) -&gt; Iterator[func_adl_servicex_xaodr21.xAOD.tautrack_v1.TauTrack_v1]
+ |  TauTracks(self, name: &#39;str&#39;) -&gt; &#39;Iterable[func_adl_servicex_xaodr21.xAOD.tautrack_v1.TauTrack_v1]&#39;
  |  
- |  TrackCaloClusters(self, name: str) -&gt; Iterator[func_adl_servicex_xaodr21.xAOD.trackcalocluster_v1.TrackCaloCluster_v1]
+ |  TrackCaloClusters(self, name: &#39;str&#39;) -&gt; &#39;Iterable[func_adl_servicex_xaodr21.xAOD.trackcalocluster_v1.TrackCaloCluster_v1]&#39;
  |  
- |  TrackParticles(self, name: str) -&gt; Iterator[func_adl_servicex_xaodr21.xAOD.trackparticle_v1.TrackParticle_v1]
+ |  TrackParticles(self, name: &#39;str&#39;) -&gt; &#39;Iterable[func_adl_servicex_xaodr21.xAOD.trackparticle_v1.TrackParticle_v1]&#39;
  |  
- |  TruthEvents(self, name: str) -&gt; Iterator[func_adl_servicex_xaodr21.xAOD.truthevent_v1.TruthEvent_v1]
+ |  TruthEvents(self, name: &#39;str&#39;) -&gt; &#39;Iterable[func_adl_servicex_xaodr21.xAOD.truthevent_v1.TruthEvent_v1]&#39;
  |  
- |  TruthMetaDatas(self, name: str) -&gt; Iterator[func_adl_servicex_xaodr21.xAOD.truthmetadata_v1.TruthMetaData_v1]
+ |  TruthMetaDatas(self, name: &#39;str&#39;) -&gt; &#39;Iterable[func_adl_servicex_xaodr21.xAOD.truthmetadata_v1.TruthMetaData_v1]&#39;
  |  
- |  TruthParticles(self, name: str) -&gt; Iterator[func_adl_servicex_xaodr21.xAOD.truthparticle_v1.TruthParticle_v1]
+ |  TruthParticles(self, name: &#39;str&#39;) -&gt; &#39;Iterable[func_adl_servicex_xaodr21.xAOD.truthparticle_v1.TruthParticle_v1]&#39;
  |  
- |  TruthVertexs(self, name: str) -&gt; Iterator[func_adl_servicex_xaodr21.xAOD.truthvertex_v1.TruthVertex_v1]
+ |  TruthVertexs(self, name: &#39;str&#39;) -&gt; &#39;Iterable[func_adl_servicex_xaodr21.xAOD.truthvertex_v1.TruthVertex_v1]&#39;
  |  
- |  Vertexs(self, name: str) -&gt; Iterator[func_adl_servicex_xaodr21.xAOD.vertex_v1.Vertex_v1]
+ |  Vertexs(self, name: &#39;str&#39;) -&gt; &#39;Iterable[func_adl_servicex_xaodr21.xAOD.vertex_v1.Vertex_v1]&#39;
  |  
  |  ----------------------------------------------------------------------
  |  Data descriptors defined here:
@@ -344,54 +352,13 @@ class Event(builtins.object)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Help on class Jet_v1 in module func_adl_servicex_xaodr21.xAOD.jet_v1:
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ImportError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
+<span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Temp</span><span class="o">/</span><span class="n">ipykernel_376964</span><span class="o">/</span><span class="mf">750850761.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">func_adl_servicex_xaodr21.xAOD</span> <span class="kn">import</span> <span class="n">Jet_v1</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">help</span><span class="p">(</span><span class="n">Jet_v1</span><span class="p">)</span>
 
-class Jet_v1(builtins.object)
- |  A class
- |  
- |  Methods defined here:
- |  
- |  e(self) -&gt; float
- |      A method
- |  
- |  eta(self) -&gt; float
- |      A method
- |  
- |  getConstituents(self) -&gt; func_adl_servicex_xaodr21.xAOD.jetconstituentvector.JetConstituentVector
- |      A method
- |  
- |  getSizeParameter(self) -&gt; float
- |      A method
- |  
- |  m(self) -&gt; float
- |      A method
- |  
- |  phi(self) -&gt; float
- |      A method
- |  
- |  pt(self) -&gt; float
- |      A method
- |  
- |  px(self) -&gt; float
- |      A method
- |  
- |  py(self) -&gt; float
- |      A method
- |  
- |  pz(self) -&gt; float
- |      A method
- |  
- |  rapidity(self) -&gt; float
- |      A method
- |  
- |  ----------------------------------------------------------------------
- |  Data descriptors defined here:
- |  
- |  __dict__
- |      dictionary for instance variables (if defined)
- |  
- |  __weakref__
- |      list of weak references to the object (if defined)
+<span class="ne">ImportError</span>: cannot import name &#39;Jet_v1&#39; from &#39;func_adl_servicex_xaodr21.xAOD&#39; (C:\Users\gordo\Code\iris-hep\func_adl_servicex_xaodr21\func_adl_servicex_xaodr21\xAOD\__init__.py)
 </pre></div>
 </div>
 </div>
@@ -421,31 +388,22 @@ class Jet_v1(builtins.object)
               </div>
               
         
-            
-
-
-
-<div class='prev-next-bottom'>
-    
-    <div id="prev">
-        <a class="left-prev" href="caloclusters.html" title="previous page">
-            <i class="prevnext-label fas fa-angle-left"></i>
-            <div class="prevnext-info">
-                <p class="prevnext-label">previous</p>
-                <p class="prevnext-title">Calorimeter Clusters Collection</p>
-            </div>
-        </a>
+            <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="truth.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">The Truth Particles Collection</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../appendix/old_access.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Old Collection Access Pattern</p>
     </div>
-     <div id="next">
-        <a class="right-next" href="../appendix/old_access.html" title="next page">
-            <div class="prevnext-info">
-                <p class="prevnext-label">next</p>
-                <p class="prevnext-title">Old Collection Access Pattern</p>
-            </div>
-            <i class="prevnext-label fas fa-angle-right"></i>
-        </a>
-     </div>
-
+    <i class="fas fa-angle-right"></i>
+    </a>
 </div>
         
         </div>
@@ -466,8 +424,7 @@ class Jet_v1(builtins.object)
       </div>
     </div>
   
-  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
 
-  
   </body>
 </html>
