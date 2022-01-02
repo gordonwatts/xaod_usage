@@ -326,11 +326,6 @@
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Unknown type for name abs
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1007,23 +1002,8 @@
           <span class="o">.</span><span class="n">Where</span><span class="p">(</span><span class="k">lambda</span> <span class="n">tp</span><span class="p">:</span> <span class="n">tp</span><span class="o">.</span><span class="n">decayVtx</span><span class="p">()</span><span class="o">.</span><span class="n">outgoingParticleLinks</span><span class="p">()</span><span class="o">.</span><span class="n">Where</span><span class="p">(</span><span class="k">lambda</span> <span class="n">dtp</span><span class="p">:</span> <span class="nb">abs</span><span class="p">(</span><span class="n">dtp</span><span class="o">.</span><span class="n">pdgId</span><span class="p">())</span> <span class="o">==</span> <span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">Count</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
           <span class="o">.</span><span class="n">SelectMany</span><span class="p">(</span><span class="k">lambda</span> <span class="n">tp</span><span class="p">:</span> <span class="n">tp</span><span class="o">.</span><span class="n">decayVtx</span><span class="p">()</span><span class="o">.</span><span class="n">outgoingParticleLinks</span><span class="p">())</span>
           <span class="o">.</span><span class="n">Where</span><span class="p">(</span><span class="k">lambda</span> <span class="n">tp</span><span class="p">:</span> <span class="n">tp</span><span class="o">.</span><span class="n">hasBottom</span><span class="p">())</span>
-          <span class="o">.</span><span class="n">Where</span><span class="p">(</span><span class="k">lambda</span> <span class="n">tp</span><span class="p">:</span> <span class="n">tp</span><span class="o">.</span><span class="n">hasProdVtx</span><span class="p">())</span>
-          <span class="o">.</span><span class="n">Where</span><span class="p">(</span><span class="k">lambda</span> <span class="n">tp</span><span class="p">:</span> <span class="n">tp</span><span class="o">.</span><span class="n">hasDecayVtx</span><span class="p">())</span>
+          <span class="o">.</span><span class="n">Where</span><span class="p">(</span><span class="k">lambda</span> <span class="n">tp</span><span class="p">:</span> <span class="n">tp</span><span class="o">.</span><span class="n">hasProdVtx</span><span class="p">()</span> <span class="ow">and</span> <span class="n">tp</span><span class="o">.</span><span class="n">hasDecayVtx</span><span class="p">())</span>
 <span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Unknown type for name abs
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Unknown type for name abs
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Unknown type for name dtp
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Function Where not found on object &lt;class &#39;func_adl_servicex_xaodr21.vector_elementlink_datavector_xaod_truthparticle_v1___.vector_ElementLink_DataVector_xAOD_TruthParticle_v1___&#39;&gt;
 </pre></div>
 </div>
 </div>
@@ -1040,20 +1020,6 @@
     <span class="o">.</span><span class="n">AsAwkwardArray</span><span class="p">()</span>
     <span class="o">.</span><span class="n">value</span><span class="p">()</span>
 <span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Unknown type for name abs
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Unknown type for name abs
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Unknown type for name abs
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Unknown type for name abs
 </pre></div>
 </div>
 </div>
@@ -1275,7 +1241,7 @@
 <img alt="../_images/truth_14_0.png" src="../_images/truth_14_0.png" />
 </div>
 </div>
-<p>I love this plot because it shows the different lifetimes for the different flavors. This was a hard won realization of mine during graduate school (note, this isn’t perfect - we’ve not accounted for boost or mass in this plot!)</p>
+<p>I love this plot because it shows the different decay probabilities. THere are differences in lifetime, but they are harder to see because we aren’t showing <span class="math notranslate nohighlight">\(c\tau\)</span> here (and correcting for boost, mass, etc.).</p>
 </div>
 <div class="section" id="the-datamodel">
 <h2>The Datamodel<a class="headerlink" href="#the-datamodel" title="Permalink to this headline">¶</a></h2>
