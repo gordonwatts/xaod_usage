@@ -28,5 +28,6 @@
     ],
     "cmake.configureOnOpen": false,
     "restructuredtext.languageServer.disabled": true,
-    "jupyter.debugJustMyCode": false
+    "jupyter.debugJustMyCode": false,
+    "python.formatting.provider": "black"
 }
