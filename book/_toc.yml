@@ -6,6 +6,7 @@ root: intro
 parts:
   - caption: The Collections
     chapters:
+    - file: chapter/muons
     - file: chapters/jets
     - file: chapters/met
     - file: chapters/eventinfo
