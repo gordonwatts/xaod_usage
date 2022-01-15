@@ -6,7 +6,7 @@
 
 This web-book website can be found here: [https://gordonwatts.github.io/xaod_usage/chapters/met.html](https://gordonwatts.github.io/xaod_usage).
 
-# Updating The Book
+## Updating The Book
 
 ```bash
 jupyter-book build --all ./book

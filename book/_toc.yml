@@ -8,7 +8,9 @@ parts:
     chapters:
     - file: chapter/electrons
     - file: chapter/muons
+    - file: chapter/tracks
     - file: chapters/jets
+    - file: chapters/taus
     - file: chapters/met
     - file: chapters/eventinfo
     - file: chapters/caloclusters
