@@ -24,7 +24,8 @@
         "xaodr",
         "xlabel",
         "xscale",
-        "ylabel"
+        "ylabel",
+        "zmumu"
     ],
     "cmake.configureOnOpen": false,
     "restructuredtext.languageServer.disabled": true,

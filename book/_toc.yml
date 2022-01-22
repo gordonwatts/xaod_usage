@@ -4,6 +4,9 @@
 format: jb-book
 root: intro
 parts:
+  - caption: Basics
+    chapters:
+    - file: chapters/data
   - caption: The Collections
     chapters:
     - file: chapter/electrons
@@ -18,4 +21,5 @@ parts:
     - file: chapters/py_help
   - caption: Appendices
     chapters:
+    - file: appendix/calibrations
     - file: appendix/old_access
