@@ -4,7 +4,8 @@ Discuss
 
 - pile up and how it is run
 - Sys error tool
-- Point to the code that actually is run so folks can see it
+- Point to the code that actually is run so folks can see 
+- You only get the calibration file that is loaded with the release
 
 ## Pileup
 
@@ -13,6 +14,10 @@ MonteCarlo is generated and simulated often long before a run is complete. As a 
 When running Monte Carlo the a pileup tool is run as part of the sequence, before the tool that applies the calibration.
 
 To see how this tool is configuring pile up, see...
+
+## Systematic Errors
+
+List of sys errors, etc.?? How does anyone get a list of these things, since ATLAS is meant to be driven from the bottom up, rather than the top down.
 
 ### Further Information
 
