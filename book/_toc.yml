@@ -10,6 +10,7 @@ parts:
   - caption: The Collections
     chapters:
     - file: chapter/electrons
+    - file: chapter/photons
     - file: chapter/muons
     - file: chapter/tracks
     - file: chapters/jets
