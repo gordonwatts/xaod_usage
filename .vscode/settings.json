@@ -26,7 +26,8 @@
         "xlabel",
         "xscale",
         "ylabel",
-        "zmumu"
+        "zmumu",
+        "ztautau"
     ],
     "cmake.configureOnOpen": false,
     "restructuredtext.languageServer.disabled": true,

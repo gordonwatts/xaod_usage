@@ -52,6 +52,11 @@ _samples = {
         rucio_ds="mc16_13TeV.361107.PowhegPythia8EvtGen_AZNLOCTEQ6L1_Zmumu.deriv.DAOD_PHYS.e3601_e5984_s3126_s3136_r10724_r10726_p4164",
         local_path=Path(r"C:\Users\gordo\Code\atlas\data\R21\DAOD_PHYS\361107\DAOD_PHYS.23295097._000229.pool.root.1"),
     ),
+    'ztautau': sample(
+        name="ds_ztautau",
+        rucio_ds="mc16_13TeV.361108.PowhegPythia8EvtGen_AZNLOCTEQ6L1_Ztautau.deriv.DAOD_PHYS.e3601_e5984_s3126_s3136_r10724_r10726_p4164",
+        local_path=Path(r"C:\Users\gordo\Code\atlas\data\R21\DAOD_PHYS\361108\DAOD_PHYS.23295108._000430.pool.root.1"),
+    ),
     'jz3_exot15': sample(
         name="ds_jz3_exot15",
         rucio_ds="mc16_13TeV.361022.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ2W.deriv.DAOD_EXOT15.e3668_s3126_r9364_r9315_p4696",
@@ -76,4 +81,5 @@ def make_ds(s: sample):
 
 ds_zee = make_ds(_samples['zee'])
 ds_zmumu = make_ds(_samples['zmumu'])
+ds_ztautau = make_ds(_samples['ztautau'])
 ds_jz3_exot15 = make_ds(_samples['jz3_exot15'])
