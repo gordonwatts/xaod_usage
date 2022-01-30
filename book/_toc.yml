@@ -9,19 +9,21 @@ parts:
     - file: chapters/data
   - caption: The Collections
     chapters:
-    - file: chapter/electrons
-    - file: chapter/muons
-    - file: chapter/tracks
+    - file: chapters/electrons
+    - file: chapters/muons
     - file: chapters/jets
+    - file: chapters/tracks
     - file: chapters/taus
     - file: chapters/met
     - file: chapters/eventinfo
+    - file: chapters/vertices
     - file: chapters/caloclusters
+    - file: chapters/trigger
     - file: chapters/truth
-    - file: chapters/py_help
   - caption: Appendices
     chapters:
     - file: appendix/calibrations
+    - file: appendix/py_help
     - file: appendix/old_access
     - file: appendix/errors
 
