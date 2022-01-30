@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Missing \(E_T\) &#8212; Using the ATLAS xAOD ServiceX Backend</title>
     
-  <link href="../_static/css/theme.css" rel="stylesheet" />
-  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -31,7 +31,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -42,7 +42,7 @@
     <script src="../_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script>
@@ -54,9 +54,12 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Event Info" href="eventinfo.html" />
-    <link rel="prev" title="The Jet Collection" href="jets.html" />
+    <link rel="prev" title="The Tau Collections" href="taus.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
     
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
@@ -95,15 +98,47 @@
   </a>
  </li>
 </ul>
-<p class="caption" role="heading">
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Basics
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="data.html">
+   Data Samples
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   The Collections
  </span>
 </p>
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
+  <a class="reference internal" href="electrons.html">
+   The Electron Collection
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="muons.html">
+   The Muon Collection
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="jets.html">
    The Jet Collection
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="tracks.html">
+   The Track Collection
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="taus.html">
+   The Tau Collections
   </a>
  </li>
  <li class="toctree-l1 current active">
@@ -120,8 +155,18 @@
   </a>
  </li>
  <li class="toctree-l1">
+  <a class="reference internal" href="vertices.html">
+   The Vertex Collection
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="caloclusters.html">
    Calorimeter Clusters Collection
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="trigger.html">
+   Accessing the Trigger
   </a>
  </li>
  <li class="toctree-l1">
@@ -129,21 +174,31 @@
    The Truth Particles Collection
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="py_help.html">
-   Using Python Help
-  </a>
- </li>
 </ul>
-<p class="caption" role="heading">
+<p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Appendices
  </span>
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
+  <a class="reference internal" href="../appendix/calibrations.html">
+   Calibrations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../appendix/py_help.html">
+   Using Python Help
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="../appendix/old_access.html">
    Old Collection Access Pattern
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../appendix/errors.html">
+   Understanding Errors
   </a>
  </li>
 </ul>
@@ -251,6 +306,11 @@
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#rebuilding-met">
+   Rebuilding MET
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#the-datamodel">
    The Datamodel
   </a>
@@ -275,27 +335,14 @@
 <h1>Missing <span class="math notranslate nohighlight">\(E_T\)</span><a class="headerlink" href="#missing-e-t" title="Permalink to this headline">¶</a></h1>
 <p>The missing energy is, from a technical point of view, funny in two respects:</p>
 <ul class="simple">
-<li><p>It depends on pretty much all other objects in the event. So if you apply a correction to another object, you are forced to recalculate the Messing <span class="math notranslate nohighlight">\(E_T\)</span>.</p></li>
-<li><p>It is stored as a collection of Missing <span class="math notranslate nohighlight">\(E_T\)</span> objects. But, in reality, you are only ever interested in one of them.</p></li>
+<li><p>It depends on pretty much all other objects in the event. So if you apply a correction to another object, you are forced to recalculate the Missing <span class="math notranslate nohighlight">\(E_T\)</span>.</p></li>
+<li><p>It is stored as a collection of Missing <span class="math notranslate nohighlight">\(E_T\)</span> objects. There are a number of different Missing <span class="math notranslate nohighlight">\(E_T\)</span> types in a typical <code class="docutils literal notranslate"><span class="pre">DAOD_PHYS</span></code> file. As this was written, one could fine <code class="docutils literal notranslate"><span class="pre">MET_Truth</span></code>, <code class="docutils literal notranslate"><span class="pre">MET_Track</span></code>, <code class="docutils literal notranslate"><span class="pre">MET_Core_AntiKt4EMTopo</span></code>, and <code class="docutils literal notranslate"><span class="pre">MET_Core_AntiKt4EMPFlow</span></code>.</p></li>
+<li><p>The MET group basically says not to use the MET that is in the event, rather, rebuild it on the fly with your object selections to keep it consistent. This framework is not capable of that at the moment (see below).</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">func_adl_servicex_xaodr21</span> <span class="kn">import</span> <span class="n">SXDSAtlasxAODR21</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">config</span> <span class="kn">import</span> <span class="n">rucio_zee_r21_mc</span><span class="p">,</span> <span class="n">xAODLocalTyped</span><span class="p">,</span> <span class="n">local_xaod_path</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ds = SXDSAtlasxAODR21(rucio_zee_r21_mc, backend=&#39;dev_xaod&#39;)</span>
-<span class="n">ds</span> <span class="o">=</span> <span class="n">xAODLocalTyped</span><span class="p">(</span><span class="n">local_xaod_path</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">config</span> <span class="kn">import</span> <span class="n">ds_zee</span> <span class="k">as</span> <span class="n">ds</span>
 </pre></div>
 </div>
 </div>
@@ -304,15 +351,9 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">events</span> <span class="o">=</span> <span class="p">(</span><span class="n">ds</span>
-          <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">MissingET</span><span class="p">(</span><span class="s2">&quot;MET_Truth&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">First</span><span class="p">()</span><span class="o">.</span><span class="n">met</span><span class="p">()</span><span class="o">/</span><span class="mf">1000.0</span><span class="p">)</span>
+          <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">MissingET</span><span class="p">(</span><span class="s2">&quot;MET_Core_AntiKt4EMPFlow&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">First</span><span class="p">()</span><span class="o">.</span><span class="n">met</span><span class="p">()</span><span class="o">/</span><span class="mf">1000.0</span><span class="p">)</span>
           <span class="o">.</span><span class="n">AsAwkwardArray</span><span class="p">(</span><span class="s1">&#39;met&#39;</span><span class="p">)</span>
           <span class="o">.</span><span class="n">value</span><span class="p">())</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Function First not found on object typing.Iterable[func_adl_servicex_xaodr21.xAOD.missinget_v1.MissingET_v1]
-Warning: assuming that the method &#39;xAOD::MissingET_v1::met(...)&#39; has return type &#39;double&#39;. Use cpp_types.add_method_type_info to suppress (or correct) this warning.
 </pre></div>
 </div>
 </div>
@@ -328,8 +369,12 @@ Warning: assuming that the method &#39;xAOD::MissingET_v1::met(...)&#39; has ret
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/met_5_0.png" src="../_images/met_5_0.png" />
+<img alt="../_images/met_4_0.png" src="../_images/met_4_0.png" />
 </div>
+</div>
+<div class="section" id="rebuilding-met">
+<h2>Rebuilding MET<a class="headerlink" href="#rebuilding-met" title="Permalink to this headline">¶</a></h2>
+<p>This is not yet supported. Please see this <a class="reference external" href="https://github.com/gordonwatts/xaod_usage/issues/5">github issue</a> for a discussion. It basically comes down to - what is a sensible way to do this without making it too “magic”.</p>
 </div>
 <div class="section" id="the-datamodel">
 <h2>The Datamodel<a class="headerlink" href="#the-datamodel" title="Permalink to this headline">¶</a></h2>
@@ -403,6 +448,7 @@ class MissingET_v1(builtins.object)
 <ul class="simple">
 <li><p>The <a class="reference external" href="https://gitlab.cern.ch/atlas/athena/-/blob/21.2/Event/xAOD/xAODMissingET/xAODMissingET/versions/MissingET_v1.h"><code class="docutils literal notranslate"><span class="pre">xAOD::MissingET_v1</span></code> C++ header file</a> with all the inline documentation.</p></li>
 <li><p><a class="reference external" href="https://indico.cern.ch/event/860971/contributions/3626404/attachments/1974159/3285070/met_200122.pdf">Slides from a tutorial</a> on Missing ET</p></li>
+<li><p><a class="reference external" href="https://twiki.cern.ch/twiki/bin/view/AtlasProtected/JetEtmissRecommendationsR21#MET_Recommendations">Recommendations for R21</a> from the Jet/MissingET group’s twiki page.</p></li>
 </ul>
 </div>
 </div>
@@ -430,31 +476,22 @@ class MissingET_v1(builtins.object)
               </div>
               
         
-            
-
-
-
-<div class='prev-next-bottom'>
-    
-    <div id="prev">
-        <a class="left-prev" href="jets.html" title="previous page">
-            <i class="prevnext-label fas fa-angle-left"></i>
-            <div class="prevnext-info">
-                <p class="prevnext-label">previous</p>
-                <p class="prevnext-title">The Jet Collection</p>
-            </div>
-        </a>
+            <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="taus.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">The Tau Collections</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="eventinfo.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Event Info</p>
     </div>
-     <div id="next">
-        <a class="right-next" href="eventinfo.html" title="next page">
-            <div class="prevnext-info">
-                <p class="prevnext-label">next</p>
-                <p class="prevnext-title">Event Info</p>
-            </div>
-            <i class="prevnext-label fas fa-angle-right"></i>
-        </a>
-     </div>
-
+    <i class="fas fa-angle-right"></i>
+    </a>
 </div>
         
         </div>
@@ -475,8 +512,7 @@ class MissingET_v1(builtins.object)
       </div>
     </div>
   
-  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
 
-  
   </body>
 </html>

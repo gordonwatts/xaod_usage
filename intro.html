@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Using the ATLAS xAOD typed Backend &#8212; Using the ATLAS xAOD ServiceX Backend</title>
     
-  <link href="_static/css/theme.css" rel="stylesheet" />
-  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+  <link href="_static/css/theme.css" rel="stylesheet">
+  <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -31,7 +31,7 @@
     <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+  <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
@@ -51,9 +51,12 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="The Jet Collection" href="chapters/jets.html" />
+    <link rel="next" title="Data Samples" href="chapters/data.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
     
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
@@ -92,15 +95,47 @@
   </a>
  </li>
 </ul>
-<p class="caption" role="heading">
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Basics
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="chapters/data.html">
+   Data Samples
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   The Collections
  </span>
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
+  <a class="reference internal" href="chapters/electrons.html">
+   The Electron Collection
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="chapters/muons.html">
+   The Muon Collection
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="chapters/jets.html">
    The Jet Collection
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="chapters/tracks.html">
+   The Track Collection
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="chapters/taus.html">
+   The Tau Collections
   </a>
  </li>
  <li class="toctree-l1">
@@ -117,8 +152,18 @@
   </a>
  </li>
  <li class="toctree-l1">
+  <a class="reference internal" href="chapters/vertices.html">
+   The Vertex Collection
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="chapters/caloclusters.html">
    Calorimeter Clusters Collection
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="chapters/trigger.html">
+   Accessing the Trigger
   </a>
  </li>
  <li class="toctree-l1">
@@ -126,21 +171,31 @@
    The Truth Particles Collection
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="chapters/py_help.html">
-   Using Python Help
-  </a>
- </li>
 </ul>
-<p class="caption" role="heading">
+<p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Appendices
  </span>
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
+  <a class="reference internal" href="appendix/calibrations.html">
+   Calibrations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="appendix/py_help.html">
+   Using Python Help
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="appendix/old_access.html">
    Old Collection Access Pattern
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="appendix/errors.html">
+   Understanding Errors
   </a>
  </li>
 </ul>
@@ -308,6 +363,8 @@ be defined in your <code class="docutils literal notranslate"><span class="pre">
 </div>
 <div class="toctree-wrapper compound">
 </div>
+<div class="toctree-wrapper compound">
+</div>
 </div>
 
     <script type="text/x-thebe-config">
@@ -333,22 +390,15 @@ be defined in your <code class="docutils literal notranslate"><span class="pre">
               </div>
               
         
-            
-
-
-
-<div class='prev-next-bottom'>
-    
-     <div id="next">
-        <a class="right-next" href="chapters/jets.html" title="next page">
-            <div class="prevnext-info">
-                <p class="prevnext-label">next</p>
-                <p class="prevnext-title">The Jet Collection</p>
-            </div>
-            <i class="prevnext-label fas fa-angle-right"></i>
-        </a>
-     </div>
-
+            <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='right-next' id="next-link" href="chapters/data.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Data Samples</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
 </div>
         
         </div>
@@ -369,8 +419,7 @@ be defined in your <code class="docutils literal notranslate"><span class="pre">
       </div>
     </div>
   
-  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+  <script src="_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
 
-  
   </body>
 </html>

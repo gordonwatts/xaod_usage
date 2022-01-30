@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>The Jet Collection &#8212; Using the ATLAS xAOD ServiceX Backend</title>
     
-  <link href="../_static/css/theme.css" rel="stylesheet" />
-  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -31,7 +31,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -42,7 +42,7 @@
     <script src="../_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script>
@@ -53,10 +53,13 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Missing \(E_T\)" href="met.html" />
-    <link rel="prev" title="Using the ATLAS xAOD typed Backend" href="../intro.html" />
+    <link rel="next" title="The Track Collection" href="tracks.html" />
+    <link rel="prev" title="The Muon Collection" href="muons.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
     
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
@@ -95,15 +98,47 @@
   </a>
  </li>
 </ul>
-<p class="caption" role="heading">
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Basics
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="data.html">
+   Data Samples
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   The Collections
  </span>
 </p>
 <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="electrons.html">
+   The Electron Collection
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="muons.html">
+   The Muon Collection
+  </a>
+ </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    The Jet Collection
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="tracks.html">
+   The Track Collection
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="taus.html">
+   The Tau Collections
   </a>
  </li>
  <li class="toctree-l1">
@@ -120,8 +155,18 @@
   </a>
  </li>
  <li class="toctree-l1">
+  <a class="reference internal" href="vertices.html">
+   The Vertex Collection
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="caloclusters.html">
    Calorimeter Clusters Collection
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="trigger.html">
+   Accessing the Trigger
   </a>
  </li>
  <li class="toctree-l1">
@@ -129,21 +174,31 @@
    The Truth Particles Collection
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="py_help.html">
-   Using Python Help
-  </a>
- </li>
 </ul>
-<p class="caption" role="heading">
+<p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Appendices
  </span>
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
+  <a class="reference internal" href="../appendix/calibrations.html">
+   Calibrations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../appendix/py_help.html">
+   Using Python Help
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="../appendix/old_access.html">
    Old Collection Access Pattern
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../appendix/errors.html">
+   Understanding Errors
   </a>
  </li>
 </ul>
@@ -291,24 +346,18 @@
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">func_adl_servicex_xaodr21</span> <span class="kn">import</span> <span class="n">SXDSAtlasxAODR21</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">config</span> <span class="kn">import</span> <span class="n">ds_zee</span> <span class="k">as</span> <span class="n">ds</span>
+<span class="kn">from</span> <span class="nn">config</span> <span class="kn">import</span> <span class="n">ds_jz3_exot15</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">config</span> <span class="kn">import</span> <span class="n">rucio_zee_r21_mc</span><span class="p">,</span> <span class="n">xAODLocalTyped</span><span class="p">,</span> <span class="n">local_xaod_path</span>
 <span class="kn">import</span> <span class="nn">awkward</span> <span class="k">as</span> <span class="nn">ak</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 </pre></div>
 </div>
 </div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#ds = SXDSAtlasxAODR21(rucio_zee_r21_mc, backend=&#39;dev_xaod&#39;)</span>
-<span class="n">ds</span> <span class="o">=</span> <span class="n">xAODLocalTyped</span><span class="p">(</span><span class="n">local_xaod_path</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
 <div class="cell_output docutils container">
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
+Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
+Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
 </pre></div>
 </div>
 </div>
@@ -316,7 +365,7 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">jets</span> <span class="o">=</span> <span class="p">(</span><span class="n">ds</span>
-        <span class="o">.</span><span class="n">SelectMany</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">Jets</span><span class="p">(</span><span class="s2">&quot;AntiKt4EMTopoJets&quot;</span><span class="p">))</span>
+        <span class="o">.</span><span class="n">SelectMany</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">Jets</span><span class="p">(</span><span class="s2">&quot;AntiKt4EMPFlowJets&quot;</span><span class="p">))</span>
         <span class="o">.</span><span class="n">Where</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="p">(</span><span class="n">j</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">30</span><span class="p">)</span>
         <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">)</span>
         <span class="o">.</span><span class="n">AsAwkwardArray</span><span class="p">(</span><span class="s1">&#39;JetPt&#39;</span><span class="p">)</span>
@@ -335,16 +384,16 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/jets_4_0.png" src="../_images/jets_4_0.png" />
+<img alt="../_images/jets_3_0.png" src="../_images/jets_3_0.png" />
 </div>
 </div>
 <div class="section" id="jet-constituents">
 <h2>Jet Constituents<a class="headerlink" href="#jet-constituents" title="Permalink to this headline">¶</a></h2>
-<p>Jets are composed of <code class="docutils literal notranslate"><span class="pre">TopoClusters</span></code> in ATLAS, and the AntiKt algorithm normally clusters them into a jet. In R21 files, the <code class="docutils literal notranslate"><span class="pre">TopoClusters</span></code> are easily accessible.</p>
+<p>Jets are composed of <code class="docutils literal notranslate"><span class="pre">TopoClusters</span></code> in ATLAS, unfortunately, they are often skimmed away. They are not present, for example, in <code class="docutils literal notranslate"><span class="pre">DAOD_PHYS</span></code>, which is the skim being used here. We’ll have to pull from a different file instead.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">topo_clusters</span> <span class="o">=</span> <span class="p">(</span><span class="n">ds</span>
-                    <span class="o">.</span><span class="n">SelectMany</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">Jets</span><span class="p">(</span><span class="s2">&quot;AntiKt4EMTopoJets&quot;</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">topo_clusters</span> <span class="o">=</span> <span class="p">(</span><span class="n">ds_jz3_exot15</span>
+                    <span class="o">.</span><span class="n">SelectMany</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">Jets</span><span class="p">(</span><span class="s2">&quot;AntiKt4EMTopoJets&quot;</span><span class="p">,</span> <span class="n">truth_jets</span><span class="o">=</span><span class="s2">&quot;AntiKt4TruthJets&quot;</span><span class="p">))</span>
                     <span class="o">.</span><span class="n">SelectMany</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">getConstituents</span><span class="p">())</span>
                     <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">tc</span><span class="p">:</span> <span class="n">tc</span><span class="o">.</span><span class="n">pt</span><span class="p">())</span>
                     <span class="o">.</span><span class="n">AsAwkwardArray</span><span class="p">(</span><span class="s1">&#39;JetClusterPt&#39;</span><span class="p">)</span>
@@ -364,7 +413,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/jets_7_0.png" src="../_images/jets_7_0.png" />
+<img alt="../_images/jets_6_0.png" src="../_images/jets_6_0.png" />
 </div>
 </div>
 </div>
@@ -375,16 +424,16 @@
 <li><p>Pull out the raw, uncalibrated jets</p></li>
 <li><p>How to get a particular systematic variation</p></li>
 </ul>
-<p>Because we want to do a comparison, and the jet corrections change the number of jets, we will need to do jet matching. Lets get the default calibration with eta and phi:</p>
+<p>Because we want to do a comparison, and the jet corrections change the number of jets, we will need to do jet matching, which means doing it inside each event. Lets get the default calibration with eta and phi:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">jets</span> <span class="o">=</span> <span class="p">(</span><span class="n">ds</span>
-        <span class="o">.</span><span class="n">SelectMany</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">Jets</span><span class="p">(</span><span class="s2">&quot;AntiKt4EMTopoJets&quot;</span><span class="p">))</span>
-        <span class="o">.</span><span class="n">Where</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="p">(</span><span class="n">j</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">30</span><span class="p">)</span>
-        <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s1">&#39;pt&#39;</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">,</span>
-            <span class="s1">&#39;eta&#39;</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">eta</span><span class="p">(),</span>
-            <span class="s1">&#39;phi&#39;</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">phi</span><span class="p">(),</span>
+        <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">Jets</span><span class="p">(</span><span class="s2">&quot;AntiKt4EMPFlowJets&quot;</span><span class="p">)</span>
+                           <span class="o">.</span><span class="n">Where</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="p">(</span><span class="n">j</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">30</span><span class="p">))</span>
+        <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">jets</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;pt&#39;</span><span class="p">:</span> <span class="n">jets</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">),</span>
+            <span class="s1">&#39;eta&#39;</span><span class="p">:</span> <span class="n">jets</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">eta</span><span class="p">()),</span>
+            <span class="s1">&#39;phi&#39;</span><span class="p">:</span> <span class="n">jets</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">phi</span><span class="p">()),</span>
         <span class="p">})</span>
         <span class="o">.</span><span class="n">AsAwkwardArray</span><span class="p">()</span>
         <span class="o">.</span><span class="n">value</span><span class="p">())</span>
@@ -396,12 +445,12 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">raw_jets</span> <span class="o">=</span> <span class="p">(</span><span class="n">ds</span>
-           <span class="o">.</span><span class="n">SelectMany</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">Jets</span><span class="p">(</span><span class="s2">&quot;AntiKt4EMTopoJets&quot;</span><span class="p">,</span> <span class="n">calibration</span><span class="o">=</span><span class="kc">None</span><span class="p">))</span>
-           <span class="o">.</span><span class="n">Where</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="p">(</span><span class="n">j</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">30</span><span class="p">)</span>
-           <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="p">{</span>
-               <span class="s1">&#39;pt&#39;</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">,</span>
-               <span class="s1">&#39;eta&#39;</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">eta</span><span class="p">(),</span>
-               <span class="s1">&#39;phi&#39;</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">phi</span><span class="p">(),</span>
+           <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">Jets</span><span class="p">(</span><span class="s2">&quot;AntiKt4EMPFlowJets&quot;</span><span class="p">,</span> <span class="n">calibration</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+                              <span class="o">.</span><span class="n">Where</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="p">(</span><span class="n">j</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">30</span><span class="p">))</span>
+           <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">jets</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;pt&#39;</span><span class="p">:</span> <span class="n">jets</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">),</span>
+                <span class="s1">&#39;eta&#39;</span><span class="p">:</span> <span class="n">jets</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">eta</span><span class="p">()),</span>
+                <span class="s1">&#39;phi&#39;</span><span class="p">:</span> <span class="n">jets</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">phi</span><span class="p">()),</span>
            <span class="p">})</span>
            <span class="o">.</span><span class="n">AsAwkwardArray</span><span class="p">()</span>
            <span class="o">.</span><span class="n">value</span><span class="p">())</span>
@@ -417,7 +466,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(27483, 10708)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(40000, 40000)
 </pre></div>
 </div>
 </div>
@@ -427,15 +476,25 @@
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">match</span><span class="p">(</span><span class="n">jets</span><span class="p">,</span> <span class="n">jets_to_match</span><span class="p">):</span>
     <span class="s1">&#39;Find the closest eta/phi jet in jets_to_match for each jet in jets&#39;</span>
 
-    <span class="n">by_jets</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">cartesian</span><span class="p">([</span><span class="n">jets</span><span class="p">,</span> <span class="n">jets_to_match</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">nested</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">d_eta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">by_jets</span><span class="p">[:,</span> <span class="p">:][</span><span class="s2">&quot;0&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">eta</span> <span class="o">-</span> <span class="n">by_jets</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:][</span><span class="s2">&quot;1&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">eta</span><span class="p">)</span>
-    <span class="c1"># TODO: Account for wrap around in phi</span>
-    <span class="n">d_phi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">by_jets</span><span class="p">[:,</span> <span class="p">:][</span><span class="s2">&quot;0&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">phi</span> <span class="o">-</span> <span class="n">by_jets</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:][</span><span class="s2">&quot;1&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">phi</span><span class="p">)</span>
-    <span class="n">delta</span> <span class="o">=</span> <span class="n">d_eta</span> <span class="o">+</span> <span class="n">d_phi</span>
+    <span class="n">to_match_pt</span> <span class="o">=</span> <span class="n">jets_to_match</span><span class="o">.</span><span class="n">pt</span>
+    <span class="n">to_match_eta</span> <span class="o">=</span> <span class="n">jets_to_match</span><span class="o">.</span><span class="n">eta</span>
+    <span class="n">to_match_phi</span> <span class="o">=</span> <span class="n">jets_to_match</span><span class="o">.</span><span class="n">phi</span>
+    <span class="n">jet_eta</span> <span class="o">=</span> <span class="n">jets</span><span class="o">.</span><span class="n">eta</span>
+    <span class="n">jet_phi</span> <span class="o">=</span> <span class="n">jets</span><span class="o">.</span><span class="n">phi</span>
 
-    <span class="c1"># TODO: Window out any match over 0.2*0.2 in eta/phi</span>
-    <span class="n">best_match</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">delta</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">jets_to_match</span><span class="p">[</span><span class="n">best_match</span><span class="p">]</span>
+    <span class="n">pair_eta</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">cartesian</span><span class="p">([</span><span class="n">jet_eta</span><span class="p">,</span> <span class="n">to_match_eta</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">nested</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">pair_phi</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">cartesian</span><span class="p">([</span><span class="n">jet_phi</span><span class="p">,</span> <span class="n">to_match_phi</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">nested</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">delta_eta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">pair_eta</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:][</span><span class="s2">&quot;0&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">pair_eta</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:][</span><span class="s2">&quot;1&quot;</span><span class="p">])</span>
+    <span class="c1"># TODO: Missing wrap around fro phi</span>
+    <span class="n">delta_phi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">pair_phi</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:][</span><span class="s2">&quot;0&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">pair_phi</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:][</span><span class="s2">&quot;1&quot;</span><span class="p">])</span>
+
+    <span class="n">delta</span> <span class="o">=</span> <span class="n">delta_eta</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">delta_phi</span><span class="o">**</span><span class="mi">2</span>
+
+    <span class="c1"># TODO: remove anything larger that 0.2*0.2</span>
+    <span class="n">best_match</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">delta</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">ak</span><span class="o">.</span><span class="n">Record</span><span class="p">({</span><span class="s2">&quot;eta&quot;</span><span class="p">:</span> <span class="n">to_match_eta</span><span class="p">[</span><span class="n">best_match</span><span class="p">],</span> <span class="s2">&quot;phi&quot;</span><span class="p">:</span> <span class="n">to_match_phi</span><span class="p">[</span><span class="n">best_match</span><span class="p">],</span> <span class="s2">&quot;pt&quot;</span><span class="p">:</span> <span class="n">to_match_pt</span><span class="p">[</span><span class="n">best_match</span><span class="p">]})</span>
 
 <span class="n">raw_jets_matched</span> <span class="o">=</span> <span class="n">match</span><span class="p">(</span><span class="n">jets</span><span class="p">,</span> <span class="n">raw_jets</span><span class="p">)</span>
 </pre></div>
@@ -444,7 +503,7 @@
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">((</span><span class="n">jets</span><span class="o">.</span><span class="n">pt</span><span class="o">-</span><span class="n">raw_jets_matched</span><span class="o">.</span><span class="n">pt</span><span class="p">)</span><span class="o">/</span><span class="mf">1000.0</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">ak</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">jets</span><span class="o">.</span><span class="n">pt</span><span class="o">-</span><span class="n">raw_jets_matched</span><span class="o">.</span><span class="n">pt</span><span class="p">)</span><span class="o">/</span><span class="mf">1000.0</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$\Delta p_T$ for calibrated jets matched to their raw jets [GeV]&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Number of jets&#39;</span><span class="p">)</span>
 <span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;The effect of jet calibration on jet $p_T$ in $Z</span><span class="se">\\</span><span class="s1">rightarrow ee$ events&#39;</span><span class="p">)</span>
@@ -452,19 +511,19 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/jets_15_0.png" src="../_images/jets_15_0.png" />
+<img alt="../_images/jets_14_0.png" src="../_images/jets_14_0.png" />
 </div>
 </div>
 <p>If we instead want a particular systematic error, we need only name that error to get it back. Knowing what the names of the systematic errors, however, is not something that can be programmatically determined ahead of time. See the further information section at the end of this chapter to links to the ATLAS jet calibration info twiki.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sys_jets</span> <span class="o">=</span> <span class="p">(</span><span class="n">ds</span>
-           <span class="o">.</span><span class="n">SelectMany</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">Jets</span><span class="p">(</span><span class="s2">&quot;AntiKt4EMTopoJets&quot;</span><span class="p">,</span> <span class="n">calibration</span><span class="o">=</span><span class="s2">&quot;JET_Pileup_PtTerm__1up&quot;</span><span class="p">))</span>
-           <span class="o">.</span><span class="n">Where</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="p">(</span><span class="n">j</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">30</span><span class="p">)</span>
-           <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="p">{</span>
-               <span class="s1">&#39;pt&#39;</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">,</span>
-               <span class="s1">&#39;eta&#39;</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">eta</span><span class="p">(),</span>
-               <span class="s1">&#39;phi&#39;</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">phi</span><span class="p">(),</span>
+           <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">Jets</span><span class="p">(</span><span class="s2">&quot;AntiKt4EMPFlowJets&quot;</span><span class="p">,</span> <span class="n">calibration</span><span class="o">=</span><span class="s2">&quot;JET_Pileup_PtTerm__1up&quot;</span><span class="p">)</span>
+                              <span class="o">.</span><span class="n">Where</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="p">(</span><span class="n">j</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">30</span><span class="p">))</span>
+           <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">jets</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;pt&#39;</span><span class="p">:</span> <span class="n">jets</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">),</span>
+                <span class="s1">&#39;eta&#39;</span><span class="p">:</span> <span class="n">jets</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">eta</span><span class="p">()),</span>
+                <span class="s1">&#39;phi&#39;</span><span class="p">:</span> <span class="n">jets</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">phi</span><span class="p">()),</span>
            <span class="p">})</span>
            <span class="o">.</span><span class="n">AsAwkwardArray</span><span class="p">()</span>
            <span class="o">.</span><span class="n">value</span><span class="p">())</span>
@@ -481,7 +540,7 @@
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">((</span><span class="n">jets</span><span class="o">.</span><span class="n">pt</span><span class="o">-</span><span class="n">sys_jets_matched</span><span class="o">.</span><span class="n">pt</span><span class="p">)</span><span class="o">/</span><span class="mf">1000.0</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.005</span><span class="p">,</span> <span class="mf">0.005</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">ak</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">jets</span><span class="o">.</span><span class="n">pt</span><span class="o">-</span><span class="n">sys_jets_matched</span><span class="o">.</span><span class="n">pt</span><span class="p">)</span><span class="o">/</span><span class="mf">1000.0</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.005</span><span class="p">,</span> <span class="mf">0.005</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$\Delta p_T$ for calibrated jets matched to their eta calib jets [GeV]&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Number of jets&#39;</span><span class="p">)</span>
 <span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;The effect of a jet calibration sys error on jet $p_T$ in $Z</span><span class="se">\\</span><span class="s1">rightarrow ee$ events&#39;</span><span class="p">)</span>
@@ -489,10 +548,10 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/jets_19_0.png" src="../_images/jets_19_0.png" />
+<img alt="../_images/jets_18_0.png" src="../_images/jets_18_0.png" />
 </div>
 </div>
-<p>Currently you only get the calibration that is loaded with the release. Selecting a particular calibration is a future feature!</p>
+<p>Currently you only get the calibration constants that are built into the release. If you need to pin a particular calibration, get in touch.</p>
 </div>
 <div class="section" id="the-datamodel">
 <h2>The Datamodel<a class="headerlink" href="#the-datamodel" title="Permalink to this headline">¶</a></h2>
@@ -684,31 +743,22 @@ class JetConstituent(builtins.object)
               </div>
               
         
-            
-
-
-
-<div class='prev-next-bottom'>
-    
-    <div id="prev">
-        <a class="left-prev" href="../intro.html" title="previous page">
-            <i class="prevnext-label fas fa-angle-left"></i>
-            <div class="prevnext-info">
-                <p class="prevnext-label">previous</p>
-                <p class="prevnext-title">Using the ATLAS xAOD typed Backend</p>
-            </div>
-        </a>
+            <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="muons.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">The Muon Collection</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="tracks.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">The Track Collection</p>
     </div>
-     <div id="next">
-        <a class="right-next" href="met.html" title="next page">
-            <div class="prevnext-info">
-                <p class="prevnext-label">next</p>
-                <p class="prevnext-title">Missing <span class="math notranslate nohighlight">\(E_T\)</span></p>
-            </div>
-            <i class="prevnext-label fas fa-angle-right"></i>
-        </a>
-     </div>
-
+    <i class="fas fa-angle-right"></i>
+    </a>
 </div>
         
         </div>
@@ -729,8 +779,7 @@ class JetConstituent(builtins.object)
       </div>
     </div>
   
-  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
 
-  
   </body>
 </html>
