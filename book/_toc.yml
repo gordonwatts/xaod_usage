@@ -15,8 +15,8 @@ parts:
     - file: chapters/tracks
     - file: chapters/taus
     - file: chapters/met
-    - file: chapters/eventinfo
     - file: chapters/vertices
+    - file: chapters/eventinfo
     - file: chapters/caloclusters
     - file: chapters/trigger
     - file: chapters/truth
