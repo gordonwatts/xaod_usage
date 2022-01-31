@@ -53,8 +53,8 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Calorimeter Clusters Collection" href="caloclusters.html" />
-    <link rel="prev" title="Event Info" href="eventinfo.html" />
+    <link rel="next" title="Event Info" href="eventinfo.html" />
+    <link rel="prev" title="Missing \(E_T\)" href="met.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -149,14 +149,14 @@
    </span>
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="eventinfo.html">
-   Event Info
-  </a>
- </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    The Vertex Collection
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="eventinfo.html">
+   Event Info
   </a>
  </li>
  <li class="toctree-l1">
@@ -345,9 +345,7 @@
 <p>Fetch all the inner detector tracks and plot their <span class="math notranslate nohighlight">\(p_T\)</span> and the radius of the first hit on the tracks.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
-<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
-<span class="n">vertices</span> <span class="o">=</span> <span class="p">(</span><span class="n">ds</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">vertices</span> <span class="o">=</span> <span class="p">(</span><span class="n">ds</span>
             <span class="o">.</span><span class="n">SelectMany</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">Vertices</span><span class="p">(</span><span class="s2">&quot;PrimaryVertices&quot;</span><span class="p">))</span>
             <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> 
             <span class="p">{</span>
@@ -642,17 +640,17 @@ class TrackParticle_v1(builtins.object)
         
             <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="eventinfo.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="met.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Event Info</p>
+            <p class="prev-next-title">Missing <span class="math notranslate nohighlight">\(E_T\)</span></p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="caloclusters.html" title="next page">
+    <a class='right-next' id="next-link" href="eventinfo.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Calorimeter Clusters Collection</p>
+        <p class="prev-next-title">Event Info</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

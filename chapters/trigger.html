@@ -150,13 +150,13 @@
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="eventinfo.html">
-   Event Info
+  <a class="reference internal" href="vertices.html">
+   The Vertex Collection
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="vertices.html">
-   The Vertex Collection
+  <a class="reference internal" href="eventinfo.html">
+   Event Info
   </a>
  </li>
  <li class="toctree-l1">
@@ -389,10 +389,7 @@ Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. P
 <p>Next, let’s find the electrons that matched that trigger that fired above. We’ll do this by looking only at events where the trigger has fired, and then asking each electron if it matches withing a <span class="math notranslate nohighlight">\(\Delta R\)</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># import logging</span>
-<span class="c1"># logging.basicConfig()</span>
-<span class="c1"># logging.getLogger(&quot;func_adl_xAOD.common.local_dataset&quot;).setLevel(level=logging.DEBUG)</span>
-<span class="n">matched_electrons</span> <span class="o">=</span> <span class="p">(</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">matched_electrons</span> <span class="o">=</span> <span class="p">(</span>
     <span class="n">ds</span><span class="o">.</span><span class="n">Where</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">tdt_chain_fired</span><span class="p">(</span><span class="s2">&quot;HLT_e60_lhmedium_nod0&quot;</span><span class="p">))</span>
     <span class="o">.</span><span class="n">SelectMany</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">Electrons</span><span class="p">(</span><span class="s2">&quot;Electrons&quot;</span><span class="p">))</span>
     <span class="o">.</span><span class="n">Select</span><span class="p">(</span>
