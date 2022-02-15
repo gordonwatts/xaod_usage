@@ -10,6 +10,7 @@
         "ditau",
         "ditaujet",
         "eles",
+        "emfrac",
         "eventinfo",
         "EXOT",
         "hadronizes",
@@ -31,6 +32,7 @@
         "xlabel",
         "xscale",
         "ylabel",
+        "yscale",
         "zmumu",
         "ztautau"
     ],
