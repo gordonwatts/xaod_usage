@@ -62,6 +62,11 @@ _samples = {
         rucio_ds="mc16_13TeV.361022.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ2W.deriv.DAOD_EXOT15.e3668_s3126_r9364_r9315_p4696",
         local_path=Path(r"C:\Users\gordo\Code\atlas\data\R21\DAOD_PHYS\361022\DAOD_EXOT15.26710681._000512.pool.root.1"),
     ),
+    'bphys': sample(
+        name="ds_bphys",
+        rucio_ds="mc16.999031.P8BEG_23lo_ggX18p4_Upsilon1Smumu_4mu_3pt2.deriv.DAOD_BPHY4.e8304_a875_r10724_r10726_p3712_pUM999999",
+        local_path=Path(r"C:\Users\gordo\Code\atlas\data\R21\BPHYS\999031\DAOD_BPHY4.999031._000001.pool.root.1"),
+    )
 }
 
 class xAODLocalTyped(SXLocalxAOD[Event]):
@@ -83,3 +88,4 @@ ds_zee = make_ds(_samples['zee'])
 ds_zmumu = make_ds(_samples['zmumu'])
 ds_ztautau = make_ds(_samples['ztautau'])
 ds_jz3_exot15 = make_ds(_samples['jz3_exot15'])
+ds_bphys = make_ds(_samples['bphys'])
