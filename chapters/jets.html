@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>The Jet Collection &#8212; Using the ATLAS xAOD ServiceX Backend</title>
     
-  <link href="../_static/css/theme.css" rel="stylesheet">
-  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  <link href="../_static/css/theme.css" rel="stylesheet" />
+  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
 
     
   <link rel="stylesheet"
@@ -31,7 +31,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -42,7 +42,7 @@
     <script src="../_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script>
@@ -56,10 +56,7 @@
     <link rel="next" title="The Track Collection" href="tracks.html" />
     <link rel="prev" title="The Muon Collection" href="muons.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
+    <meta name="docsearch:language" content="en" />
     
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
@@ -98,7 +95,7 @@
   </a>
  </li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
+<p class="caption" role="heading">
  <span class="caption-text">
   Basics
  </span>
@@ -110,7 +107,7 @@
   </a>
  </li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
+<p class="caption" role="heading">
  <span class="caption-text">
   The Collections
  </span>
@@ -174,8 +171,13 @@
    The Truth Particles Collection
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="xaod_objects.html">
+   Advanced, Common, Features
+  </a>
+ </li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
+<p class="caption" role="heading">
  <span class="caption-text">
   Appendices
  </span>
@@ -311,13 +313,18 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#jet-attributes">
+   Jet Attributes
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#calibration">
    Calibration
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-datamodel">
-   The Datamodel
+  <a class="reference internal nav-link" href="#the-data-model">
+   The Data Model
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -351,6 +358,7 @@
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">awkward</span> <span class="k">as</span> <span class="nn">ak</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">func_adl_servicex_xaodr21</span> <span class="kn">import</span> <span class="n">cpp_float</span><span class="p">,</span> <span class="n">cpp_vfloat</span>
 </pre></div>
 </div>
 </div>
@@ -417,6 +425,64 @@ Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. P
 </div>
 </div>
 </div>
+<div class="section" id="jet-attributes">
+<h2>Jet Attributes<a class="headerlink" href="#jet-attributes" title="Permalink to this headline">¶</a></h2>
+<p>Attributes are called <em>moments</em> by the ATLAS Jet/ETMiss group. They are extra information that has been added into the jet object. The <a class="reference external" href="https://twiki.cern.ch/twiki/bin/view/AtlasProtected/Run2JetMoments">Run 2 Moments Page</a> lists all the moments. To access them you’ll need to know the return type explicitly, and parameterize your call to <code class="docutils literal notranslate"><span class="pre">getAttribute</span></code> appropriately.</p>
+<p>Here we grab the <code class="docutils literal notranslate"><span class="pre">EMFrac</span></code> moment, which is the EM Fraction of the jet. It is a single float for each jet.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">moments</span> <span class="o">=</span> <span class="p">(</span><span class="n">ds</span>
+           <span class="o">.</span><span class="n">SelectMany</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">Jets</span><span class="p">(</span><span class="s2">&quot;AntiKt4EMPFlowJets&quot;</span><span class="p">))</span>
+           <span class="o">.</span><span class="n">Where</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="p">(</span><span class="n">j</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">30</span><span class="p">)</span>
+           <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">getAttribute</span><span class="p">[</span><span class="n">cpp_float</span><span class="p">](</span><span class="s1">&#39;EMFrac&#39;</span><span class="p">))</span>
+           <span class="o">.</span><span class="n">AsAwkwardArray</span><span class="p">(</span><span class="s1">&#39;emfrac&#39;</span><span class="p">)</span>
+           <span class="o">.</span><span class="n">value</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">moments</span><span class="o">.</span><span class="n">emfrac</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;EM Fraction&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Number of jets&#39;</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;EM Fraction of jets in JZ3 events&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/jets_9_0.png" src="../_images/jets_9_0.png" />
+</div>
+</div>
+<p>More complex objects can come back as well. For example, vectors of floats (<code class="docutils literal notranslate"><span class="pre">std::vector&lt;float&gt;</span></code>). Here is a sample with the sum track <span class="math notranslate nohighlight">\(p_T\)</span> when track <span class="math notranslate nohighlight">\(p_T &gt; 500\)</span> MeV.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sum_pt</span> <span class="o">=</span> <span class="p">(</span><span class="n">ds</span>
+          <span class="o">.</span><span class="n">SelectMany</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">Jets</span><span class="p">(</span><span class="s2">&quot;AntiKt4EMPFlowJets&quot;</span><span class="p">))</span>
+          <span class="o">.</span><span class="n">Where</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="p">(</span><span class="n">j</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">31</span><span class="p">)</span>
+          <span class="o">.</span><span class="n">SelectMany</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">getAttribute</span><span class="p">[</span><span class="n">cpp_vfloat</span><span class="p">](</span><span class="s1">&#39;SumPtTrkPt500&#39;</span><span class="p">))</span>
+          <span class="o">.</span><span class="n">AsAwkwardArray</span><span class="p">(</span><span class="s1">&#39;sum_pt&#39;</span><span class="p">)</span>
+          <span class="o">.</span><span class="n">value</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">sum_pt</span><span class="o">.</span><span class="n">sum_pt</span><span class="o">/</span><span class="mf">1000.0</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Sum track $p_T$ [GeV]&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Number of jets&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Sum Track $p_T$ for tracks over 500 MeV in JZ3 events&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/jets_12_0.png" src="../_images/jets_12_0.png" />
+</div>
+</div>
+<p>As with everything else in the ATLAS data model, even if they are reconstructed and associated with the jet, they can be stripped out with slimming - so just because they are declared on the Run 2 Moments page, it doesn’t mean they actually exist in the data file you are looking at.</p>
+</div>
 <div class="section" id="calibration">
 <h2>Calibration<a class="headerlink" href="#calibration" title="Permalink to this headline">¶</a></h2>
 <p>By default the jets we pulled from above are calibrated, and the best central value for the jet collection you request is returned. This section shows you how to:</p>
@@ -429,7 +495,7 @@ Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. P
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">jets</span> <span class="o">=</span> <span class="p">(</span><span class="n">ds</span>
         <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">Jets</span><span class="p">(</span><span class="s2">&quot;AntiKt4EMPFlowJets&quot;</span><span class="p">)</span>
-                           <span class="o">.</span><span class="n">Where</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="p">(</span><span class="n">j</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">30</span><span class="p">))</span>
+                           <span class="o">.</span><span class="n">Where</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="p">(</span><span class="n">j</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span> <span class="o">/</span> <span class="mi">1001</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">30</span><span class="p">))</span>
         <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">jets</span><span class="p">:</span> <span class="p">{</span>
             <span class="s1">&#39;pt&#39;</span><span class="p">:</span> <span class="n">jets</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">),</span>
             <span class="s1">&#39;eta&#39;</span><span class="p">:</span> <span class="n">jets</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">eta</span><span class="p">()),</span>
@@ -504,14 +570,14 @@ Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. P
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">ak</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">jets</span><span class="o">.</span><span class="n">pt</span><span class="o">-</span><span class="n">raw_jets_matched</span><span class="o">.</span><span class="n">pt</span><span class="p">)</span><span class="o">/</span><span class="mf">1000.0</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$\Delta p_T$ for calibrated jets matched to their raw jets [GeV]&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\Delta p_T$ for calibrated jets matched to their raw jets [GeV]&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Number of jets&#39;</span><span class="p">)</span>
 <span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;The effect of jet calibration on jet $p_T$ in $Z</span><span class="se">\\</span><span class="s1">rightarrow ee$ events&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/jets_14_0.png" src="../_images/jets_14_0.png" />
+<img alt="../_images/jets_21_0.png" src="../_images/jets_21_0.png" />
 </div>
 </div>
 <p>If we instead want a particular systematic error, we need only name that error to get it back. Knowing what the names of the systematic errors, however, is not something that can be programmatically determined ahead of time. See the further information section at the end of this chapter to links to the ATLAS jet calibration info twiki.</p>
@@ -541,20 +607,20 @@ Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. P
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">ak</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">jets</span><span class="o">.</span><span class="n">pt</span><span class="o">-</span><span class="n">sys_jets_matched</span><span class="o">.</span><span class="n">pt</span><span class="p">)</span><span class="o">/</span><span class="mf">1000.0</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.005</span><span class="p">,</span> <span class="mf">0.005</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$\Delta p_T$ for calibrated jets matched to their eta calib jets [GeV]&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\Delta p_T$ for calibrated jets matched to their eta calibibrated jets [GeV]&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Number of jets&#39;</span><span class="p">)</span>
 <span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;The effect of a jet calibration sys error on jet $p_T$ in $Z</span><span class="se">\\</span><span class="s1">rightarrow ee$ events&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/jets_18_0.png" src="../_images/jets_18_0.png" />
+<img alt="../_images/jets_25_0.png" src="../_images/jets_25_0.png" />
 </div>
 </div>
 <p>Currently you only get the calibration constants that are built into the release. If you need to pin a particular calibration, get in touch.</p>
 </div>
-<div class="section" id="the-datamodel">
-<h2>The Datamodel<a class="headerlink" href="#the-datamodel" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="the-data-model">
+<h2>The Data Model<a class="headerlink" href="#the-data-model" title="Permalink to this headline">¶</a></h2>
 <p>The data model when this documentation was last built was:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -570,9 +636,6 @@ class Jet_v1(builtins.object)
  |  A class
  |  
  |  Methods defined here:
- |  
- |  Jet_v1(self) -&gt; &#39;func_adl_servicex_xaodr21.xAOD.jet_v1.Jet_v1&#39;
- |      A method
  |  
  |  btagging(self) -&gt; &#39;func_adl_servicex_xaodr21.xAOD.btagging_v1.BTagging_v1&#39;
  |      A method
@@ -641,6 +704,12 @@ class Jet_v1(builtins.object)
  |      A method
  |  
  |  usingStandaloneStore(self) -&gt; &#39;bool&#39;
+ |      A method
+ |  
+ |  ----------------------------------------------------------------------
+ |  Readonly properties defined here:
+ |  
+ |  getAttribute
  |      A method
  |  
  |  ----------------------------------------------------------------------
@@ -716,6 +785,7 @@ class JetConstituent(builtins.object)
 <li><p>The <a class="reference external" href="https://gitlab.cern.ch/atlas/athena/-/blob/21.2/Event/xAOD/xAODJet/xAODJet/versions/Jet_v1.h"><code class="docutils literal notranslate"><span class="pre">xAOD::Jet_v1</span></code> C++ header file</a> with all the inline documentation.</p></li>
 <li><p>The <a class="reference external" href="https://gitlab.cern.ch/atlas/athena/-/blob/21.2/Event/xAOD/xAODJet/xAODJet/JetConstituentVector.h"><code class="docutils literal notranslate"><span class="pre">xAOD::JetConstituent</span></code> C++ header File</a> with all the inline documentation.</p></li>
 <li><p>The <a class="reference external" href="https://twiki.cern.ch/twiki/bin/view/AtlasProtected/JetEtmissRecommendationsR21">Jet ET-Miss Recommendation Pages for R21</a> on the ATLAS TWiki</p></li>
+<li><p>The <a class="reference external" href="https://twiki.cern.ch/twiki/bin/view/AtlasProtected/Run2JetMoments">Run 2 Moments Page</a></p></li>
 </ul>
 </div>
 </div>
@@ -743,22 +813,31 @@ class JetConstituent(builtins.object)
               </div>
               
         
-            <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="muons.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">The Muon Collection</p>
-        </div>
-    </a>
-    <a class='right-next' id="next-link" href="tracks.html" title="next page">
-    <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">The Track Collection</p>
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="muons.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">The Muon Collection</p>
+            </div>
+        </a>
     </div>
-    <i class="fas fa-angle-right"></i>
-    </a>
+     <div id="next">
+        <a class="right-next" href="tracks.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">The Track Collection</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
 </div>
         
         </div>
@@ -779,7 +858,8 @@ class JetConstituent(builtins.object)
       </div>
     </div>
   
-  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
 
+  
   </body>
 </html>
