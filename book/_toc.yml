@@ -20,6 +20,7 @@ parts:
     - file: chapters/caloclusters
     - file: chapters/trigger
     - file: chapters/truth
+    - file: chapters/xaod_objects
   - caption: Appendices
     chapters:
     - file: appendix/calibrations
