@@ -9,9 +9,10 @@ parts:
     - file: chapters/data
   - caption: The Collections
     chapters:
+    - file: chapters/jets
+    - file: chapters/calibration
     - file: chapters/electrons
     - file: chapters/muons
-    - file: chapters/jets
     - file: chapters/tracks
     - file: chapters/taus
     - file: chapters/met

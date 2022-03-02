@@ -5,6 +5,9 @@ from func_adl_servicex import SXLocalxAOD
 from func_adl_servicex_xaodr21 import SXDSAtlasxAODR21
 from func_adl_servicex_xaodr21.event_collection import Event
 
+import awkward as ak
+import numpy as np
+
 # rucio_zee_r21_mc = "rucio://mc15_13TeV:mc15_13TeV.361106.PowhegPythia8EvtGen_AZNLOCTEQ6L1_Zee.merge.DAOD_STDM3.e3601_s2576_s2132_r6630_r6264_p2363_tid05630052_00"
 
 # # Define the local dataset (per-machine), and datatype that uses it
@@ -89,3 +92,39 @@ ds_zmumu = make_ds(_samples['zmumu'])
 ds_ztautau = make_ds(_samples['ztautau'])
 ds_jz3_exot15 = make_ds(_samples['jz3_exot15'])
 ds_bphys = make_ds(_samples['bphys'])
+
+
+## Some helper methods we'll end up using
+def match_eta_phi(jets, jets_to_match) -> ak.Record:
+    '''Match `jets_to_match` to the `jets` given. There will always be
+    at least one jet found.
+
+    The awkward array needs to have leaves called `pt`, `eta`, and `phi`.
+
+    Args:
+        jets (_type_): Source jets
+        jets_to_match (_type_): Jets to match to `jets`
+
+    Returns:
+        _type_: Matched jets 1:1 in `jets` from `jets_to_match`.
+    '''
+
+    to_match_pt = jets_to_match.pt
+    to_match_eta = jets_to_match.eta
+    to_match_phi = jets_to_match.phi
+    jet_eta = jets.eta
+    jet_phi = jets.phi
+
+    pair_eta = ak.cartesian([jet_eta, to_match_eta], axis=1, nested=True)
+    pair_phi = ak.cartesian([jet_phi, to_match_phi], axis=1, nested=True)
+
+    delta_eta = np.abs(pair_eta[:, :, :]["0"] - pair_eta[:, :, :]["1"])
+    # TODO: Missing wrap around fro phi
+    delta_phi = np.abs(pair_phi[:, :, :]["0"] - pair_phi[:, :, :]["1"])
+
+    delta = delta_eta**2 + delta_phi**2
+
+    # TODO: remove anything larger that 0.2*0.2
+    best_match = ak.argmin(delta, axis=2)
+
+    return ak.Record({"eta": to_match_eta[best_match], "phi": to_match_phi[best_match], "pt": to_match_pt[best_match]})
