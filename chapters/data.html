@@ -300,11 +300,6 @@
    R21 (Run 2)
   </a>
  </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#r22-run-3">
-   R22 (Run 3)
-  </a>
- </li>
 </ul>
 
             </nav>
@@ -318,7 +313,7 @@
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="data-samples">
 <span id="ch-data-samples"></span><h1>Data Samples<a class="headerlink" href="#data-samples" title="Permalink to this headline">¶</a></h1>
-<p>ATLAS data comes in many flavors. Because the complete data is so large, ATLAS makes a number of different samples that are slimmed down in various ways. The consequences of this can be far reaching: if a derivation removes attributes necessary to perform a calibration for muons, then accessing calibrated muons will fail.</p>
+<p>ATLAS data comes in many flavors. Because the complete data is so large, ATLAS makes a number of different samples that are slimmed down in various ways. The consequences of this can be far reaching: if a derivation removes attributes necessary to perform a calibration for muons, then accessing calibrated muons will not be possible downstream.</p>
 <p>In general, we’ll be accessing DAOD_PHYS datasets (more information about them can be found <a class="reference external" href="https://twiki.cern.ch/twiki/bin/viewauth/AtlasProtected/DerivationProductionTeam">here</a>). These are complete, with all objects, though they have some rather severe object cuts that makes them useless for a number of physics final states (for example, no tracks less than <span class="math notranslate nohighlight">\(p_T\)</span> 10 GeV are included).</p>
 <div class="section" id="r21-run-2">
 <h2>R21 (Run 2)<a class="headerlink" href="#r21-run-2" title="Permalink to this headline">¶</a></h2>
@@ -327,7 +322,7 @@
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
 <th class="head"><p>Events</p></th>
-<th class="head"><p>Dataset</p></th>
+<th class="head"><p>Rucio Dataset Name</p></th>
 </tr>
 </thead>
 <tbody>
@@ -339,17 +334,51 @@
 <td><p>292,915,100</p></td>
 <td><p>mc16_13TeV.361107.PowhegPythia8EvtGen_AZNLOCTEQ6L1_Zmumu.deriv.DAOD_PHYS.e3601_e5984_s3126_s3136_r10724_r10726_p4164</p></td>
 </tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ds_Ztautau</span></code></p></td>
+<td><p></p></td>
+<td><p>mc16_13TeV.361108.PowhegPythia8EvtGen_AZNLOCTEQ6L1_Ztautau.deriv.DAOD_PHYS.e3601_e5984_s3126_s3136_r10724_r10726_p4164</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ds_bphys</span></code></p></td>
+<td><p></p></td>
+<td><p>mc16.999031.P8BEG_23lo_ggX18p4_Upsilon1Smumu_4mu_3pt2.deriv.DAOD_BPHY4.e8304_a875_r10724_r10726_p3712_pUM999999</p></td>
+</tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ds_jz2_exot15</span></code></p></td>
 <td><p>15989500</p></td>
 <td><p>mc16_13TeV.361022.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ2W.deriv.DAOD_EXOT15.e3668_s3126_r9364_r9315_p4696</p></td>
 </tr>
 </tbody>
 </table>
-<p>You can find the datasets like <code class="docutils literal notranslate"><span class="pre">ds_Zee</span></code> defined in the <code class="docutils literal notranslate"><span class="pre">config.py</span></code> file as follows:</p>
-<p>The datasets were picked on advice from experts in ATLAS and then using the <a class="reference external" href="https://ami.in2p3.fr/">AMI dataset finder</a>, which is a very useful way to scan for datasets you already know must exist.</p>
+<p>You can find the datasets like <code class="docutils literal notranslate"><span class="pre">ds_Zee</span></code> defined in the <code class="docutils literal notranslate"><span class="pre">config.py</span></code> file. If running against a <code class="docutils literal notranslate"><span class="pre">servicex</span></code> backend, they are defined as:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">func_adl_servicex_xaodr21</span> <span class="kn">import</span> <span class="n">SXDSAtlasxAODR21</span>
+
+<span class="n">ds</span> <span class="o">=</span> <span class="n">SXDSAtlasxAODR21</span><span class="p">(</span><span class="n">rucio_dataset_name</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="s2">&quot;xaod&quot;</span><span class="p">)</span>
+</pre></div>
 </div>
-<div class="section" id="r22-run-3">
-<h2>R22 (Run 3)<a class="headerlink" href="#r22-run-3" title="Permalink to this headline">¶</a></h2>
+<p>And if running on a local file, then the following definition is made:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">func_adl_servicex</span> <span class="kn">import</span> <span class="n">SXLocalxAOD</span>
+<span class="kn">from</span> <span class="nn">func_adl_servicex_xaodr21.event_collection</span> <span class="kn">import</span> <span class="n">Event</span>
+
+<span class="k">class</span> <span class="nc">xAODLocalTyped</span><span class="p">(</span><span class="n">SXLocalxAOD</span><span class="p">[</span><span class="n">Event</span><span class="p">]):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">item_type</span><span class="o">=</span><span class="n">Event</span><span class="p">)</span>
+
+<span class="n">ds</span> <span class="o">=</span> <span class="n">xAODLocalTyped</span><span class="p">(</span><span class="n">local_path_of_dataset_file</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note the use of the class <code class="docutils literal notranslate"><span class="pre">Event</span></code>: this defines the types and metadata for the <code class="docutils literal notranslate"><span class="pre">xAOD</span></code> backend and allows you to access all the various methods and types without having to resort to heuristics (which work for simple cases, but not complex ones).</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">ds_jz2_exot15</span></code> is a special case - that isn’t a <code class="docutils literal notranslate"><span class="pre">DAOD_PHYS</span></code> file. It is used to demonstrate some access patterns that are only possible in derivations. <code class="docutils literal notranslate"><span class="pre">DAOD_PHYS</span></code> has had some of the information removed to keep its size under control. Its declaration is as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">func_adl_servicex_xaodr21</span> <span class="kn">import</span> <span class="n">calib_tools</span>
+
+<span class="n">ds_jz2_exot15</span> <span class="o">=</span> <span class="n">calib_tools</span><span class="o">.</span><span class="n">query_update</span><span class="p">(</span>
+    <span class="n">base_jz2_exot15</span><span class="p">,</span>
+    <span class="n">jet_collection</span><span class="o">=</span><span class="s2">&quot;AntiKt4EMTopoJets&quot;</span><span class="p">,</span>
+    <span class="n">jet_calib_truth_collection</span><span class="o">=</span><span class="s2">&quot;AntiKt4TruthJets&quot;</span><span class="p">,</span>
+    <span class="n">perform_overlap_removal</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Here, <code class="docutils literal notranslate"><span class="pre">base_jz2_exot15</span></code> is the dataset defined in the normal way above (as running on a local file or a servicex backend). for more details about using <code class="docutils literal notranslate"><span class="pre">calib_tools</span></code> see the <a class="reference internal" href="calibration.html#ch-calibration"><span class="std std-ref">calibration</span></a> chapter.</p>
+<p>The datasets were picked on advice from experts in ATLAS and then using the <a class="reference external" href="https://ami.in2p3.fr/">AMI dataset finder</a>, which is a very useful way to scan for datasets you already know must exist.</p>
 </div>
 </div>
 
