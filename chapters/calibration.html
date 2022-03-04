@@ -1,0 +1,864 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calibration &#8212; Using the ATLAS xAOD ServiceX Backend</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet" />
+  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="The Electron Collection" href="electrons.html" />
+    <link rel="prev" title="The Jet Collection" href="jets.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Using the ATLAS xAOD ServiceX Backend</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   Using the ATLAS xAOD typed Backend
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Basics
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="data.html">
+   Data Samples
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  The Collections
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="jets.html">
+   The Jet Collection
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Calibration
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="electrons.html">
+   The Electron Collection
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="muons.html">
+   The Muon Collection
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="tracks.html">
+   The Track Collection
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="taus.html">
+   The Tau Collections
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="met.html">
+   Missing
+   <span class="math notranslate nohighlight">
+    \(E_T\)
+   </span>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="vertices.html">
+   The Vertex Collection
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="eventinfo.html">
+   Event Info
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="caloclusters.html">
+   Calorimeter Clusters Collection
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="trigger.html">
+   Accessing the Trigger
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="truth.html">
+   The Truth Particles Collection
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="xaod_objects.html">
+   Advanced, Common, Features
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Appendices
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../appendix/calibrations.html">
+   Calibrations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../appendix/py_help.html">
+   Using Python Help
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../appendix/old_access.html">
+   Old Collection Access Pattern
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../appendix/errors.html">
+   Understanding Errors
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/chapters/calibration.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/executablebooks/jupyter-book"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fchapters/calibration.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/chapters/calibration.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Calibration
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-calibration-configuration-object">
+     The Calibration Configuration Object
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#modifying-the-calibrated-collection-in-the-query">
+     Modifying the calibrated collection in the query
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#systematic-errors">
+     Systematic Errors
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#uncalibrated-collections">
+     Uncalibrated Collections
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#analysisbase-configuration-code">
+     AnalysisBase Configuration Code
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#further-information">
+   Further Information
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="calibration">
+<span id="ch-calibration"></span><h1>Calibration<a class="headerlink" href="#calibration" title="Permalink to this headline">¶</a></h1>
+<p>It is best to think of an event being calibrated in ATLAS, rather than single objects. In most cases it does not make sense to have one type of object calibrated while another isn’t. Or even to have them individually calibrated. This is because there are interdependencies between some objects. For example, the calibrated jets, electrons, photons, muons, and taus are all used to calculate the missing ET for an event. Further, after calibrating jets, electrons, photons, muons, and taus one must run overlap removal to disambiguate, say, jets and electrons.</p>
+<p>As a result, it only makes sense to talk about a coherent, calibrated set of objects in an ATLAS event. Further, due to limitations in how <code class="docutils literal notranslate"><span class="pre">AnalysisBase</span></code> (which extracts the data from xAOD’s) and <code class="docutils literal notranslate"><span class="pre">func_adl</span></code>’s calibration model implemented here, it is not possible to run with more than a single calibration configuration in a single query. You’ll have to split them up into multiple queries.</p>
+<p><code class="docutils literal notranslate"><span class="pre">func_adl</span></code> has calibration configuration class. Its contains a basic view of the event - what jet collection to use, what muon working point to use, etc. This is configured by default to work well for <code class="docutils literal notranslate"><span class="pre">DAOD_PHYS</span></code> and <code class="docutils literal notranslate"><span class="pre">DAOD_PHYSLITE</span></code>. In the end, these have to configure the common CP algorithms for calibration and systematic errors. If you do nothing, this is the configuration you’ll get. However, if you need a different calibration configuration it is possible to modify, as we will see below.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">config</span> <span class="kn">import</span> <span class="n">ds_zee</span> <span class="k">as</span> <span class="n">ds</span>
+<span class="kn">from</span> <span class="nn">config</span> <span class="kn">import</span> <span class="n">match_eta_phi</span>
+<span class="kn">from</span> <span class="nn">func_adl_servicex_xaodr21</span> <span class="kn">import</span> <span class="n">calib_tools</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">awkward</span> <span class="k">as</span> <span class="nn">ak</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
+Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
+Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
+Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
+Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="the-calibration-configuration-object">
+<h2>The Calibration Configuration Object<a class="headerlink" href="#the-calibration-configuration-object" title="Permalink to this headline">¶</a></h2>
+<p>The default calibration object details all the various objects that are used. You can grab the default and inspect it yourself:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">calib_tools</span><span class="o">.</span><span class="n">default_config</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CalibrationEventConfig(jet_collection=&#39;AntiKt4EMPFlowJets&#39;, jet_calib_truth_collection=&#39;AntiKt4TruthDressedWZJets&#39;, electron_collection=&#39;Electrons&#39;, electron_working_point=&#39;MediumLHElectron&#39;, electron_isolation=&#39;NonIso&#39;, photon_collection=&#39;Photons&#39;, photon_working_point=&#39;Tight&#39;, photon_isolation=&#39;FixedCutTight&#39;, muon_collection=&#39;Muons&#39;, muon_working_point=&#39;Medium&#39;, muon_isolation=&#39;NonIso&#39;, tau_collection=&#39;TauJets&#39;, tau_working_point=&#39;Tight&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<p>When you request <code class="docutils literal notranslate"><span class="pre">Jet</span></code>’s, for example, you’ll be getting back fully calibrated and overlap pruned jets. The jets will have started from the <code class="docutils literal notranslate"><span class="pre">default_calibration.jet_collection</span></code> entry above (this is the same as we saw on the Jets chapter):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pflow_jets</span> <span class="o">=</span> <span class="p">(</span><span class="n">ds</span>
+        <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">Jets</span><span class="p">())</span>
+        <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">jets</span><span class="p">:</span> <span class="n">jets</span><span class="o">.</span><span class="n">Where</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="p">(</span><span class="n">j</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">30</span><span class="p">))</span>
+        <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">jets</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;pt&#39;</span><span class="p">:</span> <span class="n">jets</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">),</span>
+                <span class="s1">&#39;eta&#39;</span><span class="p">:</span> <span class="n">jets</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">eta</span><span class="p">()</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">),</span>
+                <span class="s1">&#39;phi&#39;</span><span class="p">:</span> <span class="n">jets</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">phi</span><span class="p">()</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">),</span>
+        <span class="p">})</span>
+        <span class="o">.</span><span class="n">AsAwkwardArray</span><span class="p">()</span>
+        <span class="o">.</span><span class="n">value</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>You can reset the default collection if you desire.  All queries that occur after the default calibration configuration is configured will use this new default. Note that calibration configuration is captured at run time (when you use <code class="docutils literal notranslate"><span class="pre">value</span></code> or its equivalent), not when you use the <code class="docutils literal notranslate"><span class="pre">Jets</span></code> method, etc.</p>
+<p>This example modifies the default calibration configuration to use a new jet collection. The identical query above will return a different set of (calibrated) jets:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">new_jet_selection</span> <span class="o">=</span> <span class="n">calib_tools</span><span class="o">.</span><span class="n">default_config</span>
+<span class="n">new_jet_selection</span><span class="o">.</span><span class="n">jet_collection</span> <span class="o">=</span> <span class="s1">&#39;AntiKt4EMTopoJets&#39;</span>
+<span class="n">calib_tools</span><span class="o">.</span><span class="n">set_default_config</span><span class="p">(</span><span class="n">new_jet_selection</span><span class="p">)</span>
+
+<span class="n">antikt_jets</span> <span class="o">=</span> <span class="p">(</span><span class="n">ds</span>
+        <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">Jets</span><span class="p">())</span>
+        <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">jets</span><span class="p">:</span> <span class="n">jets</span><span class="o">.</span><span class="n">Where</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="p">(</span><span class="n">j</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">30</span><span class="p">))</span>
+        <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">jets</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;pt&#39;</span><span class="p">:</span> <span class="n">jets</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">),</span>
+                <span class="s1">&#39;eta&#39;</span><span class="p">:</span> <span class="n">jets</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">eta</span><span class="p">()</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">),</span>
+                <span class="s1">&#39;phi&#39;</span><span class="p">:</span> <span class="n">jets</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">phi</span><span class="p">()</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">),</span>
+        <span class="p">})</span>
+        <span class="o">.</span><span class="n">AsAwkwardArray</span><span class="p">()</span>
+        <span class="o">.</span><span class="n">value</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>And we can see that the PFlow algorithm returns more jets than the anti-kt4 algorithm. And that they are mostly at lower jet <span class="math notranslate nohighlight">\(p_T\)</span>’s:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">ak</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">pflow_jets</span><span class="o">.</span><span class="n">pt</span><span class="p">)),</span> <span class="nb">len</span><span class="p">(</span><span class="n">ak</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">antikt_jets</span><span class="o">.</span><span class="n">pt</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(25560, 23567)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">ak</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">pflow_jets</span><span class="o">.</span><span class="n">pt</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PFlow&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">ak</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">antikt_jets</span><span class="o">.</span><span class="n">pt</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;AntiKt4&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Jet $p_T$ [GeV]&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/calibration_10_0.png" src="../_images/calibration_10_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pflow_matched_jets_to_antikt</span> <span class="o">=</span> <span class="n">match_eta_phi</span><span class="p">(</span><span class="n">antikt_jets</span><span class="p">,</span> <span class="n">pflow_jets</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">ak</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">pflow_matched_jets_to_antikt</span><span class="o">.</span><span class="n">pt</span> <span class="o">-</span> <span class="n">antikt_jets</span><span class="o">.</span><span class="n">pt</span><span class="p">),</span> <span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Difference between calibrated PFlow and AntiKt4 jets&#39;</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$</span><span class="se">\\</span><span class="s1">Delta$ Jet $p_T$ [GeV]&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/calibration_12_0.png" src="../_images/calibration_12_0.png" />
+</div>
+</div>
+<p>And then we can use <code class="docutils literal notranslate"><span class="pre">calib_tools.reset_config()</span></code> to reset to factory default. Though this is mostly for test harneses and the like. Remember, the <code class="docutils literal notranslate"><span class="pre">default_collection</span></code> is a global variable, so it is fairly dangerous to modify unless you really want to change it for everything.</p>
+<p>Note: This is particularly dangerous in a notebook where one can execute cells out of order. If you execute the cell above to get <code class="docutils literal notranslate"><span class="pre">pflow_jets</span></code> after the <code class="docutils literal notranslate"><span class="pre">antikt_jets</span></code> cell, you’ll get AntiKt4EMToploJets in your pflow jets! Best practice: Use this technique if you are setting the calibration once for your analysis in central a configuration file.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">calib_tools</span><span class="o">.</span><span class="n">reset_config</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="modifying-the-calibrated-collection-in-the-query">
+<h2>Modifying the calibrated collection in the query<a class="headerlink" href="#modifying-the-calibrated-collection-in-the-query" title="Permalink to this headline">¶</a></h2>
+<p>You can modify an aspect of the calibration on a query-by-query basis without using global variables. There are two ways to do this.</p>
+<p>First, you can specify the collection to load in place of the default in the <code class="docutils literal notranslate"><span class="pre">Jets</span></code> (or similar) method. This will alter the collection name and run the full calibration. This is useful for quick tests: it is convinent, and keeps the new bank name close to where you make the request - so it is readable.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">jetname_in_query_jets</span> <span class="o">=</span> <span class="p">(</span><span class="n">ds</span>
+        <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">Jets</span><span class="p">(</span><span class="n">calibrated_collection</span><span class="o">=</span><span class="s2">&quot;AntiKt4EMTopoJets&quot;</span><span class="p">))</span>
+        <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">jets</span><span class="p">:</span> <span class="n">jets</span><span class="o">.</span><span class="n">Where</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="p">(</span><span class="n">j</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">30</span><span class="p">))</span>
+        <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">jets</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;pt&#39;</span><span class="p">:</span> <span class="n">jets</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">),</span>
+                <span class="s1">&#39;eta&#39;</span><span class="p">:</span> <span class="n">jets</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">eta</span><span class="p">()</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">),</span>
+                <span class="s1">&#39;phi&#39;</span><span class="p">:</span> <span class="n">jets</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">phi</span><span class="p">()</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">),</span>
+        <span class="p">})</span>
+        <span class="o">.</span><span class="n">AsAwkwardArray</span><span class="p">()</span>
+        <span class="o">.</span><span class="n">value</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>And we can see there are no differences in the data we’ve pulled here:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ak</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">jetname_in_query_jets</span><span class="o">.</span><span class="n">pt</span> <span class="o">-</span> <span class="n">antikt_jets</span><span class="o">.</span><span class="n">pt</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>However, this doesn’t work well if you want to alter more than calibration configuration value. There is a helper function, <code class="docutils literal notranslate"><span class="pre">calib_tools.query_update</span></code> that allows you to modify single in the calibration configuration. You can also chain the calls, and the modifications will accumulate.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">config_jets_in_query_jets</span> <span class="o">=</span> <span class="p">(</span><span class="n">calib_tools</span><span class="o">.</span><span class="n">query_update</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">jet_collection</span><span class="o">=</span><span class="s1">&#39;AntiKt4EMTopoJets&#39;</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">Jets</span><span class="p">())</span>
+        <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">jets</span><span class="p">:</span> <span class="n">jets</span><span class="o">.</span><span class="n">Where</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="p">(</span><span class="n">j</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">30</span><span class="p">))</span>
+        <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">jets</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;pt&#39;</span><span class="p">:</span> <span class="n">jets</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">),</span>
+                <span class="s1">&#39;eta&#39;</span><span class="p">:</span> <span class="n">jets</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">eta</span><span class="p">()</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">),</span>
+                <span class="s1">&#39;phi&#39;</span><span class="p">:</span> <span class="n">jets</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">phi</span><span class="p">()</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">),</span>
+        <span class="p">})</span>
+        <span class="o">.</span><span class="n">AsAwkwardArray</span><span class="p">()</span>
+        <span class="o">.</span><span class="n">value</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ak</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">config_jets_in_query_jets</span><span class="o">.</span><span class="n">pt</span> <span class="o">-</span> <span class="n">antikt_jets</span><span class="o">.</span><span class="n">pt</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>You can even set a whole new configuration if you have lots of changes at once. This will override anything you’ve previously set with <code class="docutils literal notranslate"><span class="pre">query_update</span></code> in the query.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">config_in_query_jets</span> <span class="o">=</span> <span class="p">(</span><span class="n">calib_tools</span><span class="o">.</span><span class="n">query_update</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">new_jet_selection</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">Jets</span><span class="p">())</span>
+        <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">jets</span><span class="p">:</span> <span class="n">jets</span><span class="o">.</span><span class="n">Where</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="p">(</span><span class="n">j</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">30</span><span class="p">))</span>
+        <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">jets</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;pt&#39;</span><span class="p">:</span> <span class="n">jets</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">),</span>
+                <span class="s1">&#39;eta&#39;</span><span class="p">:</span> <span class="n">jets</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">eta</span><span class="p">()</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">),</span>
+                <span class="s1">&#39;phi&#39;</span><span class="p">:</span> <span class="n">jets</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">phi</span><span class="p">()</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">),</span>
+        <span class="p">})</span>
+        <span class="o">.</span><span class="n">AsAwkwardArray</span><span class="p">()</span>
+        <span class="o">.</span><span class="n">value</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ak</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">config_in_query_jets</span><span class="o">.</span><span class="n">pt</span> <span class="o">-</span> <span class="n">antikt_jets</span><span class="o">.</span><span class="n">pt</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.0
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="systematic-errors">
+<h2>Systematic Errors<a class="headerlink" href="#systematic-errors" title="Permalink to this headline">¶</a></h2>
+<p>You can only query a single systematic error at a time in this version. You do this by specifying the systematic error you want using the helper method <code class="docutils literal notranslate"><span class="pre">calib_tools.query_sys_error</span></code>. By default, the central value is returned (<code class="docutils literal notranslate"><span class="pre">NOSYS</span></code>). You will need to know the names of the systematic errors a head of time in order to use this. This method will modify the systematic error for the rest of this query.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sys_jets</span> <span class="o">=</span> <span class="p">(</span><span class="n">calib_tools</span><span class="o">.</span><span class="n">query_sys_error</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="s1">&#39;JET_Pileup_PtTerm__1up&#39;</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">Jets</span><span class="p">())</span>
+            <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">jets</span><span class="p">:</span> <span class="n">jets</span><span class="o">.</span><span class="n">Where</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="p">(</span><span class="n">j</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">30</span><span class="p">))</span>
+            <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">jets</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s1">&#39;pt&#39;</span><span class="p">:</span> <span class="n">jets</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">),</span>
+                    <span class="s1">&#39;eta&#39;</span><span class="p">:</span> <span class="n">jets</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">eta</span><span class="p">()</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">),</span>
+                    <span class="s1">&#39;phi&#39;</span><span class="p">:</span> <span class="n">jets</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">phi</span><span class="p">()</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">),</span>
+            <span class="p">})</span>
+            <span class="o">.</span><span class="n">AsAwkwardArray</span><span class="p">()</span>
+            <span class="o">.</span><span class="n">value</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>And we can compare the values to see how big a correction this is by doing the <span class="math notranslate nohighlight">\(\eta-\phi\)</span> matching:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sys_jet_matched</span> <span class="o">=</span> <span class="n">match_eta_phi</span><span class="p">(</span><span class="n">pflow_jets</span><span class="p">,</span> <span class="n">sys_jets</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">ak</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">pflow_jets</span><span class="o">.</span><span class="n">pt</span> <span class="o">-</span> <span class="n">sys_jet_matched</span><span class="o">.</span><span class="n">pt</span><span class="p">),</span> <span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Effect of the Systematic Error JET_Pileup_PtTerm__1up&#39;</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$</span><span class="se">\\</span><span class="s1">Delta$ Jet $p_T$ [GeV]&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/calibration_30_0.png" src="../_images/calibration_30_0.png" />
+</div>
+</div>
+<p>By comparing eta/phi we can see how big an effect our jet calibrations and systematic error have made here:</p>
+<p>While this works, it clearly can’t be the final way to do this. Espeically given the push model that ATLAS uses for systematic errors. Thoughts welcome at this issue on how to implement systematic errors in the ATLAS xAOD system for <code class="docutils literal notranslate"><span class="pre">func_adl</span></code>.</p>
+</div>
+<div class="section" id="uncalibrated-collections">
+<h2>Uncalibrated Collections<a class="headerlink" href="#uncalibrated-collections" title="Permalink to this headline">¶</a></h2>
+<p>For some Collections, but not all…You can also request an explicit bank. For example, we can compare the overlap and calibrated jets above with the jets in the actual starting bank:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">default_jets</span> <span class="o">=</span> <span class="n">calib_tools</span><span class="o">.</span><span class="n">default_config</span><span class="o">.</span><span class="n">jet_collection</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Default jet collection: </span><span class="si">{</span><span class="n">default_jets</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">uncalibrated_jets</span> <span class="o">=</span> <span class="p">(</span><span class="n">ds</span>
+        <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">Jets</span><span class="p">(</span><span class="n">uncalibrated_collection</span><span class="o">=</span><span class="n">default_jets</span><span class="p">))</span>
+        <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">jets</span><span class="p">:</span> <span class="n">jets</span><span class="o">.</span><span class="n">Where</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="p">(</span><span class="n">j</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">30</span><span class="p">))</span>
+        <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">jets</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;pt&#39;</span><span class="p">:</span> <span class="n">jets</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">),</span>
+                <span class="s1">&#39;eta&#39;</span><span class="p">:</span> <span class="n">jets</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">eta</span><span class="p">()</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">),</span>
+                <span class="s1">&#39;phi&#39;</span><span class="p">:</span> <span class="n">jets</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">phi</span><span class="p">()</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">),</span>
+        <span class="p">})</span>
+        <span class="o">.</span><span class="n">AsAwkwardArray</span><span class="p">()</span>
+        <span class="o">.</span><span class="n">value</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Default jet collection: AntiKt4EMPFlowJets
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">ak</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">uncalibrated_jets</span><span class="o">.</span><span class="n">pt</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Raw PFlow&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">ak</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">pflow_jets</span><span class="o">.</span><span class="n">pt</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PFlow&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Jet $p_T$ [GeV]&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/calibration_35_0.png" src="../_images/calibration_35_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uncalibrated_matched</span> <span class="o">=</span> <span class="n">match_eta_phi</span><span class="p">(</span><span class="n">pflow_jets</span><span class="p">,</span> <span class="n">uncalibrated_jets</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">ak</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">pflow_jets</span><span class="o">.</span><span class="n">pt</span> <span class="o">-</span> <span class="n">uncalibrated_matched</span><span class="o">.</span><span class="n">pt</span><span class="p">),</span> <span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Effect of Calibration on the Jet Collection&#39;</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$</span><span class="se">\\</span><span class="s1">Delta$ Jet $p_T$ [GeV]&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/calibration_37_0.png" src="../_images/calibration_37_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="analysisbase-configuration-code">
+<h2>AnalysisBase Configuration Code<a class="headerlink" href="#analysisbase-configuration-code" title="Permalink to this headline">¶</a></h2>
+<p>In the end, the analysis base python configuration code must be run. This code is stored as <code class="docutils literal notranslate"><span class="pre">jinja2</span></code> templates, in files, in the package. Currently you have to modify those, however, if there is a request it isn’t very difficult to make it possible to modify them in your code and configuration.</p>
+</div>
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="further-information">
+<h1>Further Information<a class="headerlink" href="#further-information" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">func_adl_servicex_xaodr21</span> <span class="kn">import</span> <span class="n">CalibrationEventConfig</span>
+<span class="n">help</span><span class="p">(</span><span class="n">CalibrationEventConfig</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Help on class CalibrationEventConfig in module func_adl_servicex_xaodr21.calibration_support:
+
+class CalibrationEventConfig(builtins.object)
+ |  CalibrationEventConfig(jet_collection: str, jet_calib_truth_collection: str, electron_collection: str, electron_working_point: str, electron_isolation: str, photon_collection: str, photon_working_point: str, photon_isolation: str, muon_collection: str, muon_working_point: str, muon_isolation: str, tau_collection: str, tau_working_point: str, perform_overlap_removal: bool) -&gt; None
+ |  
+ |  CalibrationEventConfig(jet_collection: str, jet_calib_truth_collection: str, electron_collection: str, electron_working_point: str, electron_isolation: str, photon_collection: str, photon_working_point: str, photon_isolation: str, muon_collection: str, muon_working_point: str, muon_isolation: str, tau_collection: str, tau_working_point: str, perform_overlap_removal: bool)
+ |  
+ |  Methods defined here:
+ |  
+ |  __eq__(self, other)
+ |  
+ |  __init__(self, jet_collection: str, jet_calib_truth_collection: str, electron_collection: str, electron_working_point: str, electron_isolation: str, photon_collection: str, photon_working_point: str, photon_isolation: str, muon_collection: str, muon_working_point: str, muon_isolation: str, tau_collection: str, tau_working_point: str, perform_overlap_removal: bool) -&gt; None
+ |  
+ |  __repr__(self)
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data descriptors defined here:
+ |  
+ |  __dict__
+ |      dictionary for instance variables (if defined)
+ |  
+ |  __weakref__
+ |      list of weak references to the object (if defined)
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data and other attributes defined here:
+ |  
+ |  __annotations__ = {&#39;electron_collection&#39;: &lt;class &#39;str&#39;&gt;, &#39;electron_iso...
+ |  
+ |  __dataclass_fields__ = {&#39;electron_collection&#39;: Field(name=&#39;electron_co...
+ |  
+ |  __dataclass_params__ = _DataclassParams(init=True,repr=True,eq=True,or...
+ |  
+ |  __hash__ = None
+ |  
+ |  __slotnames__ = []
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">calib_tools</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Help on class calib_tools in module func_adl_servicex_xaodr21.calibration_support:
+
+class calib_tools(builtins.object)
+ |  Class methods defined here:
+ |  
+ |  default_config = CalibrationEventConfig(jet_collection=&#39;AntiKt4EM...king_point=&#39;Tight&#39;, perform_overlap_removal=True)
+ |  default_sys_error = &#39;NOSYS&#39;
+ |  query_sys_error(query: func_adl.object_stream.ObjectStream[~T], sys_error: str) -&gt; func_adl.object_stream.ObjectStream[~T] from builtins.type
+ |  
+ |  query_update(query: func_adl.object_stream.ObjectStream[~T], calib_config: Optional[func_adl_servicex_xaodr21.calibration_support.CalibrationEventConfig] = None, **kwargs) -&gt; func_adl.object_stream.ObjectStream[~T] from builtins.type
+ |  
+ |  reset_config() from builtins.type
+ |      Reset calibration config to base state
+ |  
+ |  reset_sys_error() from builtins.type
+ |  
+ |  set_default_config(config: func_adl_servicex_xaodr21.calibration_support.CalibrationEventConfig) from builtins.type
+ |      Store a copy of a new default config for future use
+ |  
+ |  set_default_sys_error(value: str) from builtins.type
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data descriptors defined here:
+ |  
+ |  __dict__
+ |      dictionary for instance variables (if defined)
+ |  
+ |  __weakref__
+ |      list of weak references to the object (if defined)
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data and other attributes defined here:
+ |  
+ |  __annotations__ = {&#39;_default_calibration&#39;: typing.Optional[func_adl_se...
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="jets.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">The Jet Collection</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="electrons.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">The Electron Collection</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By IRIS-HEP (Gordon Watts)<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>

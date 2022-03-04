@@ -1,3 +1,4 @@
+(ch-data-samples)=
 # Data Samples
 
 ATLAS data comes in many flavors. Because the complete data is so large, ATLAS makes a number of different samples that are slimmed down in various ways. The consequences of this can be far reaching: if a derivation removes attributes necessary to perform a calibration for muons, then accessing calibrated muons will fail.
