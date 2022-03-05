@@ -514,21 +514,24 @@ Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. P
 </div>
 </div>
 <p>And then we can use <code class="docutils literal notranslate"><span class="pre">calib_tools.reset_config()</span></code> to reset to factory default. Though this is mostly for test harneses and the like.</p>
-<p>```{note} The <code class="docutils literal notranslate"><span class="pre">default_config</span></code> is a global variable, so it is fairly dangerous to modify unless you really want to change it for everything.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-```{warning} Modifying the `default_collection` is particularly dangerous in a notebook where one can execute cells out of order. If you execute the cell above to get `pflow_jets` after the `antikt_jets` cell, you&#39;ll get AntiKt4EMToploJets in your pflow jets!
-</pre></div>
-</div>
-<div class="admonition-best-practice admonition">
-<p class="admonition-title">Best practice</p>
-<p>Use this technique if you are setting the calibration once for your analysis in central a configuration file. Otherwise, ignore it.</p>
-</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">calib_tools</span><span class="o">.</span><span class="n">reset_config</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">default_config</span></code> is a global variable, so it is fairly dangerous to modify unless you really want to change it for everything.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Modifying the <code class="docutils literal notranslate"><span class="pre">default_collection</span></code> is particularly dangerous in a notebook where one can execute cells out of order. If you execute the cell above to get <code class="docutils literal notranslate"><span class="pre">pflow_jets</span></code> after the <code class="docutils literal notranslate"><span class="pre">antikt_jets</span></code> cell, you’ll get AntiKt4EMToploJets in your pflow jets!</p>
+</div>
+<div class="admonition-best-practice admonition">
+<p class="admonition-title">Best practice</p>
+<p>Use this technique if you are setting the calibration once for your analysis in central a configuration file. Otherwise, ignore it.</p>
 </div>
 </div>
 <div class="section" id="modifying-the-calibrated-collection-in-the-query">
@@ -670,7 +673,7 @@ Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. P
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/calibration_34_0.png" src="../_images/calibration_34_0.png" />
+<img alt="../_images/calibration_35_0.png" src="../_images/calibration_35_0.png" />
 </div>
 </div>
 <p>While this works, it clearly can’t be the final way to do this. Espeically given the push model that ATLAS uses for systematic errors. Thoughts welcome at this <a class="reference external" href="https://github.com/gordonwatts/xaod_usage/issues/13">issue on how to implement systematic errors</a> in the ATLAS xAOD system for <code class="docutils literal notranslate"><span class="pre">func_adl</span></code>.</p>
@@ -711,7 +714,7 @@ Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. P
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/calibration_38_0.png" src="../_images/calibration_38_0.png" />
+<img alt="../_images/calibration_39_0.png" src="../_images/calibration_39_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -730,7 +733,7 @@ Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. P
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/calibration_40_0.png" src="../_images/calibration_40_0.png" />
+<img alt="../_images/calibration_41_0.png" src="../_images/calibration_41_0.png" />
 </div>
 </div>
 </div>
