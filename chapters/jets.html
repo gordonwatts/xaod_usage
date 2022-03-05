@@ -344,7 +344,7 @@
               <div>
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="the-jet-collection">
-<h1>The Jet Collection<a class="headerlink" href="#the-jet-collection" title="Permalink to this headline">¶</a></h1>
+<span id="ch-jets"></span><h1>The Jet Collection<a class="headerlink" href="#the-jet-collection" title="Permalink to this headline">¶</a></h1>
 <p>We’ll start with the Jet collection, one of the most commonly used collections in ATLAS. Below we’ll look at:</p>
 <ul class="simple">
 <li><p>Getting jet kinematic properties like <span class="math notranslate nohighlight">\(p_T\)</span> and <span class="math notranslate nohighlight">\(\eta\)</span>.</p></li>
@@ -379,7 +379,7 @@ Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. P
 </div>
 </div>
 </div>
-<p>Here we return an array of all the jet <span class="math notranslate nohighlight">\(p_T\)</span>’s above 30 GeV. The first <code class="docutils literal notranslate"><span class="pre">SelectMany</span></code> transforms the <em>event</em> <code class="docutils literal notranslate"><span class="pre">e</span></code> into a list of jets with the <code class="docutils literal notranslate"><span class="pre">e.Jets()</span></code>. In this case it returns the default jet collection, properly calibrated and with overlaps removed (see the next chapter on <a class="reference internal" href="calibration.html#ch-calibration"><span class="std std-ref">calibration</span></a> for more information). The <code class="docutils literal notranslate"><span class="pre">SelectMany</span></code> returns this as a flattened array of jets.</p>
+<p id="sec-jet-simple">Here we return an array of all the jet <span class="math notranslate nohighlight">\(p_T\)</span>’s above 30 GeV. The first <code class="docutils literal notranslate"><span class="pre">SelectMany</span></code> transforms the <em>event</em> <code class="docutils literal notranslate"><span class="pre">e</span></code> into a list of jets with the <code class="docutils literal notranslate"><span class="pre">e.Jets()</span></code>. In this case it returns the default jet collection, properly calibrated and with overlaps removed (see the next chapter on <a class="reference internal" href="calibration.html#ch-calibration"><span class="std std-ref">calibration</span></a> for more information). The <code class="docutils literal notranslate"><span class="pre">SelectMany</span></code> returns this as a flattened array of jets.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">jets</span> <span class="o">=</span> <span class="p">(</span><span class="n">ds</span>

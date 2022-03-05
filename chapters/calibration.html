@@ -318,6 +318,11 @@
   </a>
   <ul class="visible nav section-nav flex-column">
    <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#introduction">
+     Introduction
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#the-calibration-configuration-object">
      The Calibration Configuration Object
     </a>
@@ -362,9 +367,18 @@
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="calibration">
 <span id="ch-calibration"></span><h1>Calibration<a class="headerlink" href="#calibration" title="Permalink to this headline">¶</a></h1>
-<p>It is best to think of an event being calibrated in ATLAS, rather than single objects. In most cases it does not make sense to have one type of object calibrated while another isn’t. Or even to have them individually calibrated. This is because there are interdependencies between some objects. For example, the calibrated jets, electrons, photons, muons, and taus are all used to calculate the missing ET for an event. Further, after calibrating jets, electrons, photons, muons, and taus one must run overlap removal to disambiguate, say, jets and electrons.</p>
-<p>As a result, it only makes sense to talk about a coherent, calibrated set of objects in an ATLAS event. Further, due to limitations in how <code class="docutils literal notranslate"><span class="pre">AnalysisBase</span></code> (which extracts the data from xAOD’s) and <code class="docutils literal notranslate"><span class="pre">func_adl</span></code>’s calibration model implemented here, it is not possible to run with more than a single calibration configuration in a single query. You’ll have to split them up into multiple queries.</p>
-<p><code class="docutils literal notranslate"><span class="pre">func_adl</span></code> has calibration configuration class. Its contains a basic view of the event - what jet collection to use, what muon working point to use, etc. This is configured by default to work well for <code class="docutils literal notranslate"><span class="pre">DAOD_PHYS</span></code> and <code class="docutils literal notranslate"><span class="pre">DAOD_PHYSLITE</span></code>. In the end, these have to configure the common CP algorithms for calibration and systematic errors. If you do nothing, this is the configuration you’ll get. However, if you need a different calibration configuration it is possible to modify, as we will see below.</p>
+<p>In the previous <a class="reference internal" href="jets.html#ch-jets"><span class="std std-ref">chapter on jets</span></a>, the jet quantities were all calibrated. The common CP algorithms were used during extraction to:</p>
+<ul class="simple">
+<li><p>Calibrate the jets according to the most recent Jet group recommendations that were baked into the release</p></li>
+<li><p>Calibrate all the other objects (electrons, photons, taus, and muons)</p></li>
+<li><p>Perform overlap removal</p></li>
+</ul>
+<p>This chapter discusses the details of how calibrations are run, and what can be done to configure it. First, however, a short introduction on the calibration model to help understand the technical code.</p>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>It is best to think of an event being calibrated in ATLAS, rather than a single object or collection of objects. In most cases it does not make sense to have one type of object calibrated while another isn’t. This is because there are interdependencies between some objects. For example, the calibrated jets, electrons, photons, muons, and taus are all used to calculate the missing <span class="math notranslate nohighlight">\(E_T\)</span> for an event. Further, after calibrating jets, electrons, photons, muons, and taus one must run overlap removal to disambiguate, say, jets and electrons. How that calibration is run is called the <em>calibration configuration</em>.</p>
+<p>As a result, it only makes sense to talk about a coherent, calibrated set of objects in an ATLAS event. Further, due to limitations in how <code class="docutils literal notranslate"><span class="pre">AnalysisBase</span></code> (which extracts the data from xAOD’s and runs the common CP algorithms) and <code class="docutils literal notranslate"><span class="pre">func_adl</span></code>’s calibration model described here, it is not possible to run with more than a single calibration configuration in a single query. You’ll have to split them up into multiple queries.</p>
+<p><code class="docutils literal notranslate"><span class="pre">func_adl</span></code> has calibration configuration class. It tells the system what jet collection to use, what muon working point to use, etc. This is configured by default to work well for <code class="docutils literal notranslate"><span class="pre">DAOD_PHYS</span></code>. In the end, the common CP algorithms are configured using the contents of configuration class. If you do nothing, the default configuration for <code class="docutils literal notranslate"><span class="pre">DAOD_PHYS</span></code> is what you’ll get. However, if you need a different calibration configuration it is possible to alter this, as we will see below.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">config</span> <span class="kn">import</span> <span class="n">ds_zee</span> <span class="k">as</span> <span class="n">ds</span>
@@ -385,9 +399,10 @@ Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. P
 </div>
 </div>
 </div>
+</div>
 <div class="section" id="the-calibration-configuration-object">
 <h2>The Calibration Configuration Object<a class="headerlink" href="#the-calibration-configuration-object" title="Permalink to this headline">¶</a></h2>
-<p>The default calibration object details all the various objects that are used. You can grab the default and inspect it yourself:</p>
+<p>The default calibration object details all the collections and working points that are to be used. The default configuration is easy enough to grab and inspect by accessing the <code class="docutils literal notranslate"><span class="pre">default_config</span></code> on the <code class="docutils literal notranslate"><span class="pre">calib_tools</span></code> object. The <code class="docutils literal notranslate"><span class="pre">calib_tools</span></code> object provides access to the configuration and helper methods to modify it in various ways.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">calib_tools</span><span class="o">.</span><span class="n">default_config</span><span class="p">)</span>
@@ -395,12 +410,12 @@ Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. P
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CalibrationEventConfig(jet_collection=&#39;AntiKt4EMPFlowJets&#39;, jet_calib_truth_collection=&#39;AntiKt4TruthDressedWZJets&#39;, electron_collection=&#39;Electrons&#39;, electron_working_point=&#39;MediumLHElectron&#39;, electron_isolation=&#39;NonIso&#39;, photon_collection=&#39;Photons&#39;, photon_working_point=&#39;Tight&#39;, photon_isolation=&#39;FixedCutTight&#39;, muon_collection=&#39;Muons&#39;, muon_working_point=&#39;Medium&#39;, muon_isolation=&#39;NonIso&#39;, tau_collection=&#39;TauJets&#39;, tau_working_point=&#39;Tight&#39;)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CalibrationEventConfig(jet_collection=&#39;AntiKt4EMPFlowJets&#39;, jet_calib_truth_collection=&#39;AntiKt4TruthDressedWZJets&#39;, electron_collection=&#39;Electrons&#39;, electron_working_point=&#39;MediumLHElectron&#39;, electron_isolation=&#39;NonIso&#39;, photon_collection=&#39;Photons&#39;, photon_working_point=&#39;Tight&#39;, photon_isolation=&#39;FixedCutTight&#39;, muon_collection=&#39;Muons&#39;, muon_working_point=&#39;Medium&#39;, muon_isolation=&#39;NonIso&#39;, tau_collection=&#39;TauJets&#39;, tau_working_point=&#39;Tight&#39;, perform_overlap_removal=True)
 </pre></div>
 </div>
 </div>
 </div>
-<p>When you request <code class="docutils literal notranslate"><span class="pre">Jet</span></code>’s, for example, you’ll be getting back fully calibrated and overlap pruned jets. The jets will have started from the <code class="docutils literal notranslate"><span class="pre">default_calibration.jet_collection</span></code> entry above (this is the same as we saw on the Jets chapter):</p>
+<p>When you request <code class="docutils literal notranslate"><span class="pre">Jet</span></code>’s, for example, you’ll be getting back fully calibrated and overlap pruned jets. The jets will have started from the <code class="docutils literal notranslate"><span class="pre">default_config.jet_collection</span></code> entry above (these are the same jets we saw in most of the <a class="reference internal" href="jets.html#sec-jet-simple"><span class="std std-ref">Jet chapter</span></a>):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pflow_jets</span> <span class="o">=</span> <span class="p">(</span><span class="n">ds</span>
@@ -417,7 +432,20 @@ Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. P
 </div>
 </div>
 </div>
-<p>You can reset the default collection if you desire.  All queries that occur after the default calibration configuration is configured will use this new default. Note that calibration configuration is captured at run time (when you use <code class="docutils literal notranslate"><span class="pre">value</span></code> or its equivalent), not when you use the <code class="docutils literal notranslate"><span class="pre">Jets</span></code> method, etc.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">ak</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">pflow_jets</span><span class="o">.</span><span class="n">pt</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PFlow&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Jet $p_T$ [GeV]&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/calibration_6_0.png" src="../_images/calibration_6_0.png" />
+</div>
+</div>
+<p>You can change the default calibration configuration if you desire. If your analysis is based on a skim, rather than <code class="docutils literal notranslate"><span class="pre">DAOD_PHYS</span></code>, you might want to do this in some master configuration file that everyone includes.</p>
+<p>All queries that occur after the change will this new default. Note that calibration configuration is captured at run time (when you use <code class="docutils literal notranslate"><span class="pre">value</span></code> or its equivalent), not when you use the <code class="docutils literal notranslate"><span class="pre">Jets</span></code> method, etc. If you find yourself wanting to use multiple configurations in the same script or notebook, modifying the default is almost certainly not the way to do (see below for other more flexible options).</p>
 <p>This example modifies the default calibration configuration to use a new jet collection. The identical query above will return a different set of (calibrated) jets:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -462,9 +490,10 @@ Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. P
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/calibration_10_0.png" src="../_images/calibration_10_0.png" />
+<img alt="../_images/calibration_11_0.png" src="../_images/calibration_11_0.png" />
 </div>
 </div>
+<p>We can further see that if we find closest-matching jets in <span class="math notranslate nohighlight">\(\eta-\phi\)</span>, that the algorithms really do gather different amounts of energy (as expected!):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pflow_matched_jets_to_antikt</span> <span class="o">=</span> <span class="n">match_eta_phi</span><span class="p">(</span><span class="n">antikt_jets</span><span class="p">,</span> <span class="n">pflow_jets</span><span class="p">)</span>
@@ -481,11 +510,19 @@ Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. P
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/calibration_12_0.png" src="../_images/calibration_12_0.png" />
+<img alt="../_images/calibration_14_0.png" src="../_images/calibration_14_0.png" />
 </div>
 </div>
-<p>And then we can use <code class="docutils literal notranslate"><span class="pre">calib_tools.reset_config()</span></code> to reset to factory default. Though this is mostly for test harneses and the like. Remember, the <code class="docutils literal notranslate"><span class="pre">default_collection</span></code> is a global variable, so it is fairly dangerous to modify unless you really want to change it for everything.</p>
-<p>Note: This is particularly dangerous in a notebook where one can execute cells out of order. If you execute the cell above to get <code class="docutils literal notranslate"><span class="pre">pflow_jets</span></code> after the <code class="docutils literal notranslate"><span class="pre">antikt_jets</span></code> cell, you’ll get AntiKt4EMToploJets in your pflow jets! Best practice: Use this technique if you are setting the calibration once for your analysis in central a configuration file.</p>
+<p>And then we can use <code class="docutils literal notranslate"><span class="pre">calib_tools.reset_config()</span></code> to reset to factory default. Though this is mostly for test harneses and the like.</p>
+<p>```{note} The <code class="docutils literal notranslate"><span class="pre">default_config</span></code> is a global variable, so it is fairly dangerous to modify unless you really want to change it for everything.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+```{warning} Modifying the `default_collection` is particularly dangerous in a notebook where one can execute cells out of order. If you execute the cell above to get `pflow_jets` after the `antikt_jets` cell, you&#39;ll get AntiKt4EMToploJets in your pflow jets!
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Best practice: Use this technique if you are setting the calibration once for your analysis in central a configuration file.</p>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">calib_tools</span><span class="o">.</span><span class="n">reset_config</span><span class="p">()</span>
@@ -496,7 +533,7 @@ Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. P
 </div>
 <div class="section" id="modifying-the-calibrated-collection-in-the-query">
 <h2>Modifying the calibrated collection in the query<a class="headerlink" href="#modifying-the-calibrated-collection-in-the-query" title="Permalink to this headline">¶</a></h2>
-<p>You can modify an aspect of the calibration on a query-by-query basis without using global variables. There are two ways to do this.</p>
+<p>You can modify an aspect of the calibration configuration on a query-by-query basis without using the global <code class="docutils literal notranslate"><span class="pre">default_config</span></code>. There are two ways to do this.</p>
 <p>First, you can specify the collection to load in place of the default in the <code class="docutils literal notranslate"><span class="pre">Jets</span></code> (or similar) method. This will alter the collection name and run the full calibration. This is useful for quick tests: it is convinent, and keeps the new bank name close to where you make the request - so it is readable.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -514,7 +551,7 @@ Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. P
 </div>
 </div>
 </div>
-<p>And we can see there are no differences in the data we’ve pulled here:</p>
+<p>And we can see there are no differences in the data we’ve pulled here as compared to using the <code class="docutils literal notranslate"><span class="pre">default_config</span></code> technique above:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ak</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">jetname_in_query_jets</span><span class="o">.</span><span class="n">pt</span> <span class="o">-</span> <span class="n">antikt_jets</span><span class="o">.</span><span class="n">pt</span><span class="p">))</span>
@@ -527,7 +564,8 @@ Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. P
 </div>
 </div>
 </div>
-<p>However, this doesn’t work well if you want to alter more than calibration configuration value. There is a helper function, <code class="docutils literal notranslate"><span class="pre">calib_tools.query_update</span></code> that allows you to modify single in the calibration configuration. You can also chain the calls, and the modifications will accumulate.</p>
+<p>However, this doesn’t work well if you want to alter more than calibration configuration value.</p>
+<p>There is a helper function, <code class="docutils literal notranslate"><span class="pre">calib_tools.query_update</span></code> that allows you to modify values in the calibration configuration. You can also chain the calls, and the modifications will accumulate.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">config_jets_in_query_jets</span> <span class="o">=</span> <span class="p">(</span><span class="n">calib_tools</span><span class="o">.</span><span class="n">query_update</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">jet_collection</span><span class="o">=</span><span class="s1">&#39;AntiKt4EMTopoJets&#39;</span><span class="p">)</span>
@@ -556,6 +594,7 @@ Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. P
 </div>
 </div>
 </div>
+<p>Though the code only changes the <code class="docutils literal notranslate"><span class="pre">jet_collection</span></code> you can change as many values in the calibration configuration object as you like in one call. Just add the names as further arguments.</p>
 <p>You can even set a whole new configuration if you have lots of changes at once. This will override anything you’ve previously set with <code class="docutils literal notranslate"><span class="pre">query_update</span></code> in the query.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -585,10 +624,19 @@ Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. P
 </div>
 </div>
 </div>
+<div class="admonition-best-practice admonition">
+<p class="admonition-title">Best practice</p>
+<ul class="simple">
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">query_update</span></code> for most cases. It has maximum flexibility and composability. In your analysis, where you declare the dataset, you can easily add a call to <code class="docutils literal notranslate"><span class="pre">calib_tools.query_update</span></code>, for example. You can also modify a query on the fly if you need to alter the calibration configuration for some reason.</p></li>
+<li><p>Use the <code class="docutils literal notranslate"><span class="pre">calibrated_collection</span></code> argument in a collection request if want to run a one-off test of just a collection change.</p></li>
+<li><p>Use the <code class="docutils literal notranslate"><span class="pre">calib_tools.set_default_config</span></code> only if you are going to be using this new configuration for everything that will ever be done, and only if you are sure the configuration file being loaded will always by loaded by everyone in the analysis team.</p></li>
+</ul>
+</div>
 </div>
 <div class="section" id="systematic-errors">
 <h2>Systematic Errors<a class="headerlink" href="#systematic-errors" title="Permalink to this headline">¶</a></h2>
-<p>You can only query a single systematic error at a time in this version. You do this by specifying the systematic error you want using the helper method <code class="docutils literal notranslate"><span class="pre">calib_tools.query_sys_error</span></code>. By default, the central value is returned (<code class="docutils literal notranslate"><span class="pre">NOSYS</span></code>). You will need to know the names of the systematic errors a head of time in order to use this. This method will modify the systematic error for the rest of this query.</p>
+<p>You can only query a single systematic error at a time. You do this by specifying the systematic error you want using the helper method <code class="docutils literal notranslate"><span class="pre">calib_tools.query_sys_error</span></code>. By default, the central value is returned (<code class="docutils literal notranslate"><span class="pre">NOSYS</span></code>). You will need to know the names of the systematic errors a head of time in order to use this.</p>
+<p>Here we get jets for evaluated for the systematic error <code class="docutils literal notranslate"><span class="pre">JET_Pileup_PtTerm_1up</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sys_jets</span> <span class="o">=</span> <span class="p">(</span><span class="n">calib_tools</span><span class="o">.</span><span class="n">query_sys_error</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="s1">&#39;JET_Pileup_PtTerm__1up&#39;</span><span class="p">)</span>
@@ -622,15 +670,14 @@ Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. P
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/calibration_30_0.png" src="../_images/calibration_30_0.png" />
+<img alt="../_images/calibration_34_0.png" src="../_images/calibration_34_0.png" />
 </div>
 </div>
-<p>By comparing eta/phi we can see how big an effect our jet calibrations and systematic error have made here:</p>
-<p>While this works, it clearly can’t be the final way to do this. Espeically given the push model that ATLAS uses for systematic errors. Thoughts welcome at this issue on how to implement systematic errors in the ATLAS xAOD system for <code class="docutils literal notranslate"><span class="pre">func_adl</span></code>.</p>
+<p>While this works, it clearly can’t be the final way to do this. Espeically given the push model that ATLAS uses for systematic errors. Thoughts welcome at this <a class="reference external" href="https://github.com/gordonwatts/xaod_usage/issues/13">issue on how to implement systematic errors</a> in the ATLAS xAOD system for <code class="docutils literal notranslate"><span class="pre">func_adl</span></code>.</p>
 </div>
 <div class="section" id="uncalibrated-collections">
 <h2>Uncalibrated Collections<a class="headerlink" href="#uncalibrated-collections" title="Permalink to this headline">¶</a></h2>
-<p>For some Collections, but not all…You can also request an explicit bank. For example, we can compare the overlap and calibrated jets above with the jets in the actual starting bank:</p>
+<p>You can also request an uncalibrated jet bank - so you can look at the “raw” data. For example, we can compare the overlap and calibrated jets above with the jets in the actual starting bank:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">default_jets</span> <span class="o">=</span> <span class="n">calib_tools</span><span class="o">.</span><span class="n">default_config</span><span class="o">.</span><span class="n">jet_collection</span>
@@ -664,7 +711,7 @@ Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. P
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/calibration_35_0.png" src="../_images/calibration_35_0.png" />
+<img alt="../_images/calibration_38_0.png" src="../_images/calibration_38_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -683,13 +730,14 @@ Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. P
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/calibration_37_0.png" src="../_images/calibration_37_0.png" />
+<img alt="../_images/calibration_40_0.png" src="../_images/calibration_40_0.png" />
 </div>
 </div>
 </div>
 <div class="section" id="analysisbase-configuration-code">
 <h2>AnalysisBase Configuration Code<a class="headerlink" href="#analysisbase-configuration-code" title="Permalink to this headline">¶</a></h2>
-<p>In the end, the analysis base python configuration code must be run. This code is stored as <code class="docutils literal notranslate"><span class="pre">jinja2</span></code> templates, in files, in the package. Currently you have to modify those, however, if there is a request it isn’t very difficult to make it possible to modify them in your code and configuration.</p>
+<p>Everyone familiar with AnalysisBase will recognize that the <code class="docutils literal notranslate"><span class="pre">func_adl_xAOD</span></code> system must at some level configuring, via python, the common CP tools. The design of the calibration system here potentially allows you to modify that python code as you wish. However, an API has <a class="reference external" href="https://github.com/gordonwatts/xaod_usage/issues/14">not yet been developed</a> to do this easily.</p>
+<p>If you are curious about exactly what code is being downloaded, feel free to look at the template files located in the <code class="docutils literal notranslate"><span class="pre">templates</span></code> directory in the <code class="docutils literal notranslate"><span class="pre">func_adl_servicex_xaodr21</span></code> package that is installed in your environment.</p>
 </div>
 </div>
 <div class="tex2jax_ignore mathjax_ignore section" id="further-information">
@@ -752,23 +800,62 @@ class CalibrationEventConfig(builtins.object)
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Help on class calib_tools in module func_adl_servicex_xaodr21.calibration_support:
 
 class calib_tools(builtins.object)
+ |  Helper functions to work with a query&#39;s calibration configuration.
+ |  
  |  Class methods defined here:
  |  
  |  default_config = CalibrationEventConfig(jet_collection=&#39;AntiKt4EM...king_point=&#39;Tight&#39;, perform_overlap_removal=True)
  |  default_sys_error = &#39;NOSYS&#39;
  |  query_sys_error(query: func_adl.object_stream.ObjectStream[~T], sys_error: str) -&gt; func_adl.object_stream.ObjectStream[~T] from builtins.type
+ |      Add metadata to a query to indicate a change in the systematic error for the events.
+ |      
+ |      Args:
+ |          query (ObjectStream[T]): The query to update.
+ |      
+ |          sys_error (str): The systematic error to fetch. Only a single one is possible at any time. The sys error names
+ |              are the same as used by the common CP algorithms.
+ |          
+ |      Returns:
+ |          ObjectStream[T]: The updated query.
+ |      
+ |      Notes:
+ |      
+ |          * This function can be chained - resolution works by looking at the most recent `query_sys_error` in the query.
  |  
  |  query_update(query: func_adl.object_stream.ObjectStream[~T], calib_config: Optional[func_adl_servicex_xaodr21.calibration_support.CalibrationEventConfig] = None, **kwargs) -&gt; func_adl.object_stream.ObjectStream[~T] from builtins.type
+ |      Add metadata to a query to indicate a change in the calibration configuration for the query.
+ |      
+ |      Args:
+ |          query (ObjectStream[T]): The query to update.
+ |      
+ |          calib_config (Optional[CalibrationEventConfig]): The new calibration configuration to use. If specified
+ |              will override all calibration configuration options in the query.
+ |          
+ |          jet_collection, ...: Use any property name from the `CalibrationEventConfig` class to override that particular
+ |              options for this query. You may specify as many of them as you like.
+ |      
+ |      Returns:
+ |          ObjectStream[T]: The updated query.
+ |      
+ |      Notes:
+ |      
+ |          * This function can be chained - resolution works by looking at the most recent `query_update` in the query.
+ |          * This function works by storing a complete `CalibrationEventConfig` object, updated as requested, in the query. So
+ |              even if you just update `jet_collection`, changing the `default_config` after calling this will have no effect.
  |  
  |  reset_config() from builtins.type
- |      Reset calibration config to base state
+ |      Reset calibration config to the default.
+ |      
+ |      * This is configured for working with R21 DAOD_PHYS samples.
  |  
  |  reset_sys_error() from builtins.type
+ |      Reset to &#39;NOSYS&#39; the default systematic error
  |  
  |  set_default_config(config: func_adl_servicex_xaodr21.calibration_support.CalibrationEventConfig) from builtins.type
- |      Store a copy of a new default config for future use
+ |      Store a copy of a new default config for use in all future queries.
  |  
  |  set_default_sys_error(value: str) from builtins.type
+ |      Set the default systematic error
  |  
  |  ----------------------------------------------------------------------
  |  Data descriptors defined here:
