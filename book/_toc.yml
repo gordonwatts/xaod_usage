@@ -6,6 +6,7 @@ root: intro
 parts:
   - caption: Basics
     chapters:
+    - file: chapters/configuration
     - file: chapters/data
   - caption: The Collections
     chapters:
