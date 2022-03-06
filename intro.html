@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Using the ATLAS xAOD typed Backend &#8212; Using the ATLAS xAOD ServiceX Backend</title>
+    <title>Using the ATLAS xAOD Typed Backend &#8212; Using the ATLAS xAOD ServiceX Backend</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -88,7 +88,7 @@
         <ul class="nav bd-sidenav">
  <li class="toctree-l1 current">
   <a class="reference internal" href="#">
-   Using the ATLAS xAOD typed Backend
+   Using the ATLAS xAOD Typed Backend
   </a>
  </li>
 </ul>
@@ -307,11 +307,6 @@
    Setup and config
   </a>
  </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#more-about-this-book">
-   More about this book
-  </a>
- </li>
 </ul>
 
             </nav>
@@ -324,20 +319,20 @@
               <div>
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="using-the-atlas-xaod-typed-backend">
-<h1>Using the ATLAS xAOD typed Backend<a class="headerlink" href="#using-the-atlas-xaod-typed-backend" title="Permalink to this headline">¶</a></h1>
+<h1>Using the ATLAS xAOD Typed Backend<a class="headerlink" href="#using-the-atlas-xaod-typed-backend" title="Permalink to this headline">¶</a></h1>
 <p>Come here to learn:</p>
 <ul class="simple">
-<li><p>How to setup your environment to access xAOD data in ATLAS (R21 for the moment)</p></li>
+<li><p>How to setup your environment to access xAOD data in ATLAS (R21)</p></li>
 <li><p>Collections from the xAOD that are available</p></li>
+<li><p>Access methods, attributes, and decorations on the xAOD Event Data Model (EDM).</p></li>
 </ul>
-<p>I’m taking it for granted you already:</p>
+<p>This tutorial book takes for granted that you:</p>
 <ul class="simple">
 <li><p>Have access to an ATLAS xAOD ServiceX backend</p></li>
 <li><p>Know the basics about how to use ServiceX to filter, select data, etc.</p></li>
-<li><p>Basic knowledge of the ATLAS xAOD data model</p></li>
+<li><p>Basic knowledge of the ATLAS xAOD data model (at the level of a standard ATLAS tutorial)</p></li>
 <li><p>The names of the xAOD collections you are interested in, etc.</p></li>
 </ul>
-<p>This is under rapid development, no review has been done, etc. etc.</p>
 <div class="section" id="typed">
 <h2>Typed?<a class="headerlink" href="#typed" title="Permalink to this headline">¶</a></h2>
 <p>Normally, one does not think of Python as a <code class="docutils literal notranslate"><span class="pre">typed</span></code> language, like C++ or many other languages.
@@ -346,14 +341,14 @@ or similar. <em>Type Hints</em> are the Python way of expressing this. They are 
 Python language (see <a class="reference external" href="https://www.python.org/dev/peps/pep-0482/">PEP 482</a>, <a class="reference external" href="https://www.python.org/dev/peps/pep-0483/">PEP 483</a>,
 <a class="reference external" href="https://www.python.org/dev/peps/pep-0484/">PEP 484</a>, etc.). Typing offers several advantages:</p>
 <ul class="simple">
-<li><p>Various tools like pylance and mypy can spot errors before the code is run</p></li>
-<li><p>Editors, like vscode, can give you suggestions motivated by the type definitions</p></li>
+<li><p>Various tools like <a class="reference external" href="https://github.com/microsoft/pylance-release"><code class="docutils literal notranslate"><span class="pre">pylance</span></code></a> and <a class="reference external" href="http://mypy-lang.org/"><code class="docutils literal notranslate"><span class="pre">mypy</span></code></a> can spot errors before the code is run</p></li>
+<li><p>Editors, like <a class="reference external" href="https://code.visualstudio.com/"><code class="docutils literal notranslate"><span class="pre">vscode</span></code></a>, can give you suggestions motivated by the type definitions</p></li>
 </ul>
 <p>Further, <code class="docutils literal notranslate"><span class="pre">func_adl</span></code> libraries can use this type information to configure the backend C++ on the fly:</p>
 <ul class="simple">
-<li><p>New collections can be made accessible</p></li>
-<li><p>Objects that are returned by various methods can be properly interpreted by the <code class="docutils literal notranslate"><span class="pre">func_adl</span></code> C++ backend</p></li>
-<li><p>Arbitrary C++ code can be downloaded and executed as part of the query to ServiceX</p></li>
+<li><p>New collections can be made accessible.</p></li>
+<li><p>Objects that are returned by various methods can be properly interpreted by the <code class="docutils literal notranslate"><span class="pre">func_adl</span></code> C++ backend.</p></li>
+<li><p>Arbitrary C++ code can be downloaded and executed as part of the query to ServiceX.</p></li>
 </ul>
 <p>For example, here is a Jupyter notebook opened in visual studio code, showing the possible collections in an event:</p>
 <p><img alt="Example of using VSCode's built in type-checker to predict method names" src="_images/vscode-intellisense.png" /></p>
@@ -364,12 +359,9 @@ Python language (see <a class="reference external" href="https://www.python.org/
 <h2>Setup and config<a class="headerlink" href="#setup-and-config" title="Permalink to this headline">¶</a></h2>
 <p>Everything in this book can be executed and, at the time when the book was published, ran. For
 this to work we need an up-to-date version of ServiceX running. We call this backend <code class="docutils literal notranslate"><span class="pre">xaod_r21</span></code> for
-the C++ ATLAS xAOD backend based on the release 21. As per normal for ServiceX, <code class="docutils literal notranslate"><span class="pre">xaod_r21</span></code> should
+the C++ ATLAS xAOD backend based on the Release 21 of the ATLAS analysis software. As per normal for ServiceX, <code class="docutils literal notranslate"><span class="pre">xaod_r21</span></code> should
 be defined in your <code class="docutils literal notranslate"><span class="pre">servicex.yaml</span></code> or <code class="docutils literal notranslate"><span class="pre">.servicex</span></code> file in your <code class="docutils literal notranslate"><span class="pre">$HOME</span></code> directory.</p>
-</div>
-<div class="section" id="more-about-this-book">
-<h2>More about this book<a class="headerlink" href="#more-about-this-book" title="Permalink to this headline">¶</a></h2>
-<p>You can’t run this on <code class="docutils literal notranslate"><span class="pre">binder</span></code> because <code class="docutils literal notranslate"><span class="pre">ServiceX</span></code> and <code class="docutils literal notranslate"><span class="pre">binder</span></code> aren’t compatible.</p>
+<p>See the chapter on <a class="reference internal" href="chapters/configuration.html#ch-configuration"><span class="std std-ref">configuration</span></a> for more information.</p>
 </div>
 <div class="toctree-wrapper compound">
 </div>

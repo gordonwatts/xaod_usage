@@ -91,7 +91,7 @@
         <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="../intro.html">
-   Using the ATLAS xAOD typed Backend
+   Using the ATLAS xAOD Typed Backend
   </a>
  </li>
 </ul>
@@ -366,7 +366,7 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">config</span> <span class="kn">import</span> <span class="n">ds_zee</span> <span class="k">as</span> <span class="n">ds</span>
-<span class="kn">from</span> <span class="nn">config</span> <span class="kn">import</span> <span class="n">ds_jz3_exot15</span>
+<span class="kn">from</span> <span class="nn">config</span> <span class="kn">import</span> <span class="n">ds_jz2_exot15</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">awkward</span> <span class="k">as</span> <span class="nn">ak</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -415,7 +415,7 @@ Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. P
 <p>Jets are composed of <code class="docutils literal notranslate"><span class="pre">TopoClusters</span></code> in ATLAS, and unfortunately, they are often skimmed away. They are not present, for example, in <code class="docutils literal notranslate"><span class="pre">DAOD_PHYS</span></code>, which is the skim being used here for most examples. To demonstrate their use we’ll pull from a R21 EXOT15 skim that contains them. Since each jet has an array of topo clusters, and we are just interested in all the <code class="docutils literal notranslate"><span class="pre">TopoClusters</span></code>, we use two <code class="docutils literal notranslate"><span class="pre">SelectMany</span></code> calls to flatten both arrays.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">topo_clusters</span> <span class="o">=</span> <span class="p">(</span><span class="n">ds_jz3_exot15</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">topo_clusters</span> <span class="o">=</span> <span class="p">(</span><span class="n">ds_jz2_exot15</span>
                     <span class="o">.</span><span class="n">SelectMany</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">Jets</span><span class="p">())</span>
                     <span class="o">.</span><span class="n">SelectMany</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">getConstituents</span><span class="p">())</span>
                     <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">tc</span><span class="p">:</span> <span class="n">tc</span><span class="o">.</span><span class="n">pt</span><span class="p">())</span>
