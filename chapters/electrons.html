@@ -350,24 +350,40 @@
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="the-electron-collection">
 <h1>The Electron Collection<a class="headerlink" href="#the-electron-collection" title="Permalink to this headline">¶</a></h1>
-<p>Electrons are single-track particles. They are reconstructed with energy deposits in the calorimeter and an associated track. There a number of <code class="docutils literal notranslate"><span class="pre">working_points</span></code> and <code class="docutils literal notranslate"><span class="pre">isolation</span></code>s defined by the Egamma working group. We will look at accessing a few of them.</p>
+<p>The electron collection is a lot like the jet collection other than there are working points (loose, medium, tight) that are defined by the Egamma working group.</p>
+<p>Accessing the collection is similar, at first blush, to the jet collection.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">config</span> <span class="kn">import</span> <span class="n">ds_zee</span> <span class="k">as</span> <span class="n">ds</span>
 <span class="kn">from</span> <span class="nn">helpers</span> <span class="kn">import</span> <span class="n">match_objects</span>
 <span class="kn">import</span> <span class="nn">awkward</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">from</span> <span class="nn">func_adl_servicex_xaodr21</span> <span class="kn">import</span> <span class="n">calib_tools</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
+Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
+Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
+Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
+Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
 </pre></div>
 </div>
 </div>
 </div>
-<p>The default electron we fetch is the so-called <code class="docutils literal notranslate"><span class="pre">MediumLHElectron</span></code> muon with <code class="docutils literal notranslate"><span class="pre">NonIso</span></code> isolation.</p>
+<p>The default electron we fetch is the so-called <code class="docutils literal notranslate"><span class="pre">MediumLHElectron</span></code> electron with <code class="docutils literal notranslate"><span class="pre">NonIso</span></code> isolation.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">electrons</span> <span class="o">=</span> <span class="p">(</span><span class="n">ds</span>
-            <span class="o">.</span><span class="n">SelectMany</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">Electrons</span><span class="p">(</span><span class="s2">&quot;Electrons&quot;</span><span class="p">))</span>
-            <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">)</span>
-            <span class="o">.</span><span class="n">AsAwkwardArray</span><span class="p">(</span><span class="s1">&#39;pt&#39;</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">Electrons</span><span class="p">())</span>
+            <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">eles</span><span class="p">:</span> <span class="p">{</span>
+                 <span class="s1">&#39;pt&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">e</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span> <span class="o">/</span> <span class="mf">1000.0</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">eles</span><span class="p">],</span>
+                 <span class="s1">&#39;eta&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">e</span><span class="o">.</span><span class="n">eta</span><span class="p">()</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">eles</span><span class="p">],</span>
+                 <span class="s1">&#39;phi&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">e</span><span class="o">.</span><span class="n">phi</span><span class="p">()</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">eles</span><span class="p">],</span>
+                 <span class="p">})</span>
+            <span class="o">.</span><span class="n">AsAwkwardArray</span><span class="p">()</span>
             <span class="o">.</span><span class="n">value</span><span class="p">())</span>
 </pre></div>
 </div>
@@ -375,7 +391,7 @@
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">electrons</span><span class="o">.</span><span class="n">pt</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">ak</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">electrons</span><span class="o">.</span><span class="n">pt</span><span class="p">),</span> <span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Electron $p_T$ [GeV]&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Number of electrons&#39;</span><span class="p">)</span>
 <span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Electron $p_T$ distribution for $Z</span><span class="se">\\</span><span class="s1">rightarrow ee$ events&#39;</span><span class="p">)</span>
@@ -388,26 +404,27 @@
 </div>
 <div class="section" id="electron-types">
 <h2>Electron Types<a class="headerlink" href="#electron-types" title="Permalink to this headline">¶</a></h2>
-<p>Electrons come in several different flavors. We can look at the different <span class="math notranslate nohighlight">\(\eta\)</span> distributions for the electrons. Isolation is another axis we can alter, not shown here, by changing the <code class="docutils literal notranslate"><span class="pre">isolation</span></code> argument to <code class="docutils literal notranslate"><span class="pre">Electrons</span></code>.</p>
+<p>Electrons come in several different flavors. We can look at the different <span class="math notranslate nohighlight">\(\eta\)</span> distributions for the electrons. Isolation is another axis we can alter, not shown here, by changing the <code class="docutils literal notranslate"><span class="pre">electron_isolation</span></code> argument to <code class="docutils literal notranslate"><span class="pre">Electrons</span></code>.</p>
+<p>In the <a class="reference internal" href="calibration.html#ch-calibration"><span class="std std-ref">calibration</span></a> chapter we pointed out we can’t run multiple queries with different object setups due to limitations in the xAOD AnalysisBase when looking at calibrated objects. So we’ll have to do this in three queries instead. Also, we’ll have them run in parallel to improve efficiency a bit.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">electrons</span> <span class="o">=</span> <span class="p">(</span><span class="n">ds</span>
-             <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="p">{</span>
-                 <span class="s1">&#39;tight_eta&#39;</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">Electrons</span><span class="p">(</span><span class="s2">&quot;Electrons&quot;</span><span class="p">,</span> <span class="n">working_point</span><span class="o">=</span><span class="s1">&#39;TightLHElectron&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">m</span><span class="p">:</span> <span class="n">m</span><span class="o">.</span><span class="n">eta</span><span class="p">()),</span>
-                 <span class="s1">&#39;loose_eta&#39;</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">Electrons</span><span class="p">(</span><span class="s2">&quot;Electrons&quot;</span><span class="p">,</span> <span class="n">working_point</span><span class="o">=</span><span class="s1">&#39;LooseLHElectron&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">m</span><span class="p">:</span> <span class="n">m</span><span class="o">.</span><span class="n">eta</span><span class="p">()),</span>
-                 <span class="s1">&#39;medium_eta&#39;</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">Electrons</span><span class="p">(</span><span class="s2">&quot;Electrons&quot;</span><span class="p">,</span> <span class="n">working_point</span><span class="o">=</span><span class="s1">&#39;MediumLHElectron&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">m</span><span class="p">:</span> <span class="n">m</span><span class="o">.</span><span class="n">eta</span><span class="p">()),</span>
-                 <span class="p">})</span>
-             <span class="o">.</span><span class="n">AsAwkwardArray</span><span class="p">()</span>
-             <span class="o">.</span><span class="n">value</span><span class="p">())</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ele_working_points</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;LooseLHElectron&#39;</span><span class="p">,</span> <span class="s1">&#39;MediumLHElectron&#39;</span><span class="p">,</span><span class="s1">&#39;TightLHElectron&#39;</span><span class="p">]</span>
+<span class="n">electrons_async</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="n">calib_tools</span><span class="o">.</span><span class="n">query_update</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">electron_working_point</span><span class="o">=</span><span class="n">wp</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">SelectMany</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="p">[</span><span class="n">ele</span><span class="o">.</span><span class="n">eta</span><span class="p">()</span> <span class="k">for</span> <span class="n">ele</span> <span class="ow">in</span> <span class="n">e</span><span class="o">.</span><span class="n">Electrons</span><span class="p">()])</span>
+        <span class="o">.</span><span class="n">AsAwkwardArray</span><span class="p">(</span><span class="s1">&#39;eta&#39;</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">value_async</span><span class="p">())</span>
+    <span class="k">for</span> <span class="n">wp</span> <span class="ow">in</span> <span class="n">ele_working_points</span>
+<span class="p">]</span>
+<span class="n">electrons_wp</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="o">*</span><span class="n">electrons_async</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">ak</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">electrons</span><span class="o">.</span><span class="n">loose_eta</span><span class="p">),</span> <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;loose&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">ak</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">electrons</span><span class="o">.</span><span class="n">medium_eta</span><span class="p">),</span> <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;medium&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">ak</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">electrons</span><span class="o">.</span><span class="n">tight_eta</span><span class="p">),</span> <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">wp</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ele_working_points</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">electrons_wp</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">eta</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="n">wp</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Electron $</span><span class="se">\\</span><span class="s1">eta$&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Number of electrons&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Electron type $</span><span class="se">\\</span><span class="s1">eta$ distribution for $Z</span><span class="se">\\</span><span class="s1">rightarrow ee$ events&#39;</span><span class="p">)</span>
@@ -422,32 +439,17 @@
 </div>
 <div class="section" id="calibration">
 <h2>Calibration<a class="headerlink" href="#calibration" title="Permalink to this headline">¶</a></h2>
-<p>By default the muons we pulled are <code class="docutils literal notranslate"><span class="pre">Medium</span></code> quality and calibrated. One can request different systematic errors using the <code class="docutils literal notranslate"><span class="pre">calibration</span></code> argument to the <code class="docutils literal notranslate"><span class="pre">Muons</span></code> method.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">electrons</span> <span class="o">=</span> <span class="p">(</span><span class="n">ds</span>
-             <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">Electrons</span><span class="p">(</span><span class="s2">&quot;Electrons&quot;</span><span class="p">))</span>
-             <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">eles</span><span class="p">:</span> <span class="p">{</span>
-                 <span class="s1">&#39;pt&#39;</span><span class="p">:</span> <span class="n">eles</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">),</span>
-                 <span class="s1">&#39;eta&#39;</span><span class="p">:</span> <span class="n">eles</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">eta</span><span class="p">()),</span>
-                 <span class="s1">&#39;phi&#39;</span><span class="p">:</span> <span class="n">eles</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">phi</span><span class="p">()),</span>
-             <span class="p">})</span>
-             <span class="o">.</span><span class="n">AsAwkwardArray</span><span class="p">()</span>
-             <span class="o">.</span><span class="n">value</span><span class="p">())</span>
-</pre></div>
-</div>
-</div>
-</div>
+<p>By default the muons we pulled are <code class="docutils literal notranslate"><span class="pre">MediumLHElectron</span></code> quality and calibrated. We can grab the uncalibrated electrons easily enough:</p>
 <p>To grab the raw jets (without calibration) we just set the <code class="docutils literal notranslate"><span class="pre">calibrated</span></code> parameter to <code class="docutils literal notranslate"><span class="pre">False</span></code> (there is very little reason one will do this normally):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">raw_electrons</span> <span class="o">=</span> <span class="p">(</span><span class="n">ds</span>
-                 <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">Electrons</span><span class="p">(</span><span class="s2">&quot;Electrons&quot;</span><span class="p">,</span> <span class="n">calibration</span><span class="o">=</span><span class="kc">None</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">raw_electrons</span> <span class="o">=</span> <span class="p">(</span> <span class="n">ds</span>
+                 <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">Electrons</span><span class="p">(</span><span class="n">uncalibrated_collection</span><span class="o">=</span><span class="s2">&quot;Electrons&quot;</span><span class="p">))</span>
                  <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">eles</span><span class="p">:</span> <span class="p">{</span>
-                     <span class="s1">&#39;pt&#39;</span><span class="p">:</span> <span class="n">eles</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">),</span>
-                     <span class="s1">&#39;eta&#39;</span><span class="p">:</span> <span class="n">eles</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">eta</span><span class="p">()),</span>
-                     <span class="s1">&#39;phi&#39;</span><span class="p">:</span> <span class="n">eles</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">phi</span><span class="p">()),</span>
-                 <span class="p">})</span>
+                      <span class="s1">&#39;pt&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">e</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span> <span class="o">/</span> <span class="mf">1000.0</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">eles</span><span class="p">],</span>
+                      <span class="s1">&#39;eta&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">e</span><span class="o">.</span><span class="n">eta</span><span class="p">()</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">eles</span><span class="p">],</span>
+                      <span class="s1">&#39;phi&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">e</span><span class="o">.</span><span class="n">phi</span><span class="p">()</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">eles</span><span class="p">],</span>
+                      <span class="p">})</span>
                  <span class="o">.</span><span class="n">AsAwkwardArray</span><span class="p">()</span>
                  <span class="o">.</span><span class="n">value</span><span class="p">())</span>
 </pre></div>
@@ -462,29 +464,29 @@
 </div>
 </div>
 </div>
-<p>Note the units along the x-axis here!! We are using <strong>MeV</strong> not <em>GeV</em>!</p>
+<p>And we can compared the matched electrons:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">ak</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">electrons</span><span class="o">.</span><span class="n">pt</span><span class="o">-</span><span class="n">raw_electrons_matched</span><span class="o">.</span><span class="n">pt</span><span class="p">),</span> <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$\Delta p_T$ for calibrated electrons matched to their raw electrons [MeV]&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$\Delta p_T$ for calibrated electrons matched to their raw electrons [GeV]&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Number of electrons&#39;</span><span class="p">)</span>
 <span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;The effect of electron calibration on muon $p_T$ in $Z</span><span class="se">\\</span><span class="s1">rightarrow ee$ events&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/electrons_15_0.png" src="../_images/electrons_15_0.png" />
+<img alt="../_images/electrons_14_0.png" src="../_images/electrons_14_0.png" />
 </div>
 </div>
-<p>If we instead want a particular systematic error, we need only name that error to get it back. Knowing what the names of the systematic errors, however, is not something that can be programmatically determined ahead of time. See the further information section at the end of this chapter to links to the ATLAS muon calibration info twiki.</p>
+<p>If we instead want a particular systematic error, we need only name that error to get it back. Knowing what the names of the systematic errors, however, is not something that can be programmatically determined ahead of time. See the further information section at the end of this chapter to links to the ATLAS electron calibration info twiki. Though I’ve noticed it is not necessarily up to date with names.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sys_electrons</span> <span class="o">=</span> <span class="p">(</span><span class="n">ds</span>
-                 <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">Electrons</span><span class="p">(</span><span class="s2">&quot;Electrons&quot;</span><span class="p">,</span> <span class="n">calibration</span><span class="o">=</span><span class="s2">&quot;EG_RESOLUTION_ALL__1up&quot;</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sys_electrons</span> <span class="o">=</span> <span class="p">(</span><span class="n">calib_tools</span><span class="o">.</span><span class="n">query_sys_error</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="s1">&#39;EG_RESOLUTION_ALL__1up&#39;</span><span class="p">)</span>
+                 <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">Electrons</span><span class="p">())</span>
                  <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">eles</span><span class="p">:</span> <span class="p">{</span>
-                      <span class="s1">&#39;pt&#39;</span><span class="p">:</span> <span class="n">eles</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">),</span>
-                      <span class="s1">&#39;eta&#39;</span><span class="p">:</span> <span class="n">eles</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">eta</span><span class="p">()),</span>
-                      <span class="s1">&#39;phi&#39;</span><span class="p">:</span> <span class="n">eles</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">phi</span><span class="p">()),</span>
+                      <span class="s1">&#39;pt&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">e</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span> <span class="o">/</span> <span class="mf">1000.0</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">eles</span><span class="p">],</span>
+                      <span class="s1">&#39;eta&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">e</span><span class="o">.</span><span class="n">eta</span><span class="p">()</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">eles</span><span class="p">],</span>
+                      <span class="s1">&#39;phi&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">e</span><span class="o">.</span><span class="n">phi</span><span class="p">()</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">eles</span><span class="p">],</span>
                       <span class="p">})</span>
                  <span class="o">.</span><span class="n">AsAwkwardArray</span><span class="p">()</span>
                  <span class="o">.</span><span class="n">value</span><span class="p">())</span>
@@ -509,13 +511,13 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/electrons_19_0.png" src="../_images/electrons_19_0.png" />
+<img alt="../_images/electrons_18_0.png" src="../_images/electrons_18_0.png" />
 </div>
 </div>
 </div>
 <div class="section" id="the-data-model">
 <h2>The Data Model<a class="headerlink" href="#the-data-model" title="Permalink to this headline">¶</a></h2>
-<p>The data model when this documentation was last built is.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">Electron_v1</span></code> class at the time this documentation was built:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">func_adl_servicex_xaodr21.xAOD.electron_v1</span> <span class="kn">import</span> <span class="n">Electron_v1</span>
@@ -570,6 +572,9 @@ class Electron_v1(builtins.object)
  |  isGoodOQ(self, mask: &#39;int&#39;) -&gt; &#39;bool&#39;
  |      A method
  |  
+ |  likelihoodValue(self, value: &#39;float&#39;, LHValue: &#39;str&#39;) -&gt; &#39;bool&#39;
+ |      A method
+ |  
  |  m(self) -&gt; &#39;float&#39;
  |      A method
  |  
@@ -604,6 +609,15 @@ class Electron_v1(builtins.object)
  |      A method
  |  
  |  usingStandaloneStore(self) -&gt; &#39;bool&#39;
+ |      A method
+ |  
+ |  ----------------------------------------------------------------------
+ |  Readonly properties defined here:
+ |  
+ |  auxdataConst
+ |      A method
+ |  
+ |  isAvailable
  |      A method
  |  
  |  ----------------------------------------------------------------------
