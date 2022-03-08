@@ -14,9 +14,9 @@ parts:
     - file: chapters/calibration
     - file: chapters/electrons
     - file: chapters/muons
-    - file: chapters/tracks
     - file: chapters/taus
     - file: chapters/met
+    - file: chapters/tracks
     - file: chapters/vertices
     - file: chapters/eventinfo
     - file: chapters/caloclusters
