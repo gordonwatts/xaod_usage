@@ -90,9 +90,16 @@ def make_ds(s: sample):
 # Build the individual samples. First, the DAOD_PHYS samples, which use default
 # calibrations.
 ds_zee = make_ds(_samples["zee"])
-ds_zmumu = make_ds(_samples["zmumu"])
 ds_ztautau = make_ds(_samples["ztautau"])
 ds_bphys = make_ds(_samples["bphys"])
+
+# Turns out the muon events don't all have a primary vertex, which is
+# required to do overlap removal. So for now we'll turn that off until
+# we understand what the proper thing to do here is.
+ds_zmumu = calib_tools.query_update(
+    make_ds(_samples["zmumu"]),
+    perform_overlap_removal=False
+)
 
 # To demonstrate some features of jets, we need an older R21 sample (which contains
 # topo clusters). Default calibration is different for this guy.
