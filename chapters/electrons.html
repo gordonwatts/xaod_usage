@@ -139,11 +139,6 @@
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="tracks.html">
-   The Track Collection
-  </a>
- </li>
- <li class="toctree-l1">
   <a class="reference internal" href="taus.html">
    The Tau Collections
   </a>
@@ -154,6 +149,11 @@
    <span class="math notranslate nohighlight">
     \(E_T\)
    </span>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="tracks.html">
+   The Track Collection
   </a>
  </li>
  <li class="toctree-l1">
@@ -403,7 +403,7 @@ Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. P
 </div>
 </div>
 <div class="section" id="electron-types">
-<h2>Electron Types<a class="headerlink" href="#electron-types" title="Permalink to this headline">¶</a></h2>
+<span id="sec-ele-wp"></span><h2>Electron Types<a class="headerlink" href="#electron-types" title="Permalink to this headline">¶</a></h2>
 <p>Electrons come in several different flavors. We can look at the different <span class="math notranslate nohighlight">\(\eta\)</span> distributions for the electrons. Isolation is another axis we can alter, not shown here, by changing the <code class="docutils literal notranslate"><span class="pre">electron_isolation</span></code> argument to <code class="docutils literal notranslate"><span class="pre">Electrons</span></code>.</p>
 <p>In the <a class="reference internal" href="calibration.html#ch-calibration"><span class="std std-ref">calibration</span></a> chapter we pointed out we can’t run multiple queries with different object setups due to limitations in the xAOD AnalysisBase when looking at calibrated objects. So we’ll have to do this in three queries instead. Also, we’ll have them run in parallel to improve efficiency a bit.</p>
 <div class="cell docutils container">

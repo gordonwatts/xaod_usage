@@ -54,7 +54,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Missing \(E_T\)" href="met.html" />
-    <link rel="prev" title="The Track Collection" href="tracks.html" />
+    <link rel="prev" title="The Muon Collection" href="muons.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -138,11 +138,6 @@
    The Muon Collection
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="tracks.html">
-   The Track Collection
-  </a>
- </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    The Tau Collections
@@ -154,6 +149,11 @@
    <span class="math notranslate nohighlight">
     \(E_T\)
    </span>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="tracks.html">
+   The Track Collection
   </a>
  </li>
  <li class="toctree-l1">
@@ -345,18 +345,20 @@
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="the-tau-collections">
 <h1>The Tau Collections<a class="headerlink" href="#the-tau-collections" title="Permalink to this headline">¶</a></h1>
-<p>Taus are complex jet-like objects that are reconstructed with their own algorithms.</p>
+<p>Taus are complex jet-like objects that are reconstructed and calibrated with their own algorithms. They are a lot like jets, from a data model point-of-view.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">config</span> <span class="kn">import</span> <span class="n">ds_ztautau</span> <span class="k">as</span> <span class="n">ds</span>
 <span class="kn">import</span> <span class="nn">awkward</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="kn">from</span> <span class="nn">func_adl_servicex_xaodr21</span> <span class="kn">import</span> <span class="n">calib_tools</span>
 <span class="kn">from</span> <span class="nn">helpers</span> <span class="kn">import</span> <span class="n">match_objects</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
+Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
 Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
 Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
 Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
@@ -368,9 +370,13 @@ Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. P
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">taus</span> <span class="o">=</span> <span class="p">(</span><span class="n">ds</span>
-        <span class="o">.</span><span class="n">SelectMany</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">TauJets</span><span class="p">(</span><span class="s2">&quot;TauJets&quot;</span><span class="p">))</span>
-        <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">)</span>
-        <span class="o">.</span><span class="n">AsAwkwardArray</span><span class="p">(</span><span class="s1">&#39;tau_pt&#39;</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">TauJets</span><span class="p">())</span>
+        <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">ts</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;pt&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span><span class="o">/</span><span class="mf">1000.0</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">ts</span><span class="p">],</span>
+            <span class="s1">&#39;eta&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">eta</span><span class="p">()</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">ts</span><span class="p">],</span>
+            <span class="s1">&#39;phi&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">phi</span><span class="p">()</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">ts</span><span class="p">],</span>
+        <span class="p">})</span>
+        <span class="o">.</span><span class="n">AsAwkwardArray</span><span class="p">()</span>
         <span class="o">.</span><span class="n">value</span><span class="p">())</span>
 </pre></div>
 </div>
@@ -378,7 +384,7 @@ Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. P
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">taus</span><span class="o">.</span><span class="n">tau_pt</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">ak</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">taus</span><span class="o">.</span><span class="n">pt</span><span class="p">),</span> <span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Tau $p_T$ [GeV]&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Number of Taus&#39;</span><span class="p">)</span>
 <span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Tau $p_T$ distribution for $Z</span><span class="se">\\</span><span class="s1">rightarrow </span><span class="se">\\</span><span class="s1">tau </span><span class="se">\\</span><span class="s1">tau$ events&#39;</span><span class="p">)</span>
@@ -391,36 +397,16 @@ Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. P
 </div>
 <div class="section" id="calibration">
 <h2>Calibration<a class="headerlink" href="#calibration" title="Permalink to this headline">¶</a></h2>
-<p>By default the taus we pulled from above are calibrated, and the best central value for the tau collection you request is returned. This section shows you how to:</p>
-<ul class="simple">
-<li><p>Pull out the raw, uncalibrated taus</p></li>
-<li><p>How to get a particular systematic variation</p></li>
-</ul>
-<p>Because we want to do a comparison, and the tau corrections change the number of tau jets, we will need to do tau matching in <span class="math notranslate nohighlight">\(\eta-\phi\)</span> space. Lets get the default calibration with eta and phi:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">taus</span> <span class="o">=</span> <span class="p">(</span><span class="n">ds</span>
-        <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">TauJets</span><span class="p">(</span><span class="s2">&quot;TauJets&quot;</span><span class="p">))</span>
-        <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">taus</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s1">&#39;pt&#39;</span><span class="p">:</span> <span class="n">taus</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">),</span>
-            <span class="s1">&#39;eta&#39;</span><span class="p">:</span> <span class="n">taus</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">eta</span><span class="p">()),</span>
-            <span class="s1">&#39;phi&#39;</span><span class="p">:</span> <span class="n">taus</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">phi</span><span class="p">()),</span>
-        <span class="p">})</span>
-        <span class="o">.</span><span class="n">AsAwkwardArray</span><span class="p">()</span>
-        <span class="o">.</span><span class="n">value</span><span class="p">())</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>To grab the raw jets (without calibration) we just set the <code class="docutils literal notranslate"><span class="pre">calibrated</span></code> parameter to <code class="docutils literal notranslate"><span class="pre">None</span></code> (there is very little reason one will do this normally):</p>
+<p>By default the taus we pulled from above are calibrated, and the best central value for the tau collection you request is returned. We use the standard approach to get both uncalibrated versions of the collection and systematic error variations.</p>
+<p>To grab the raw jets (without calibration) we just set the <code class="docutils literal notranslate"><span class="pre">uncalibrated_collection</span></code> parameter to <code class="docutils literal notranslate"><span class="pre">TauJets</span></code> (there is very little reason one will do this normally):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">raw_taus</span> <span class="o">=</span> <span class="p">(</span><span class="n">ds</span>
-            <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">TauJets</span><span class="p">(</span><span class="s2">&quot;TauJets&quot;</span><span class="p">,</span> <span class="n">calibration</span><span class="o">=</span><span class="kc">None</span><span class="p">))</span>
-            <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">taus</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s1">&#39;pt&#39;</span><span class="p">:</span> <span class="n">taus</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">),</span>
-                <span class="s1">&#39;eta&#39;</span><span class="p">:</span> <span class="n">taus</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">eta</span><span class="p">()),</span>
-                <span class="s1">&#39;phi&#39;</span><span class="p">:</span> <span class="n">taus</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">phi</span><span class="p">()),</span>
+            <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">TauJets</span><span class="p">(</span><span class="n">uncalibrated_collection</span><span class="o">=</span><span class="s2">&quot;TauJets&quot;</span><span class="p">))</span>
+            <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">ts</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;pt&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span><span class="o">/</span><span class="mf">1000.0</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">ts</span><span class="p">],</span>
+                <span class="s1">&#39;eta&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">eta</span><span class="p">()</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">ts</span><span class="p">],</span>
+                <span class="s1">&#39;phi&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">phi</span><span class="p">()</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">ts</span><span class="p">],</span>
             <span class="p">})</span>
             <span class="o">.</span><span class="n">AsAwkwardArray</span><span class="p">()</span>
             <span class="o">.</span><span class="n">value</span><span class="p">())</span>
@@ -438,7 +424,7 @@ Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. P
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">ak</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">taus</span><span class="o">.</span><span class="n">pt</span><span class="o">-</span><span class="n">raw_taus_matched</span><span class="o">.</span><span class="n">pt</span><span class="p">)</span><span class="o">/</span><span class="mf">1000.0</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">ak</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">taus</span><span class="o">.</span><span class="n">pt</span><span class="o">-</span><span class="n">raw_taus_matched</span><span class="o">.</span><span class="n">pt</span><span class="p">),</span> <span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$\Delta p_T$ for calibrated taus matched to their raw taus [GeV]&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Number of Taus&#39;</span><span class="p">)</span>
 <span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;The effect of tau calibration on tau $p_T$ in $Z</span><span class="se">\\</span><span class="s1">rightarrow </span><span class="se">\\</span><span class="s1">tau</span><span class="se">\\</span><span class="s1">tau$ events&#39;</span><span class="p">)</span>
@@ -446,19 +432,19 @@ Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. P
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/taus_11_0.png" src="../_images/taus_11_0.png" />
+<img alt="../_images/taus_10_0.png" src="../_images/taus_10_0.png" />
 </div>
 </div>
 <p>If we instead want a particular systematic error, we need only name that error to get it back. Knowing what the names of the systematic errors, however, is not something that can be programmatically determined ahead of time. See the further information section at the end of this chapter to links to the ATLAS jet calibration info twiki.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sys_taus</span> <span class="o">=</span> <span class="p">(</span><span class="n">ds</span>
-           <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">TauJets</span><span class="p">(</span><span class="s2">&quot;TauJets&quot;</span><span class="p">,</span> <span class="n">calibration</span><span class="o">=</span><span class="s2">&quot;TAUS_TRUEHADTAU_SME_TES_DETECTOR__1up&quot;</span><span class="p">))</span>
-           <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">taus</span><span class="p">:</span> <span class="p">{</span>
-               <span class="s1">&#39;pt&#39;</span><span class="p">:</span> <span class="n">taus</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">),</span>
-               <span class="s1">&#39;eta&#39;</span><span class="p">:</span> <span class="n">taus</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">eta</span><span class="p">()),</span>
-               <span class="s1">&#39;phi&#39;</span><span class="p">:</span> <span class="n">taus</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">phi</span><span class="p">()),</span>
-            <span class="p">})</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sys_taus</span> <span class="o">=</span> <span class="p">(</span><span class="n">calib_tools</span><span class="o">.</span><span class="n">query_sys_error</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="s1">&#39;TAUS_TRUEHADTAU_SME_TES_DETECTOR__1up&#39;</span><span class="p">)</span>
+           <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">TauJets</span><span class="p">())</span>
+           <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">ts</span><span class="p">:</span> <span class="p">{</span>
+               <span class="s1">&#39;pt&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span><span class="o">/</span><span class="mf">1000.0</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">ts</span><span class="p">],</span>
+               <span class="s1">&#39;eta&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">eta</span><span class="p">()</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">ts</span><span class="p">],</span>
+               <span class="s1">&#39;phi&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">phi</span><span class="p">()</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">ts</span><span class="p">],</span>
+           <span class="p">})</span>
            <span class="o">.</span><span class="n">AsAwkwardArray</span><span class="p">()</span>
            <span class="o">.</span><span class="n">value</span><span class="p">())</span>
 </pre></div>
@@ -474,16 +460,16 @@ Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. P
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">ak</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">taus</span><span class="o">.</span><span class="n">pt</span><span class="o">-</span><span class="n">sys_taus_matched</span><span class="o">.</span><span class="n">pt</span><span class="p">)</span><span class="o">/</span><span class="mf">1000.0</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$\Delta p_T$ for calibrated taus matched to their $\phi-\eta$ raw taus [GeV]&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">ak</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">taus</span><span class="o">.</span><span class="n">pt</span><span class="o">-</span><span class="n">sys_taus_matched</span><span class="o">.</span><span class="n">pt</span><span class="p">),</span> <span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\Delta p_T$ for calibrated taus matched to their $\phi-\eta$ raw taus [GeV]&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Number of Taus&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
-<span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;The effect of a tau calibration sys error on tau $p_T$ in $Z</span><span class="se">\\</span><span class="s1">rightarrow </span><span class="se">\\</span><span class="s1">tau</span><span class="se">\\</span><span class="s1">tau$ events&#39;</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;The effect of a tau calibration sys error on tau $p_T$ in $Z\rightarrow \tau\tau$ events&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/taus_15_0.png" src="../_images/taus_15_0.png" />
+<img alt="../_images/taus_14_0.png" src="../_images/taus_14_0.png" />
 </div>
 </div>
 </div>
@@ -800,6 +786,15 @@ class TauJet_v3(builtins.object)
  |      A method
  |  
  |  ----------------------------------------------------------------------
+ |  Readonly properties defined here:
+ |  
+ |  auxdataConst
+ |      A method
+ |  
+ |  isAvailable
+ |      A method
+ |  
+ |  ----------------------------------------------------------------------
  |  Data descriptors defined here:
  |  
  |  __dict__
@@ -851,11 +846,11 @@ class TauJet_v3(builtins.object)
 <div class='prev-next-bottom'>
     
     <div id="prev">
-        <a class="left-prev" href="tracks.html" title="previous page">
+        <a class="left-prev" href="muons.html" title="previous page">
             <i class="prevnext-label fas fa-angle-left"></i>
             <div class="prevnext-info">
                 <p class="prevnext-label">previous</p>
-                <p class="prevnext-title">The Track Collection</p>
+                <p class="prevnext-title">The Muon Collection</p>
             </div>
         </a>
     </div>
