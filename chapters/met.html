@@ -345,12 +345,13 @@
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="missing-e-t">
 <h1>Missing <span class="math notranslate nohighlight">\(E_T\)</span><a class="headerlink" href="#missing-e-t" title="Permalink to this headline">¶</a></h1>
-<p>The missing energy is, from a technical point of view, funny in two respects:</p>
+<p>The missing energy is the last of the calibrated collections we will discuss. And, from a technical point of view, different from the other calibrated objects we’ve discussed in several respects:</p>
 <ul class="simple">
 <li><p>It depends on pretty much all other objects in the event. So if you apply a correction to another object, you are forced to recalculate the Missing <span class="math notranslate nohighlight">\(E_T\)</span>.</p></li>
 <li><p>It is stored as a collection of Missing <span class="math notranslate nohighlight">\(E_T\)</span> objects. There are a number of different Missing <span class="math notranslate nohighlight">\(E_T\)</span> types in a typical <code class="docutils literal notranslate"><span class="pre">DAOD_PHYS</span></code> file. As this was written, one could fine <code class="docutils literal notranslate"><span class="pre">MET_Truth</span></code>, <code class="docutils literal notranslate"><span class="pre">MET_Track</span></code>, <code class="docutils literal notranslate"><span class="pre">MET_Core_AntiKt4EMTopo</span></code>, and <code class="docutils literal notranslate"><span class="pre">MET_Core_AntiKt4EMPFlow</span></code>.</p></li>
-<li><p>The MET group basically says not to use the MET that is in the event, rather, rebuild it on the fly with your object selections to keep it consistent. This framework is not capable of that at the moment (see below).</p></li>
+<li><p>That missing <span class="math notranslate nohighlight">\(E_T\)</span> stored in the event is not usable. It is called the <em>Core</em> missing <span class="math notranslate nohighlight">\(E_T\)</span>. An algorithm must be run to reconstruct the real event missing <span class="math notranslate nohighlight">\(E_T\)</span> in order to make this work.</p></li>
 </ul>
+<p>Thus, the ServiceX backend must build the missing <span class="math notranslate nohighlight">\(E_T\)</span> tools to build a proper missing <span class="math notranslate nohighlight">\(E_T\)</span> before use.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -358,12 +359,21 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
+Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
+Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
+Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
+Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
+</pre></div>
 </div>
-<p>We grab the first Missing <span class="math notranslate nohighlight">\(E_T\)</span> item in the collection, as is usual for the <code class="docutils literal notranslate"><span class="pre">MET_Truth</span></code> bank here. Since <code class="docutils literal notranslate"><span class="pre">func_adl</span></code> works in terms of sequences, not arrays, we do this by picking off the <code class="docutils literal notranslate"><span class="pre">First</span></code> item.</p>
+</div>
+</div>
+<p>To grab the corrected missing <span class="math notranslate nohighlight">\(E_T\)</span> value we use the <code class="docutils literal notranslate"><span class="pre">.First()</span></code> <code class="docutils literal notranslate"><span class="pre">func_adl</span></code> predicate as below.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">events</span> <span class="o">=</span> <span class="p">(</span><span class="n">ds</span>
-          <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">MissingET</span><span class="p">(</span><span class="s2">&quot;MET_Core_AntiKt4EMPFlow&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">First</span><span class="p">()</span><span class="o">.</span><span class="n">met</span><span class="p">()</span><span class="o">/</span><span class="mf">1000.0</span><span class="p">)</span>
+          <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">MissingET</span><span class="p">()</span><span class="o">.</span><span class="n">First</span><span class="p">()</span><span class="o">.</span><span class="n">met</span><span class="p">()</span><span class="o">/</span><span class="mf">1000.0</span><span class="p">)</span>
           <span class="o">.</span><span class="n">AsAwkwardArray</span><span class="p">(</span><span class="s1">&#39;met&#39;</span><span class="p">)</span>
           <span class="o">.</span><span class="n">value</span><span class="p">())</span>
 </pre></div>
@@ -376,7 +386,7 @@
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Missing $E_T$ [GeV]&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Number of events&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
-<span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Truth Missing $E_T$ distribution for $Z</span><span class="se">\\</span><span class="s1">rightarrow ee$ events&#39;</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Truth Missing $E_T$ distribution for $Z\rightarrow ee$ events&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -386,7 +396,7 @@
 </div>
 <div class="section" id="rebuilding-met">
 <h2>Rebuilding MET<a class="headerlink" href="#rebuilding-met" title="Permalink to this headline">¶</a></h2>
-<p>This is not yet supported. Please see this <a class="reference external" href="https://github.com/gordonwatts/xaod_usage/issues/5">github issue</a> for a discussion. It basically comes down to - what is a sensible way to do this without making it too “magic”.</p>
+<p>Only the default Missing <span class="math notranslate nohighlight">\(E_T\)</span> is currently supported (built using the proper core for the jet collection you’ve used, and jets, electrons, and muons as input to the algorithm). Different missing <span class="math notranslate nohighlight">\(E_T\)</span> calculations are not yet simply supported. Please see this <a class="reference external" href="https://github.com/gordonwatts/xaod_usage/issues/5">github issue</a> for a discussion. It basically comes down to - what is a sensible way to do this without making it too “magic”. Before designing an API a number of use cases need to be collected.</p>
 </div>
 <div class="section" id="the-datamodel">
 <h2>The Datamodel<a class="headerlink" href="#the-datamodel" title="Permalink to this headline">¶</a></h2>
@@ -427,6 +437,9 @@ class MissingET_v1(builtins.object)
  |  mpy(self) -&gt; &#39;float&#39;
  |      A method
  |  
+ |  name(self) -&gt; &#39;func_adl_servicex_xaodr21.str.str&#39;
+ |      A method
+ |  
  |  nameHash(self) -&gt; &#39;int&#39;
  |      A method
  |  
@@ -440,6 +453,15 @@ class MissingET_v1(builtins.object)
  |      A method
  |  
  |  usingStandaloneStore(self) -&gt; &#39;bool&#39;
+ |      A method
+ |  
+ |  ----------------------------------------------------------------------
+ |  Readonly properties defined here:
+ |  
+ |  auxdataConst
+ |      A method
+ |  
+ |  isAvailable
  |      A method
  |  
  |  ----------------------------------------------------------------------
