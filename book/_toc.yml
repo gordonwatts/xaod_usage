@@ -8,7 +8,7 @@ parts:
     chapters:
     - file: chapters/configuration
     - file: chapters/data
-  - caption: The Collections
+  - caption: The Calibrated Collections
     chapters:
     - file: chapters/jets
     - file: chapters/calibration
@@ -16,6 +16,8 @@ parts:
     - file: chapters/muons
     - file: chapters/taus
     - file: chapters/met
+  - caption: Uncalibrated Collections
+    chapters:
     - file: chapters/tracks
     - file: chapters/vertices
     - file: chapters/eventinfo
