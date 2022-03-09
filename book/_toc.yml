@@ -6,20 +6,25 @@ root: intro
 parts:
   - caption: Basics
     chapters:
+    - file: chapters/configuration
     - file: chapters/data
-  - caption: The Collections
+  - caption: The Calibrated Collections
     chapters:
+    - file: chapters/jets
+    - file: chapters/calibration
     - file: chapters/electrons
     - file: chapters/muons
-    - file: chapters/jets
-    - file: chapters/tracks
     - file: chapters/taus
     - file: chapters/met
+  - caption: Uncalibrated Collections
+    chapters:
+    - file: chapters/tracks
     - file: chapters/vertices
     - file: chapters/eventinfo
     - file: chapters/caloclusters
     - file: chapters/trigger
     - file: chapters/truth
+    - file: chapters/xaod_objects
   - caption: Appendices
     chapters:
     - file: appendix/calibrations
