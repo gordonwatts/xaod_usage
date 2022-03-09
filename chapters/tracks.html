@@ -114,10 +114,10 @@
 </ul>
 <p class="caption" role="heading">
  <span class="caption-text">
-  The Collections
+  The Calibrated Collections
  </span>
 </p>
-<ul class="current nav bd-sidenav">
+<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="jets.html">
    The Jet Collection
@@ -151,6 +151,13 @@
    </span>
   </a>
  </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Uncalibrated Collections
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    The Track Collection
@@ -340,24 +347,27 @@
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="the-track-collection">
 <h1>The Track Collection<a class="headerlink" href="#the-track-collection" title="Permalink to this headline">¶</a></h1>
-<p>Tracks in ATLAS are straight forward - you apply the cuts on your own (or they are done by a derivation). As a result, tracks are simple objects. Note that tracks are hefty objects - a lot of their data is slimmed out, so you’ll get AUX errors when you try to request it!</p>
+<p>This is the first collection of objects in the xAOD event model that does not require any CP calibration code to be executed before accessing it.
+Tracks in ATLAS are straight forward - you apply the cuts on your own (or they are done by a derivation). As a result, tracks are simple objects.</p>
+<p>Note that tracks are hefty objects - and as a result they are often targets of slimming and thinning. The latter is especially problematic as a method on the <code class="docutils literal notranslate"><span class="pre">Track</span></code> object will fail with an AUX error - because the data backing it is not actually present in the file.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">func_adl_servicex_xaodr21</span> <span class="kn">import</span> <span class="n">SXDSAtlasxAODR21</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">config</span> <span class="kn">import</span> <span class="n">ds</span>
-<span class="kn">import</span> <span class="nn">awkward</span> <span class="k">as</span> <span class="nn">ak</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">config</span> <span class="kn">import</span> <span class="n">ds_zee</span> <span class="k">as</span> <span class="n">ds</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
+Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
+Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
+Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
+Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
 </pre></div>
 </div>
 </div>
 </div>
-<p>Fetch all the inner detector tracks and plot their <span class="math notranslate nohighlight">\(p_T\)</span> and the radius of the first hit on the tracks.</p>
+<p>Fetch all the inner detector tracks and plot their <span class="math notranslate nohighlight">\(p_T\)</span> and the radius of the first hit on the tracks. Note that unlike the calibrated objects, you must supply the name of the track collection to the <code class="docutils literal notranslate"><span class="pre">TrackParticles</span></code> call. There is no default.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tracks</span> <span class="o">=</span> <span class="p">(</span><span class="n">ds</span>
@@ -402,9 +412,6 @@ class TrackParticle_v1(builtins.object)
  |  A class
  |  
  |  Methods defined here:
- |  
- |  TrackParticle_v1(self) -&gt; &#39;func_adl_servicex_xaodr21.xAOD.trackparticle_v1.TrackParticle_v1&#39;
- |      A method
  |  
  |  beamlineTiltX(self) -&gt; &#39;float&#39;
  |      A method
@@ -518,6 +525,15 @@ class TrackParticle_v1(builtins.object)
  |      A method
  |  
  |  z0(self) -&gt; &#39;float&#39;
+ |      A method
+ |  
+ |  ----------------------------------------------------------------------
+ |  Readonly properties defined here:
+ |  
+ |  auxdataConst
+ |      A method
+ |  
+ |  isAvailable
  |      A method
  |  
  |  ----------------------------------------------------------------------
