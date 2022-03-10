@@ -20,10 +20,10 @@ parts:
     chapters:
     - file: chapters/tracks
     - file: chapters/vertices
-    - file: chapters/eventinfo
     - file: chapters/caloclusters
     - file: chapters/trigger
     - file: chapters/truth
+    - file: chapters/eventinfo
     - file: chapters/xaod_objects
   - caption: Appendices
     chapters:
