@@ -46,3 +46,7 @@ the C++ ATLAS xAOD backend based on the Release 21 of the ATLAS analysis softwar
 be defined in your `servicex.yaml` or `.servicex` file in your `$HOME` directory.
 
 See the chapter on [configuration](ch-configuration) for more information.
+
+## Improvements
+
+The source code for this book can be found in the [xaod_usage](https://github.com/gordonwatts/xaod_usage) github repository. Please feel free to submit a pull request or create an issue for new things that are needed!
