@@ -71,6 +71,7 @@ class xAODLocalTyped(SXLocalxAOD[Event]):
 use_local = True
 
 
+
 def make_ds(s: sample):
     """Create the a datasample, local or remote, as requested.
 
