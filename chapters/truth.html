@@ -53,7 +53,7 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Advanced, Common, Features" href="xaod_objects.html" />
+    <link rel="next" title="Event Info" href="eventinfo.html" />
     <link rel="prev" title="Accessing the Trigger" href="trigger.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -169,11 +169,6 @@
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="eventinfo.html">
-   Event Info
-  </a>
- </li>
- <li class="toctree-l1">
   <a class="reference internal" href="caloclusters.html">
    Calorimeter Clusters Collection
   </a>
@@ -186,6 +181,11 @@
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    The Truth Particles Collection
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="eventinfo.html">
+   Event Info
   </a>
  </li>
  <li class="toctree-l1">
@@ -211,7 +211,7 @@
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../appendix/old_access.html">
+  <a class="reference internal" href="old_access.html">
    Old Collection Access Pattern
   </a>
  </li>
@@ -352,37 +352,32 @@
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="the-truth-particles-collection">
 <h1>The Truth Particles Collection<a class="headerlink" href="#the-truth-particles-collection" title="Permalink to this headline">¶</a></h1>
-<p>The Truth particle collections. This is a little tricky because what is available in an event depends on the sliming algorithms that are applied to the data. The code to access the data is always the same - but the fact that the data is there or not will depend on the file’s processing history.</p>
+<p>The Truth particle collections are rich with information. Unfortunately, they are also a little tricky because what is actually available in an event depends on the sliming algorithms that are applied to the data. The code to access the data is always the same - but the fact that the data is there or not will depend on the file’s processing history. Protecting against that makes our code a bit more complex, as you’ll see below.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">func_adl_servicex_xaodr21</span> <span class="kn">import</span> <span class="n">SXDSAtlasxAODR21</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">config</span> <span class="kn">import</span> <span class="n">rucio_zee_r21_mc</span><span class="p">,</span> <span class="n">xAODLocalTyped</span><span class="p">,</span> <span class="n">local_xaod_path</span>
-<span class="kn">import</span> <span class="nn">awkward</span> <span class="k">as</span> <span class="nn">ak</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">config</span> <span class="kn">import</span> <span class="n">ds_jz2_exot15</span> <span class="k">as</span> <span class="n">ds</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">particle</span> <span class="kn">import</span> <span class="n">Particle</span><span class="p">,</span> <span class="n">ParticleNotFound</span>
+<span class="kn">from</span> <span class="nn">particle</span> <span class="kn">import</span> <span class="n">Particle</span>
 <span class="kn">from</span> <span class="nn">hist</span> <span class="kn">import</span> <span class="n">Hist</span>
 
 <span class="n">pd</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">max_rows</span> <span class="o">=</span> <span class="kc">None</span>
 </pre></div>
 </div>
 </div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#ds = SXDSAtlasxAODR21(rucio_zee_r21_mc, backend=&#39;dev_xaod&#39;)</span>
-<span class="n">ds</span> <span class="o">=</span> <span class="n">xAODLocalTyped</span><span class="p">(</span><span class="n">local_xaod_path</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
 <div class="cell_output docutils container">
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
+Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
+Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
+Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
+Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
 </pre></div>
 </div>
 </div>
 </div>
-<p>Most derivations and the AOD’s contain a connected combination of particles and vertices. We’ll start with particles.</p>
+<p>You’ll note above we are using <code class="docutils literal notranslate"><span class="pre">ds_jz2_exot15</span></code>. This is a Run 2 derivation, and not a <code class="docutils literal notranslate"><span class="pre">DAOD_PHYS</span></code> file. The reason is this has large <code class="docutils literal notranslate"><span class="pre">TruthParticles</span></code> and <code class="docutils literal notranslate"><span class="pre">TruthVertices</span></code> collections. <code class="docutils literal notranslate"><span class="pre">DAOD_PHYS</span></code> has <code class="docutils literal notranslate"><span class="pre">TruthParticles</span></code> collections, but only for select particles (<code class="docutils literal notranslate"><span class="pre">TruthBottom</span></code>, <code class="docutils literal notranslate"><span class="pre">TruthTop</span></code>, <code class="docutils literal notranslate"><span class="pre">TruthBSM</span></code>, for example). To demonstrate moving between particles and vertices we wanted something more complex to demonstrate.</p>
+<p>We’ll start with particles.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">all_particles</span> <span class="o">=</span> <span class="p">(</span><span class="n">ds</span>
@@ -400,10 +395,10 @@
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">all_particles</span><span class="o">.</span><span class="n">pt</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">all_particles</span><span class="o">.</span><span class="n">pt</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Truth Particle $p_T$ [GeV]&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Number of Particles&#39;</span><span class="p">)</span>
-<span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Truth Particle $p_T$ distribution for $Z</span><span class="se">\\</span><span class="s1">rightarrow ee$ events&#39;</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Truth Particle $p_T$ distribution for $Z\rightarrow ee$ events&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -411,7 +406,7 @@
 <img alt="../_images/truth_5_0.png" src="../_images/truth_5_0.png" />
 </div>
 </div>
-<p>A very quick look at the pdgid’s that we have in the data we are looking at. Note that we already applied <code class="docutils literal notranslate"><span class="pre">abs</span></code> to the <code class="docutils literal notranslate"><span class="pre">pdgID</span></code> to make this list more understandable. We’ll use the amazing <a class="reference external" href="https://pypi.org/project/particle/">particle</a> pypi package to get particle names. One thing is there are a few particles that aren’t in the database, so we need to wrap things before we display them.</p>
+<p>Lets take a very quick look at the pdgid’s that we have in the data we are looking at. Note that we already applied, above, <code class="docutils literal notranslate"><span class="pre">abs</span></code> to the <code class="docutils literal notranslate"><span class="pre">pdgID</span></code> to make this list more compact. We’ll use the amazing <a class="reference external" href="https://pypi.org/project/particle/">particle</a> pypi package to get particle names. One thing is there are a few particles that aren’t in the database, so we need to protect that lookup during the lookup. Note that it is possible to create ones own named particles and add them - so this could be done in one’s own analysis if desired.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_pdg_name</span><span class="p">(</span><span class="n">pdgid</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
@@ -421,8 +416,10 @@
     <span class="k">try</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">Particle</span><span class="o">.</span><span class="n">from_pdgid</span><span class="p">(</span><span class="n">pdgid</span><span class="p">)</span><span class="o">.</span><span class="n">name</span>
     <span class="k">except</span><span class="p">:</span>
+        <span class="c1"># Protect against unknown particle id&#39;s</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;Unknown: </span><span class="si">{</span><span class="n">pdgid</span><span class="si">}</span><span class="s1">&#39;</span>
 
+<span class="c1"># Use a pandas DataFrame to make displaying a table of particles easy.</span>
 <span class="n">unique</span><span class="p">,</span> <span class="n">counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">all_particles</span><span class="o">.</span><span class="n">pdgId</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;PDGId&#39;</span> <span class="p">:</span> <span class="n">unique</span><span class="p">,</span> <span class="s1">&#39;Count&#39;</span><span class="p">:</span> <span class="n">counts</span><span class="p">,</span> <span class="s1">&#39;Name&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">get_pdg_name</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">unique</span><span class="p">]</span> <span class="p">})</span>
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;PDGId&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;PDGId&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
@@ -456,597 +453,429 @@
   </thead>
   <tbody>
     <tr>
-      <th>59</th>
+      <th>53</th>
+      <td>1103</td>
+      <td>122</td>
+      <td>(dd)(1)</td>
+    </tr>
+    <tr>
+      <th>55</th>
       <td>2101</td>
-      <td>3060</td>
+      <td>5482</td>
       <td>(ud)(0)</td>
     </tr>
     <tr>
-      <th>60</th>
+      <th>56</th>
       <td>2103</td>
-      <td>1095</td>
+      <td>1962</td>
       <td>(ud)(1)</td>
     </tr>
     <tr>
-      <th>63</th>
+      <th>59</th>
       <td>2203</td>
-      <td>1990</td>
+      <td>3528</td>
       <td>(uu)(1)</td>
     </tr>
     <tr>
-      <th>51</th>
+      <th>49</th>
       <td>533</td>
-      <td>2343</td>
+      <td>322</td>
       <td>B(s)*0</td>
     </tr>
     <tr>
-      <th>50</th>
+      <th>48</th>
       <td>531</td>
-      <td>5119</td>
+      <td>656</td>
       <td>B(s)0</td>
     </tr>
     <tr>
-      <th>49</th>
+      <th>47</th>
       <td>523</td>
-      <td>10792</td>
+      <td>1354</td>
       <td>B*+</td>
     </tr>
     <tr>
-      <th>47</th>
+      <th>45</th>
       <td>513</td>
-      <td>10700</td>
+      <td>1368</td>
       <td>B*0</td>
     </tr>
     <tr>
-      <th>48</th>
+      <th>46</th>
       <td>521</td>
-      <td>15562</td>
+      <td>2034</td>
       <td>B+</td>
     </tr>
     <tr>
-      <th>46</th>
+      <th>44</th>
       <td>511</td>
-      <td>18539</td>
+      <td>2280</td>
       <td>B0</td>
     </tr>
     <tr>
-      <th>129</th>
-      <td>10411</td>
-      <td>112</td>
-      <td>D(0)*(2300)+</td>
-    </tr>
-    <tr>
-      <th>131</th>
-      <td>10421</td>
-      <td>181</td>
-      <td>D(0)*(2300)0</td>
-    </tr>
-    <tr>
-      <th>130</th>
-      <td>10413</td>
-      <td>351</td>
-      <td>D(1)(2420)+</td>
-    </tr>
-    <tr>
-      <th>132</th>
-      <td>10423</td>
-      <td>306</td>
-      <td>D(1)(2420)0</td>
-    </tr>
-    <tr>
-      <th>146</th>
-      <td>20423</td>
-      <td>167</td>
-      <td>D(1)(2430)0</td>
-    </tr>
-    <tr>
-      <th>36</th>
-      <td>415</td>
-      <td>307</td>
-      <td>D(2)*(2460)+</td>
-    </tr>
-    <tr>
       <th>39</th>
-      <td>425</td>
-      <td>362</td>
-      <td>D(2)*(2460)0</td>
-    </tr>
-    <tr>
-      <th>41</th>
       <td>433</td>
-      <td>4160</td>
+      <td>1356</td>
       <td>D(s)*+</td>
     </tr>
     <tr>
-      <th>40</th>
+      <th>38</th>
       <td>431</td>
-      <td>7599</td>
+      <td>2787</td>
       <td>D(s)+</td>
     </tr>
     <tr>
-      <th>133</th>
-      <td>10431</td>
-      <td>116</td>
-      <td>D(s0)*(2317)+</td>
-    </tr>
-    <tr>
-      <th>147</th>
-      <td>20433</td>
-      <td>480</td>
-      <td>D(s1)(2460)+</td>
-    </tr>
-    <tr>
-      <th>134</th>
-      <td>10433</td>
-      <td>101</td>
-      <td>D(s1)(2536)+</td>
-    </tr>
-    <tr>
-      <th>38</th>
+      <th>36</th>
       <td>423</td>
-      <td>11293</td>
+      <td>5317</td>
       <td>D*(2007)0</td>
     </tr>
     <tr>
-      <th>35</th>
+      <th>33</th>
       <td>413</td>
-      <td>11741</td>
+      <td>5419</td>
       <td>D*(2010)+</td>
     </tr>
     <tr>
-      <th>34</th>
+      <th>32</th>
       <td>411</td>
-      <td>13545</td>
+      <td>7342</td>
       <td>D+</td>
     </tr>
     <tr>
-      <th>37</th>
+      <th>35</th>
       <td>421</td>
-      <td>28608</td>
+      <td>14426</td>
       <td>D0</td>
     </tr>
     <tr>
-      <th>65</th>
+      <th>61</th>
       <td>2214</td>
-      <td>9201</td>
+      <td>19896</td>
       <td>Delta(1232)+</td>
     </tr>
     <tr>
-      <th>66</th>
+      <th>62</th>
       <td>2224</td>
-      <td>8835</td>
+      <td>20119</td>
       <td>Delta(1232)++</td>
     </tr>
     <tr>
-      <th>58</th>
+      <th>54</th>
       <td>1114</td>
-      <td>8232</td>
+      <td>19305</td>
       <td>Delta(1232)-</td>
     </tr>
     <tr>
-      <th>62</th>
+      <th>58</th>
       <td>2114</td>
-      <td>8866</td>
+      <td>20022</td>
       <td>Delta(1232)0</td>
     </tr>
     <tr>
-      <th>13</th>
-      <td>25</td>
-      <td>63914</td>
-      <td>H0</td>
-    </tr>
-    <tr>
-      <th>167</th>
+      <th>152</th>
       <td>1000020040</td>
-      <td>175</td>
+      <td>443</td>
       <td>He4</td>
     </tr>
     <tr>
-      <th>44</th>
-      <td>443</td>
-      <td>502</td>
-      <td>J/psi(1S)</td>
-    </tr>
-    <tr>
-      <th>124</th>
-      <td>10311</td>
-      <td>149</td>
-      <td>K(0)*(1430)0</td>
-    </tr>
-    <tr>
-      <th>127</th>
+      <th>117</th>
       <td>10323</td>
-      <td>442</td>
+      <td>192</td>
       <td>K(1)(1270)+</td>
     </tr>
     <tr>
-      <th>125</th>
+      <th>116</th>
       <td>10313</td>
-      <td>323</td>
+      <td>126</td>
       <td>K(1)(1270)0</td>
     </tr>
     <tr>
-      <th>142</th>
+      <th>127</th>
       <td>20313</td>
-      <td>714</td>
+      <td>336</td>
       <td>K(1)(1400)0</td>
     </tr>
     <tr>
-      <th>17</th>
+      <th>15</th>
       <td>130</td>
-      <td>44939</td>
+      <td>81985</td>
       <td>K(L)0</td>
     </tr>
     <tr>
-      <th>24</th>
+      <th>22</th>
       <td>310</td>
-      <td>45270</td>
+      <td>83304</td>
       <td>K(S)0</td>
     </tr>
     <tr>
-      <th>29</th>
+      <th>27</th>
       <td>323</td>
-      <td>37597</td>
+      <td>74406</td>
       <td>K*(892)+</td>
     </tr>
     <tr>
-      <th>26</th>
+      <th>24</th>
       <td>313</td>
-      <td>38327</td>
+      <td>74282</td>
       <td>K*(892)0</td>
     </tr>
     <tr>
-      <th>28</th>
+      <th>26</th>
       <td>321</td>
-      <td>91122</td>
+      <td>166932</td>
       <td>K+</td>
     </tr>
     <tr>
-      <th>25</th>
+      <th>23</th>
       <td>311</td>
-      <td>86453</td>
+      <td>158978</td>
       <td>K0</td>
     </tr>
     <tr>
-      <th>14</th>
-      <td>35</td>
-      <td>19997</td>
-      <td>LLP</td>
-    </tr>
-    <tr>
-      <th>71</th>
+      <th>67</th>
       <td>3122</td>
-      <td>21696</td>
+      <td>48704</td>
       <td>Lambda</td>
     </tr>
     <tr>
-      <th>109</th>
+      <th>105</th>
       <td>5122</td>
-      <td>1359</td>
+      <td>197</td>
       <td>Lambda(b)0</td>
     </tr>
     <tr>
-      <th>86</th>
+      <th>83</th>
       <td>4122</td>
-      <td>2624</td>
+      <td>1090</td>
       <td>Lambda(c)+</td>
     </tr>
     <tr>
-      <th>77</th>
+      <th>79</th>
+      <td>3334</td>
+      <td>151</td>
+      <td>Omega-</td>
+    </tr>
+    <tr>
+      <th>73</th>
       <td>3224</td>
-      <td>1928</td>
+      <td>4066</td>
       <td>Sigma(1385)+</td>
     </tr>
     <tr>
-      <th>70</th>
+      <th>66</th>
       <td>3114</td>
-      <td>1730</td>
+      <td>4006</td>
       <td>Sigma(1385)-</td>
     </tr>
     <tr>
-      <th>75</th>
+      <th>71</th>
       <td>3214</td>
-      <td>1884</td>
+      <td>4233</td>
       <td>Sigma(1385)0</td>
     </tr>
     <tr>
-      <th>114</th>
-      <td>5224</td>
-      <td>122</td>
-      <td>Sigma(b)*+</td>
-    </tr>
-    <tr>
-      <th>108</th>
-      <td>5114</td>
-      <td>118</td>
-      <td>Sigma(b)*-</td>
-    </tr>
-    <tr>
-      <th>91</th>
-      <td>4212</td>
-      <td>202</td>
-      <td>Sigma(c)(2455)+</td>
-    </tr>
-    <tr>
-      <th>93</th>
-      <td>4222</td>
-      <td>142</td>
-      <td>Sigma(c)(2455)++</td>
-    </tr>
-    <tr>
-      <th>84</th>
-      <td>4112</td>
-      <td>222</td>
-      <td>Sigma(c)(2455)0</td>
-    </tr>
-    <tr>
-      <th>92</th>
-      <td>4214</td>
-      <td>137</td>
-      <td>Sigma(c)(2520)+</td>
-    </tr>
-    <tr>
-      <th>94</th>
-      <td>4224</td>
-      <td>106</td>
-      <td>Sigma(c)(2520)++</td>
-    </tr>
-    <tr>
-      <th>85</th>
-      <td>4114</td>
-      <td>203</td>
-      <td>Sigma(c)(2520)0</td>
-    </tr>
-    <tr>
-      <th>76</th>
+      <th>72</th>
       <td>3222</td>
-      <td>7010</td>
+      <td>15515</td>
       <td>Sigma+</td>
     </tr>
     <tr>
-      <th>69</th>
+      <th>65</th>
       <td>3112</td>
-      <td>6468</td>
+      <td>15304</td>
       <td>Sigma-</td>
     </tr>
     <tr>
-      <th>74</th>
+      <th>70</th>
       <td>3212</td>
-      <td>7079</td>
+      <td>15699</td>
       <td>Sigma0</td>
     </tr>
     <tr>
-      <th>145</th>
-      <td>20413</td>
-      <td>344</td>
-      <td>Unknown: 20413</td>
+      <th>150</th>
+      <td>1000010030</td>
+      <td>111</td>
+      <td>T3</td>
     </tr>
     <tr>
-      <th>112</th>
-      <td>5214</td>
-      <td>123</td>
-      <td>Unknown: 5214</td>
-    </tr>
-    <tr>
-      <th>80</th>
+      <th>76</th>
       <td>3314</td>
-      <td>311</td>
+      <td>792</td>
       <td>Xi(1530)-</td>
     </tr>
     <tr>
-      <th>82</th>
+      <th>78</th>
       <td>3324</td>
-      <td>380</td>
+      <td>727</td>
       <td>Xi(1530)0</td>
     </tr>
     <tr>
-      <th>110</th>
-      <td>5132</td>
-      <td>177</td>
-      <td>Xi(b)-</td>
-    </tr>
-    <tr>
-      <th>115</th>
-      <td>5232</td>
-      <td>166</td>
-      <td>Xi(b)0</td>
-    </tr>
-    <tr>
-      <th>95</th>
+      <th>92</th>
       <td>4232</td>
-      <td>253</td>
+      <td>147</td>
       <td>Xi(c)+</td>
     </tr>
     <tr>
-      <th>88</th>
+      <th>85</th>
       <td>4132</td>
-      <td>284</td>
+      <td>141</td>
       <td>Xi(c)0</td>
     </tr>
     <tr>
-      <th>79</th>
+      <th>75</th>
       <td>3312</td>
-      <td>1932</td>
+      <td>4329</td>
       <td>Xi-</td>
     </tr>
     <tr>
-      <th>81</th>
+      <th>77</th>
       <td>3322</td>
-      <td>1945</td>
+      <td>4388</td>
       <td>Xi0</td>
     </tr>
     <tr>
-      <th>140</th>
+      <th>126</th>
       <td>20213</td>
-      <td>3818</td>
+      <td>1597</td>
       <td>a(1)(1260)+</td>
     </tr>
     <tr>
       <th>4</th>
       <td>5</td>
-      <td>129900</td>
+      <td>36911</td>
       <td>b</td>
     </tr>
     <tr>
       <th>3</th>
       <td>4</td>
-      <td>62577</td>
+      <td>131974</td>
       <td>c</td>
-    </tr>
-    <tr>
-      <th>135</th>
-      <td>10441</td>
-      <td>175</td>
-      <td>chi(c0)(1P)</td>
-    </tr>
-    <tr>
-      <th>148</th>
-      <td>20443</td>
-      <td>143</td>
-      <td>chi(c1)(1P)</td>
-    </tr>
-    <tr>
-      <th>45</th>
-      <td>445</td>
-      <td>174</td>
-      <td>chi(c2)(1P)</td>
     </tr>
     <tr>
       <th>0</th>
       <td>1</td>
-      <td>201225</td>
+      <td>508946</td>
       <td>d</td>
     </tr>
     <tr>
       <th>5</th>
       <td>11</td>
-      <td>14989</td>
+      <td>14163</td>
       <td>e-</td>
     </tr>
     <tr>
-      <th>21</th>
+      <th>19</th>
       <td>221</td>
-      <td>46170</td>
+      <td>96764</td>
       <td>eta</td>
     </tr>
     <tr>
-      <th>31</th>
+      <th>29</th>
       <td>331</td>
-      <td>9387</td>
+      <td>17046</td>
       <td>eta'(958)</td>
-    </tr>
-    <tr>
-      <th>43</th>
-      <td>441</td>
-      <td>225</td>
-      <td>eta(c)(1S)</td>
     </tr>
     <tr>
       <th>11</th>
       <td>21</td>
-      <td>3265039</td>
+      <td>7877826</td>
       <td>g</td>
     </tr>
     <tr>
       <th>12</th>
       <td>22</td>
-      <td>220726</td>
+      <td>441201</td>
       <td>gamma</td>
     </tr>
     <tr>
       <th>7</th>
       <td>13</td>
-      <td>7164</td>
+      <td>1529</td>
       <td>mu-</td>
     </tr>
     <tr>
-      <th>61</th>
+      <th>57</th>
       <td>2112</td>
-      <td>54833</td>
+      <td>127744</td>
       <td>n</td>
     </tr>
     <tr>
       <th>6</th>
       <td>12</td>
-      <td>7229</td>
+      <td>1593</td>
       <td>nu(e)</td>
     </tr>
     <tr>
       <th>8</th>
       <td>14</td>
-      <td>6946</td>
+      <td>1439</td>
       <td>nu(mu)</td>
     </tr>
     <tr>
       <th>10</th>
       <td>16</td>
-      <td>4268</td>
+      <td>326</td>
       <td>nu(tau)</td>
     </tr>
     <tr>
-      <th>22</th>
+      <th>20</th>
       <td>223</td>
-      <td>63494</td>
+      <td>139304</td>
       <td>omega(782)</td>
     </tr>
     <tr>
-      <th>64</th>
+      <th>60</th>
       <td>2212</td>
-      <td>55004</td>
+      <td>126499</td>
       <td>p</td>
     </tr>
     <tr>
-      <th>32</th>
+      <th>30</th>
       <td>333</td>
-      <td>6231</td>
+      <td>9885</td>
       <td>phi(1020)</td>
     </tr>
     <tr>
-      <th>18</th>
+      <th>16</th>
       <td>211</td>
-      <td>418301</td>
+      <td>868714</td>
       <td>pi+</td>
     </tr>
     <tr>
-      <th>15</th>
+      <th>13</th>
       <td>111</td>
-      <td>226602</td>
+      <td>462296</td>
       <td>pi0</td>
     </tr>
     <tr>
-      <th>154</th>
-      <td>100443</td>
-      <td>159</td>
-      <td>psi(2S)</td>
-    </tr>
-    <tr>
-      <th>19</th>
+      <th>17</th>
       <td>213</td>
-      <td>130441</td>
+      <td>281609</td>
       <td>rho(770)+</td>
     </tr>
     <tr>
-      <th>16</th>
+      <th>14</th>
       <td>113</td>
-      <td>67353</td>
+      <td>145405</td>
       <td>rho(770)0</td>
     </tr>
     <tr>
       <th>2</th>
       <td>3</td>
-      <td>110782</td>
+      <td>288728</td>
       <td>s</td>
     </tr>
     <tr>
       <th>9</th>
       <td>15</td>
-      <td>4080</td>
+      <td>314</td>
       <td>tau-</td>
     </tr>
     <tr>
       <th>1</th>
       <td>2</td>
-      <td>225978</td>
+      <td>572985</td>
       <td>u</td>
     </tr>
   </tbody>
@@ -1055,10 +884,10 @@
 </div>
 <div class="section" id="truth-vertices">
 <h2>Truth Vertices<a class="headerlink" href="#truth-vertices" title="Permalink to this headline">¶</a></h2>
-<p>We can explore the decay chain a little bit in Truth. Lets look at what <span class="math notranslate nohighlight">\(b\)</span>-quarks decay into, and how far a way from their production they decay. The ATLAS data model has several ways to follow the decay chain. Because we want to understand decay distances, we will need to use the <code class="docutils literal notranslate"><span class="pre">TruthVertex</span></code> object.</p>
+<p>Lets explore the decay chain a bit. Lets look at what <span class="math notranslate nohighlight">\(b\)</span>-quarks hadrons decay into in this sample, and how far a way from their production the hadrons decay. The ATLAS data model has several ways to follow the decay chain. Because we want to understand decay distances, we will need to use the <code class="docutils literal notranslate"><span class="pre">TruthVertex</span></code> object.</p>
 <p>The ATLAS truth data model is, in the world of infinite disk space, quite straight forward. Every <code class="docutils literal notranslate"><span class="pre">TruthParticle</span></code> has a production and a decay <code class="docutils literal notranslate"><span class="pre">TruthVertex</span></code> associated with it. As long as the particle isn’t stable (like an electron). However, in order to keep disk space under control in many cases the children or parent vertices may be missing. This leads us to a number of caveats that have to be encoded in our query:</p>
 <ul class="simple">
-<li><p>In ATLAS particles don’t have to have production or decay vertices. If this is the case, then the link to the production or decay vertex will be a null pointer (at least, in C++). And if you generate code that references it, you’ll get a hard segfault in ServiceX. So, always check to see if the vertex you are interested in exists!</p></li>
+<li><p>In ATLAS, particles don’t have to have production or decay vertices. If this is the case, then the link to the production or decay vertex will be a null pointer (at least, in C++). And if you generate code that references it, you’ll get a hard segfault in ServiceX. So, always check to see if the vertex you are interested in exists!</p></li>
 <li><p><span class="math notranslate nohighlight">\(b\)</span>-quarks can radiate, and thus decay into another <span class="math notranslate nohighlight">\(b\)</span> quark and a <span class="math notranslate nohighlight">\(\gamma\)</span> or similar. We are not interested in those decays.</p></li>
 <li><p>The <span class="math notranslate nohighlight">\(b\)</span>-quark hadronizes almost immediately, of course. So we are really interested in what the thing the <span class="math notranslate nohighlight">\(b\)</span>-quark hadronizes into is.</p></li>
 <li><p>The hadronization isn’t straight forward, due to color strings, etc.</p></li>
@@ -1070,8 +899,9 @@
           <span class="o">.</span><span class="n">SelectMany</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">TruthParticles</span><span class="p">(</span><span class="s2">&quot;TruthParticles&quot;</span><span class="p">))</span>
           <span class="o">.</span><span class="n">Where</span><span class="p">(</span><span class="k">lambda</span> <span class="n">tp</span><span class="p">:</span> <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">tp</span><span class="o">.</span><span class="n">pdgId</span><span class="p">())</span> <span class="o">==</span> <span class="mi">5</span><span class="p">))</span>
           <span class="o">.</span><span class="n">Where</span><span class="p">(</span><span class="k">lambda</span> <span class="n">tp</span><span class="p">:</span> <span class="n">tp</span><span class="o">.</span><span class="n">hasDecayVtx</span><span class="p">())</span>
-          <span class="o">.</span><span class="n">Where</span><span class="p">(</span><span class="k">lambda</span> <span class="n">tp</span><span class="p">:</span> <span class="n">tp</span><span class="o">.</span><span class="n">decayVtx</span><span class="p">()</span><span class="o">.</span><span class="n">outgoingParticleLinks</span><span class="p">()</span><span class="o">.</span><span class="n">Where</span><span class="p">(</span><span class="k">lambda</span> <span class="n">dtp</span><span class="p">:</span> <span class="nb">abs</span><span class="p">(</span><span class="n">dtp</span><span class="o">.</span><span class="n">pdgId</span><span class="p">())</span> <span class="o">==</span> <span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">Count</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+          <span class="o">.</span><span class="n">Where</span><span class="p">(</span><span class="k">lambda</span> <span class="n">tp</span><span class="p">:</span> <span class="n">tp</span><span class="o">.</span><span class="n">decayVtx</span><span class="p">()</span><span class="o">.</span><span class="n">outgoingParticleLinks</span><span class="p">()</span><span class="o">.</span><span class="n">Where</span><span class="p">(</span><span class="k">lambda</span> <span class="n">dtp</span><span class="p">:</span> <span class="n">dtp</span><span class="o">.</span><span class="n">isValid</span><span class="p">())</span><span class="o">.</span><span class="n">Where</span><span class="p">(</span><span class="k">lambda</span> <span class="n">dtp</span><span class="p">:</span> <span class="nb">abs</span><span class="p">(</span><span class="n">dtp</span><span class="o">.</span><span class="n">pdgId</span><span class="p">())</span> <span class="o">==</span> <span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">Count</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
           <span class="o">.</span><span class="n">SelectMany</span><span class="p">(</span><span class="k">lambda</span> <span class="n">tp</span><span class="p">:</span> <span class="n">tp</span><span class="o">.</span><span class="n">decayVtx</span><span class="p">()</span><span class="o">.</span><span class="n">outgoingParticleLinks</span><span class="p">())</span>
+          <span class="o">.</span><span class="n">Where</span><span class="p">(</span><span class="k">lambda</span> <span class="n">tp</span><span class="p">:</span> <span class="n">tp</span><span class="o">.</span><span class="n">isValid</span><span class="p">())</span>
           <span class="o">.</span><span class="n">Where</span><span class="p">(</span><span class="k">lambda</span> <span class="n">tp</span><span class="p">:</span> <span class="n">tp</span><span class="o">.</span><span class="n">hasBottom</span><span class="p">())</span>
           <span class="o">.</span><span class="n">Where</span><span class="p">(</span><span class="k">lambda</span> <span class="n">tp</span><span class="p">:</span> <span class="n">tp</span><span class="o">.</span><span class="n">hasProdVtx</span><span class="p">()</span> <span class="ow">and</span> <span class="n">tp</span><span class="o">.</span><span class="n">hasDecayVtx</span><span class="p">())</span>
 <span class="p">)</span>
@@ -1079,6 +909,11 @@
 </div>
 </div>
 </div>
+<p>Note the protections in this code:</p>
+<ul class="simple">
+<li><p>Use of <code class="docutils literal notranslate"><span class="pre">hasDecayVtx</span></code> and <code class="docutils literal notranslate"><span class="pre">hasProdVtx</span></code> - which tell us if the thing has any vertices at all.</p></li>
+<li><p>Use of <code class="docutils literal notranslate"><span class="pre">isValid</span></code>, which is used against an <code class="docutils literal notranslate"><span class="pre">ElementLink&lt;X&gt;</span></code> object. If a particle has been removed during derivation, then <code class="docutils literal notranslate"><span class="pre">ElementLink</span></code> will point to nothing. <code class="docutils literal notranslate"><span class="pre">isValid</span></code> protects us from trying to follow that dead end link.</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">children</span> <span class="o">=</span> <span class="p">(</span><span class="n">real_children</span>
@@ -1095,6 +930,7 @@
 </div>
 </div>
 </div>
+<p>Dump out the names of all the hadrons. Partly, this is to make sure we got it right!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">unique</span><span class="p">,</span> <span class="n">counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">children</span><span class="o">.</span><span class="n">pdgId</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -1130,153 +966,124 @@
   </thead>
   <tbody>
     <tr>
-      <th>3</th>
-      <td>523</td>
-      <td>19576</td>
-      <td>B*+</td>
-    </tr>
-    <tr>
       <th>1</th>
       <td>513</td>
-      <td>19444</td>
+      <td>1421</td>
       <td>B*0</td>
     </tr>
     <tr>
-      <th>0</th>
-      <td>511</td>
-      <td>8744</td>
-      <td>B0</td>
+      <th>3</th>
+      <td>523</td>
+      <td>1401</td>
+      <td>B*+</td>
     </tr>
     <tr>
       <th>2</th>
       <td>521</td>
-      <td>8639</td>
+      <td>698</td>
       <td>B+</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>511</td>
+      <td>599</td>
+      <td>B0</td>
     </tr>
     <tr>
       <th>5</th>
       <td>533</td>
-      <td>4208</td>
+      <td>336</td>
       <td>B(s)*0</td>
     </tr>
     <tr>
       <th>4</th>
       <td>531</td>
-      <td>1955</td>
+      <td>123</td>
       <td>B(s)0</td>
     </tr>
     <tr>
-      <th>11</th>
+      <th>9</th>
       <td>5122</td>
-      <td>1533</td>
+      <td>110</td>
       <td>Lambda(b)0</td>
     </tr>
     <tr>
       <th>12</th>
-      <td>5132</td>
-      <td>266</td>
-      <td>Xi(b)-</td>
-    </tr>
-    <tr>
-      <th>17</th>
-      <td>5232</td>
-      <td>242</td>
-      <td>Xi(b)0</td>
-    </tr>
-    <tr>
-      <th>16</th>
-      <td>5224</td>
-      <td>228</td>
-      <td>Sigma(b)*+</td>
-    </tr>
-    <tr>
-      <th>14</th>
       <td>5214</td>
-      <td>221</td>
+      <td>27</td>
       <td>Unknown: 5214</td>
     </tr>
     <tr>
       <th>10</th>
+      <td>5132</td>
+      <td>25</td>
+      <td>Xi(b)-</td>
+    </tr>
+    <tr>
+      <th>8</th>
       <td>5114</td>
-      <td>220</td>
+      <td>21</td>
       <td>Sigma(b)*-</td>
     </tr>
     <tr>
       <th>15</th>
-      <td>5222</td>
-      <td>110</td>
-      <td>Sigma(b)+</td>
-    </tr>
-    <tr>
-      <th>9</th>
-      <td>5112</td>
-      <td>104</td>
-      <td>Sigma(b)-</td>
+      <td>5232</td>
+      <td>15</td>
+      <td>Xi(b)0</td>
     </tr>
     <tr>
       <th>13</th>
+      <td>5222</td>
+      <td>14</td>
+      <td>Sigma(b)+</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>5224</td>
+      <td>12</td>
+      <td>Sigma(b)*+</td>
+    </tr>
+    <tr>
+      <th>11</th>
       <td>5212</td>
-      <td>77</td>
+      <td>10</td>
       <td>Unknown: 5212</td>
     </tr>
     <tr>
-      <th>19</th>
-      <td>5314</td>
-      <td>32</td>
-      <td>Unknown: 5314</td>
-    </tr>
-    <tr>
-      <th>21</th>
-      <td>5324</td>
-      <td>32</td>
-      <td>Unknown: 5324</td>
-    </tr>
-    <tr>
-      <th>18</th>
-      <td>5312</td>
-      <td>22</td>
-      <td>Unknown: 5312</td>
-    </tr>
-    <tr>
-      <th>20</th>
-      <td>5322</td>
-      <td>16</td>
-      <td>Unknown: 5322</td>
-    </tr>
-    <tr>
       <th>7</th>
-      <td>543</td>
-      <td>9</td>
-      <td>Unknown: 543</td>
-    </tr>
-    <tr>
-      <th>22</th>
-      <td>5332</td>
-      <td>7</td>
-      <td>Omega(b)-</td>
-    </tr>
-    <tr>
-      <th>8</th>
-      <td>551</td>
-      <td>2</td>
-      <td>Unknown: 551</td>
-    </tr>
-    <tr>
-      <th>23</th>
-      <td>5334</td>
-      <td>2</td>
-      <td>Unknown: 5334</td>
+      <td>5112</td>
+      <td>6</td>
+      <td>Sigma(b)-</td>
     </tr>
     <tr>
       <th>6</th>
-      <td>541</td>
+      <td>543</td>
+      <td>3</td>
+      <td>Unknown: 543</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>5324</td>
+      <td>2</td>
+      <td>Unknown: 5324</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>5312</td>
       <td>1</td>
-      <td>B(c)+</td>
+      <td>Unknown: 5312</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>5314</td>
+      <td>1</td>
+      <td>Unknown: 5314</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
 </div>
+<p>And, now we can calculate the decay distance:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">decay_length_all</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">children</span><span class="o">.</span><span class="n">dx</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">children</span><span class="o">.</span><span class="n">dy</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">children</span><span class="o">.</span><span class="n">dz</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
@@ -1309,10 +1116,10 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/truth_14_0.png" src="../_images/truth_14_0.png" />
+<img alt="../_images/truth_17_0.png" src="../_images/truth_17_0.png" />
 </div>
 </div>
-<p>I love this plot because it shows the different decay probabilities. THere are differences in lifetime, but they are harder to see because we aren’t showing <span class="math notranslate nohighlight">\(c\tau\)</span> here (and correcting for boost, mass, etc.).</p>
+<p>I love this plot because it shows the different decay probabilities. There are differences in lifetime, but they are harder to see because we aren’t showing <span class="math notranslate nohighlight">\(c\tau\)</span> here (and correcting for boost, mass, etc.).</p>
 </div>
 <div class="section" id="the-datamodel">
 <h2>The Datamodel<a class="headerlink" href="#the-datamodel" title="Permalink to this headline">¶</a></h2>
@@ -1399,6 +1206,15 @@ class TruthEvent_v1(builtins.object)
  |      A method
  |  
  |  ----------------------------------------------------------------------
+ |  Readonly properties defined here:
+ |  
+ |  auxdataConst
+ |      A method
+ |  
+ |  isAvailable
+ |      A method
+ |  
+ |  ----------------------------------------------------------------------
  |  Data descriptors defined here:
  |  
  |  __dict__
@@ -1424,9 +1240,6 @@ class TruthParticle_v1(builtins.object)
  |  A class
  |  
  |  Methods defined here:
- |  
- |  TruthParticle_v1(self) -&gt; &#39;func_adl_servicex_xaodr21.xAOD.truthparticle_v1.TruthParticle_v1&#39;
- |      A method
  |  
  |  absPdgId(self) -&gt; &#39;int&#39;
  |      A method
@@ -1651,6 +1464,15 @@ class TruthParticle_v1(builtins.object)
  |      A method
  |  
  |  ----------------------------------------------------------------------
+ |  Readonly properties defined here:
+ |  
+ |  auxdataConst
+ |      A method
+ |  
+ |  isAvailable
+ |      A method
+ |  
+ |  ----------------------------------------------------------------------
  |  Data descriptors defined here:
  |  
  |  __dict__
@@ -1676,9 +1498,6 @@ class TruthVertex_v1(builtins.object)
  |  A class
  |  
  |  Methods defined here:
- |  
- |  TruthVertex_v1(self) -&gt; &#39;func_adl_servicex_xaodr21.xAOD.truthvertex_v1.TruthVertex_v1&#39;
- |      A method
  |  
  |  barcode(self) -&gt; &#39;int&#39;
  |      A method
@@ -1747,6 +1566,15 @@ class TruthVertex_v1(builtins.object)
  |      A method
  |  
  |  ----------------------------------------------------------------------
+ |  Readonly properties defined here:
+ |  
+ |  auxdataConst
+ |      A method
+ |  
+ |  isAvailable
+ |      A method
+ |  
+ |  ----------------------------------------------------------------------
  |  Data descriptors defined here:
  |  
  |  __dict__
@@ -1809,10 +1637,10 @@ class TruthVertex_v1(builtins.object)
         </a>
     </div>
      <div id="next">
-        <a class="right-next" href="xaod_objects.html" title="next page">
+        <a class="right-next" href="eventinfo.html" title="next page">
             <div class="prevnext-info">
                 <p class="prevnext-label">next</p>
-                <p class="prevnext-title">Advanced, Common, Features</p>
+                <p class="prevnext-title">Event Info</p>
             </div>
             <i class="prevnext-label fas fa-angle-right"></i>
         </a>

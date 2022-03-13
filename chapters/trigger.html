@@ -169,11 +169,6 @@
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="eventinfo.html">
-   Event Info
-  </a>
- </li>
- <li class="toctree-l1">
   <a class="reference internal" href="caloclusters.html">
    Calorimeter Clusters Collection
   </a>
@@ -186,6 +181,11 @@
  <li class="toctree-l1">
   <a class="reference internal" href="truth.html">
    The Truth Particles Collection
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="eventinfo.html">
+   Event Info
   </a>
  </li>
  <li class="toctree-l1">
@@ -211,7 +211,7 @@
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../appendix/old_access.html">
+  <a class="reference internal" href="old_access.html">
    Old Collection Access Pattern
   </a>
  </li>
@@ -352,20 +352,12 @@
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="accessing-the-trigger">
 <h1>Accessing the Trigger<a class="headerlink" href="#accessing-the-trigger" title="Permalink to this headline">¶</a></h1>
-<p>In ATLAS all access to trigger data is via the Trigger Decision Tool (TDT). There is quite a bit of information attached to the trigger, and its layout is quite complex - for that reason one should use the TDT to access the data.</p>
+<p>In ATLAS all access to trigger data is via the Trigger Decision Tool (TDT). There is quite a bit of information attached to the trigger, and its layout is quite complex - for that reason one should use the TDT to access the data rather than attempting to do it directly (trust us…please…).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">config</span> <span class="kn">import</span> <span class="n">ds_zee</span> <span class="k">as</span> <span class="n">ds</span>
 <span class="kn">from</span> <span class="nn">func_adl_servicex_xaodr21</span> <span class="kn">import</span> <span class="n">tdt_chain_fired</span><span class="p">,</span> <span class="n">tmt_match_object</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
-Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
-Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
-Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
 </pre></div>
 </div>
 </div>
@@ -377,7 +369,7 @@ Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. P
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_electrons</span> <span class="o">=</span> <span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span>
                             <span class="p">{</span>
-                                <span class="s2">&quot;n_ele&quot;</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">Electrons</span><span class="p">(</span><span class="s2">&quot;Electrons&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">Where</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="nb">abs</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">eta</span><span class="p">())</span> <span class="o">&lt;</span> <span class="mf">2.5</span><span class="p">)</span><span class="o">.</span><span class="n">Count</span><span class="p">(),</span>
+                                <span class="s2">&quot;n_ele&quot;</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">Electrons</span><span class="p">()</span><span class="o">.</span><span class="n">Where</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="nb">abs</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">eta</span><span class="p">())</span> <span class="o">&lt;</span> <span class="mf">2.5</span><span class="p">)</span><span class="o">.</span><span class="n">Count</span><span class="p">(),</span>
                                 <span class="s2">&quot;fired&quot;</span><span class="p">:</span> <span class="n">tdt_chain_fired</span><span class="p">(</span><span class="s2">&quot;HLT_e60_lhmedium_nod0&quot;</span><span class="p">),</span>
                             <span class="p">})</span>
                 <span class="o">.</span><span class="n">AsAwkwardArray</span><span class="p">()</span>
@@ -410,7 +402,7 @@ Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. P
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">matched_electrons</span> <span class="o">=</span> <span class="p">(</span>
     <span class="n">ds</span><span class="o">.</span><span class="n">Where</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">tdt_chain_fired</span><span class="p">(</span><span class="s2">&quot;HLT_e60_lhmedium_nod0&quot;</span><span class="p">))</span>
-    <span class="o">.</span><span class="n">SelectMany</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">Electrons</span><span class="p">(</span><span class="s2">&quot;Electrons&quot;</span><span class="p">))</span>
+    <span class="o">.</span><span class="n">SelectMany</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">Electrons</span><span class="p">())</span>
     <span class="o">.</span><span class="n">Select</span><span class="p">(</span>
         <span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="p">{</span>
             <span class="s2">&quot;pt&quot;</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span> <span class="o">/</span> <span class="mf">1001.0</span><span class="p">,</span>
@@ -425,6 +417,7 @@ Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. P
 </div>
 </div>
 </div>
+<p>To know the <code class="docutils literal notranslate"><span class="pre">tnt_match_object</span></code> arguments, you’ll need to look up its definition below on the atlas twiki.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">matched_electrons</span><span class="o">.</span><span class="n">pt</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;All Electrons&#39;</span><span class="p">)</span>
@@ -437,7 +430,7 @@ Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. P
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/trigger_7_0.png" src="../_images/trigger_7_0.png" />
+<img alt="../_images/trigger_8_0.png" src="../_images/trigger_8_0.png" />
 </div>
 </div>
 </div>

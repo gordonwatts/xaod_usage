@@ -51,8 +51,8 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Calorimeter Clusters Collection" href="caloclusters.html" />
-    <link rel="prev" title="The Vertex Collection" href="vertices.html" />
+    <link rel="next" title="Advanced, Common, Features" href="xaod_objects.html" />
+    <link rel="prev" title="The Truth Particles Collection" href="truth.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -166,11 +166,6 @@
    The Vertex Collection
   </a>
  </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   Event Info
-  </a>
- </li>
  <li class="toctree-l1">
   <a class="reference internal" href="caloclusters.html">
    Calorimeter Clusters Collection
@@ -184,6 +179,11 @@
  <li class="toctree-l1">
   <a class="reference internal" href="truth.html">
    The Truth Particles Collection
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Event Info
   </a>
  </li>
  <li class="toctree-l1">
@@ -209,7 +209,7 @@
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../appendix/old_access.html">
+  <a class="reference internal" href="old_access.html">
    Old Collection Access Pattern
   </a>
  </li>
@@ -345,25 +345,20 @@
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="event-info">
 <h1>Event Info<a class="headerlink" href="#event-info" title="Permalink to this headline">¶</a></h1>
-<p>The <code class="docutils literal notranslate"><span class="pre">EventInfo</span></code> object contains things like beam <code class="docutils literal notranslate"><span class="pre">xyz</span></code> and run number and event number. There is only one per event - so you do not extract it as a sequence, but as a single object.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">EventInfo</span></code> object contains things like beam <code class="docutils literal notranslate"><span class="pre">xyz</span></code> and run number and event number. There is only one per event - so you do not extract it as a sequence, but as a single object - so it is different than just about every other collection.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">func_adl_servicex_xaodr21</span> <span class="kn">import</span> <span class="n">SXDSAtlasxAODR21</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">config</span> <span class="kn">import</span> <span class="n">rucio_zee_r21_mc</span><span class="p">,</span> <span class="n">xAODLocalTyped</span><span class="p">,</span> <span class="n">local_xaod_path</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ds = SXDSAtlasxAODR21(rucio_zee_r21_mc, backend=&#39;dev_xaod&#39;)</span>
-<span class="n">ds</span> <span class="o">=</span> <span class="n">xAODLocalTyped</span><span class="p">(</span><span class="n">local_xaod_path</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">config</span> <span class="kn">import</span> <span class="n">ds_zee</span> <span class="k">as</span> <span class="n">ds</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
+Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
+Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
+Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
+Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
 </pre></div>
 </div>
 </div>
@@ -372,7 +367,7 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">events</span> <span class="o">=</span> <span class="p">(</span><span class="n">ds</span>
         <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">EventInfo</span><span class="p">(</span><span class="s2">&quot;EventInfo&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">eventNumber</span><span class="p">())</span>
-        <span class="o">.</span><span class="n">AsAwkwardArray</span><span class="p">(</span><span class="s1">&#39;b_x&#39;</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">AsAwkwardArray</span><span class="p">(</span><span class="s1">&#39;evt_number&#39;</span><span class="p">)</span>
         <span class="o">.</span><span class="n">value</span><span class="p">())</span>
 </pre></div>
 </div>
@@ -380,20 +375,20 @@
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">events</span><span class="o">.</span><span class="n">b_x</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Beam Position x [mm]&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">events</span><span class="o">.</span><span class="n">evt_number</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Event Number&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Number of events&#39;</span><span class="p">)</span>
-<span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Beam Position $Z</span><span class="se">\\</span><span class="s1">rightarrow ee$ events&#39;</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$Z\rightarrow ee$ events&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/eventinfo_4_0.png" src="../_images/eventinfo_4_0.png" />
+<img alt="../_images/eventinfo_3_0.png" src="../_images/eventinfo_3_0.png" />
 </div>
 </div>
 <div class="section" id="the-datamodel">
 <h2>The Datamodel<a class="headerlink" href="#the-datamodel" title="Permalink to this headline">¶</a></h2>
-<p>The data model when this documentation was last built was:</p>
+<p>A lot of the EventInfo record can be stripped out by thinning. You may well encounter missing data errors when trying to access them. The data model when this documentation was last built was as below:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">func_adl_servicex_xaodr21.xAOD.eventinfo_v1</span> <span class="kn">import</span> <span class="n">EventInfo_v1</span>
@@ -524,6 +519,15 @@ class EventInfo_v1(builtins.object)
  |      A method
  |  
  |  ----------------------------------------------------------------------
+ |  Readonly properties defined here:
+ |  
+ |  auxdataConst
+ |      A method
+ |  
+ |  isAvailable
+ |      A method
+ |  
+ |  ----------------------------------------------------------------------
  |  Data descriptors defined here:
  |  
  |  __dict__
@@ -575,19 +579,19 @@ class EventInfo_v1(builtins.object)
 <div class='prev-next-bottom'>
     
     <div id="prev">
-        <a class="left-prev" href="vertices.html" title="previous page">
+        <a class="left-prev" href="truth.html" title="previous page">
             <i class="prevnext-label fas fa-angle-left"></i>
             <div class="prevnext-info">
                 <p class="prevnext-label">previous</p>
-                <p class="prevnext-title">The Vertex Collection</p>
+                <p class="prevnext-title">The Truth Particles Collection</p>
             </div>
         </a>
     </div>
      <div id="next">
-        <a class="right-next" href="caloclusters.html" title="next page">
+        <a class="right-next" href="xaod_objects.html" title="next page">
             <div class="prevnext-info">
                 <p class="prevnext-label">next</p>
-                <p class="prevnext-title">Calorimeter Clusters Collection</p>
+                <p class="prevnext-title">Advanced, Common, Features</p>
             </div>
             <i class="prevnext-label fas fa-angle-right"></i>
         </a>

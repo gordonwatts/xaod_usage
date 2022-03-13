@@ -51,7 +51,7 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="Old Collection Access Pattern" href="old_access.html" />
+    <link rel="prev" title="Old Collection Access Pattern" href="../chapters/old_access.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -166,11 +166,6 @@
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../chapters/eventinfo.html">
-   Event Info
-  </a>
- </li>
- <li class="toctree-l1">
   <a class="reference internal" href="../chapters/caloclusters.html">
    Calorimeter Clusters Collection
   </a>
@@ -183,6 +178,11 @@
  <li class="toctree-l1">
   <a class="reference internal" href="../chapters/truth.html">
    The Truth Particles Collection
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../chapters/eventinfo.html">
+   Event Info
   </a>
  </li>
  <li class="toctree-l1">
@@ -208,7 +208,7 @@
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="old_access.html">
+  <a class="reference internal" href="../chapters/old_access.html">
    Old Collection Access Pattern
   </a>
  </li>
@@ -327,23 +327,34 @@
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="understanding-errors">
 <h1>Understanding Errors<a class="headerlink" href="#understanding-errors" title="Permalink to this headline">¶</a></h1>
-<p>At its heart, we are using <code class="docutils literal notranslate"><span class="pre">func_adl</span></code> to run C++. This is an abstraction. And givin how complex ATLAS software is, the abstraction is bound to leak. One very messy place it leaks is when things go wrong. And it leaks in two ways.</p>
-<p>The first way is that <code class="docutils literal notranslate"><span class="pre">ServiceX</span></code> is a distributed processing system. And collecting errors in an appropriate way from 100’s of processors is not trivial.</p>
-<p>The second way it leaks is that when something goes wrong with the generated C++, <code class="docutils literal notranslate"><span class="pre">ServiceX</span></code> just passes back the error logs, leaving it up to the user. This section tries to list some of the errors that are seen, showing some examples, and also the appropriate course of action to take.</p>
+<p>At its heart, we are using <code class="docutils literal notranslate"><span class="pre">func_adl</span></code> to run C++. <code class="docutils literal notranslate"><span class="pre">func_adl</span></code> is an abstraction. And givin how complex ATLAS software is, the abstraction is bound to leak. One very messy place it leaks is when things go wrong. And it leaks in two ways.</p>
+<ul class="simple">
+<li><p>The first way is that <code class="docutils literal notranslate"><span class="pre">ServiceX</span></code> is a distributed processing system. And collecting errors in an appropriate way from 100’s of processors is not trivial.</p></li>
+<li><p>The second way it leaks is that when something goes wrong with the generated C++, <code class="docutils literal notranslate"><span class="pre">ServiceX</span></code> just passes back the error logs, leaving it up to the user. This section tries to list some of the errors that are seen, showing some examples, and also the appropriate course of action to take (or at least, root causes).</p></li>
+</ul>
+<p>The error messages are very long, and depending on what platform you are viewing this file, it can be pretty overwhelming. All the errors here are shown when running the local version of ServiceX in a docker container. We always recommend doing this when faced with an error you can’t figure out from the distributed version - much faster to debug.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Please do contact us with weird errors so we can add them here!</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>In this first version of the book we have not yet started to fill this out.</p>
+</div>
 <div class="section" id="asking-for-a-systematic-error-that-does-not-exist">
 <h2>Asking for a Systematic Error that does not exist<a class="headerlink" href="#asking-for-a-systematic-error-that-does-not-exist" title="Permalink to this headline">¶</a></h2>
 <p>Consider the following code:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">muons</span> <span class="o">=</span> <span class="p">(</span><span class="n">ds</span>
-        <span class="o">.</span><span class="n">SelectMany</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">Muons</span><span class="p">(</span><span class="s2">&quot;Muons&quot;</span><span class="p">,</span> <span class="n">calibration</span><span class="o">=</span><span class="s2">&quot;MUON_ID__1up&quot;</span><span class="p">))</span>
-        <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s1">&#39;pt&#39;</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="p">,</span>
-            <span class="s1">&#39;eta&#39;</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">eta</span><span class="p">(),</span>
-            <span class="s1">&#39;phi&#39;</span><span class="p">:</span> <span class="n">j</span><span class="o">.</span><span class="n">phi</span><span class="p">(),</span>
-        <span class="p">})</span>
-        <span class="o">.</span><span class="n">AsAwkwardArray</span><span class="p">()</span>
-        <span class="o">.</span><span class="n">value</span><span class="p">())</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># muons = (ds</span>
+<span class="c1">#         .SelectMany(lambda e: e.Muons(&quot;Muons&quot;, calibration=&quot;MUON_ID__1up&quot;))</span>
+<span class="c1">#         .Select(lambda j: {</span>
+<span class="c1">#             &#39;pt&#39;: j.pt() / 1000.0,</span>
+<span class="c1">#             &#39;eta&#39;: j.eta(),</span>
+<span class="c1">#             &#39;phi&#39;: j.phi(),</span>
+<span class="c1">#         })</span>
+<span class="c1">#         .AsAwkwardArray()</span>
+<span class="c1">#         .value())</span>
 </pre></div>
 </div>
 </div>
@@ -386,7 +397,7 @@
 <div class='prev-next-bottom'>
     
     <div id="prev">
-        <a class="left-prev" href="old_access.html" title="previous page">
+        <a class="left-prev" href="../chapters/old_access.html" title="previous page">
             <i class="prevnext-label fas fa-angle-left"></i>
             <div class="prevnext-info">
                 <p class="prevnext-label">previous</p>
