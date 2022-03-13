@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from pathlib import Path
 
-from func_adl_servicex import SXLocalxAOD
+from func_adl_servicex import SXLocalxAOD, ServiceXSourceXAOD
 from func_adl_servicex_xaodr21 import SXDSAtlasxAODR21, calib_tools
 from func_adl_servicex_xaodr21.event_collection import Event
 
@@ -21,6 +21,8 @@ class sample:
     # Locally where we can find it
     local_path: Path
 
+    # Use typed access?
+    typed_access: bool = True
 
 _samples = {
     "zee": sample(
@@ -29,6 +31,14 @@ _samples = {
         local_path=Path(
             r"C:\Users\gordo\Code\atlas\data\R21\DAOD_PHYS\361106\DAOD_PHYS.23294912._000216.pool.root.1"
         ),
+    ),
+    "zee_untyped": sample(
+        name="ds_zee_untyped",
+        rucio_ds="mc16_13TeV.361106.PowhegPythia8EvtGen_AZNLOCTEQ6L1_Zee.deriv.DAOD_PHYS.e3601_e5984_s3126_s3136_r10724_r10726_p4164",
+        local_path=Path(
+            r"C:\Users\gordo\Code\atlas\data\R21\DAOD_PHYS\361106\DAOD_PHYS.23294912._000216.pool.root.1"
+        ),
+        typed_access=False,
     ),
     "zmumu": sample(
         name="ds_zmuumu",
@@ -80,16 +90,23 @@ def make_ds(s: sample):
     Returns:
         sample: The sample specification.
     """
-    if use_local:
-        ds = xAODLocalTyped(s.local_path)
+    if s.typed_access:
+        if use_local:
+            ds = xAODLocalTyped(s.local_path)
+        else:
+            ds = SXDSAtlasxAODR21(s.rucio_ds, backend="dev_xaod")
     else:
-        ds = SXDSAtlasxAODR21(s.rucio_ds, backend="dev_xaod")
+        if use_local:
+            ds = SXLocalxAOD(s.local_path)
+        else:
+            ds = ServiceXSourceXAOD(s.rucio_ds, backend="dev_xaod")
     return ds
 
 
 # Build the individual samples. First, the DAOD_PHYS samples, which use default
 # calibrations.
 ds_zee = make_ds(_samples["zee"])
+ds_zee_untyped = make_ds(_samples["zee_untyped"])
 ds_ztautau = make_ds(_samples["ztautau"])
 ds_bphys = make_ds(_samples["bphys"])
 
