@@ -349,59 +349,59 @@ class Event(builtins.object)
  |  
  |  Methods defined here:
  |  
- |  BTagVertexs(self, name: &#39;str&#39;) -&gt; &#39;Iterable[func_adl_servicex_xaodr21.xAOD.btagvertex_v1.BTagVertex_v1]&#39;
+ |  BTagVertices(self, name: &#39;str&#39;) -&gt; &#39;func_adl_servicex_xaodr21.FADLStream[func_adl_servicex_xaodr21.xAOD.btagvertex_v1.BTagVertex_v1]&#39;
  |  
- |  BTaggings(self, name: &#39;str&#39;) -&gt; &#39;Iterable[func_adl_servicex_xaodr21.xAOD.btagging_v1.BTagging_v1]&#39;
+ |  BTaggings(self, name: &#39;str&#39;) -&gt; &#39;func_adl_servicex_xaodr21.FADLStream[func_adl_servicex_xaodr21.xAOD.btagging_v1.BTagging_v1]&#39;
  |  
- |  CaloClusters(self, name: &#39;str&#39;) -&gt; &#39;Iterable[func_adl_servicex_xaodr21.xAOD.calocluster_v1.CaloCluster_v1]&#39;
+ |  CaloClusters(self, name: &#39;str&#39;) -&gt; &#39;func_adl_servicex_xaodr21.FADLStream[func_adl_servicex_xaodr21.xAOD.calocluster_v1.CaloCluster_v1]&#39;
  |  
- |  CaloTowers(self, name: &#39;str&#39;) -&gt; &#39;Iterable[func_adl_servicex_xaodr21.xAOD.calotower_v1.CaloTower_v1]&#39;
+ |  CaloTowers(self, name: &#39;str&#39;) -&gt; &#39;func_adl_servicex_xaodr21.FADLStream[func_adl_servicex_xaodr21.xAOD.calotower_v1.CaloTower_v1]&#39;
  |  
- |  DiTauJets(self, name: &#39;str&#39;) -&gt; &#39;Iterable[func_adl_servicex_xaodr21.xAOD.ditaujet_v1.DiTauJet_v1]&#39;
+ |  DiTauJets(self, calibration: &#39;str&#39; = &#39;NOSYS&#39;, working_point: &#39;str&#39; = &#39;Tight&#39;) -&gt; &#39;func_adl_servicex_xaodr21.FADLStream[func_adl_servicex_xaodr21.xAOD.ditaujet_v1.DiTauJet_v1]&#39;
  |  
- |  Egammas(self, name: &#39;str&#39;) -&gt; &#39;Iterable[func_adl_servicex_xaodr21.xAOD.egamma_v1.Egamma_v1]&#39;
+ |  Egammas(self, name: &#39;str&#39;) -&gt; &#39;func_adl_servicex_xaodr21.FADLStream[func_adl_servicex_xaodr21.xAOD.egamma_v1.Egamma_v1]&#39;
  |  
- |  Electrons(self, name: &#39;str&#39;) -&gt; &#39;Iterable[func_adl_servicex_xaodr21.xAOD.electron_v1.Electron_v1]&#39;
+ |  Electrons(self, calibrated_collection: &#39;Optional[str]&#39; = None, uncalibrated_collection: &#39;Optional[str]&#39; = None) -&gt; &#39;func_adl_servicex_xaodr21.FADLStream[func_adl_servicex_xaodr21.xAOD.electron_v1.Electron_v1]&#39;
  |  
  |  EventInfo(self, name: &#39;str&#39;) -&gt; &#39;func_adl_servicex_xaodr21.xAOD.eventinfo_v1.EventInfo_v1&#39;
  |  
- |  EventInfos(self, name: &#39;str&#39;) -&gt; &#39;Iterable[func_adl_servicex_xaodr21.xAOD.eventinfo_v1.EventInfo_v1]&#39;
+ |  EventInfos(self, name: &#39;str&#39;) -&gt; &#39;func_adl_servicex_xaodr21.FADLStream[func_adl_servicex_xaodr21.xAOD.eventinfo_v1.EventInfo_v1]&#39;
  |  
- |  IParticles(self, name: &#39;str&#39;) -&gt; &#39;Iterable[func_adl_servicex_xaodr21.xAOD.iparticle.IParticle]&#39;
+ |  IParticles(self, name: &#39;str&#39;) -&gt; &#39;func_adl_servicex_xaodr21.FADLStream[func_adl_servicex_xaodr21.xAOD.iparticle.IParticle]&#39;
  |  
- |  Jets(self, name: &#39;str&#39;) -&gt; &#39;Iterable[func_adl_servicex_xaodr21.xAOD.jet_v1.Jet_v1]&#39;
+ |  Jets(self, calibrated_collection: &#39;Optional[str]&#39; = None, uncalibrated_collection: &#39;Optional[str]&#39; = None) -&gt; &#39;func_adl_servicex_xaodr21.FADLStream[func_adl_servicex_xaodr21.xAOD.jet_v1.Jet_v1]&#39;
  |  
- |  MissingET(self, name: &#39;str&#39;) -&gt; &#39;Iterable[func_adl_servicex_xaodr21.xAOD.missinget_v1.MissingET_v1]&#39;
+ |  MissingET(self, calibrated_collection: &#39;Optional[str]&#39; = None, uncalibrated_collection: &#39;Optional[str]&#39; = None) -&gt; &#39;func_adl_servicex_xaodr21.FADLStream[func_adl_servicex_xaodr21.xAOD.missinget_v1.MissingET_v1]&#39;
  |  
- |  MuonSegments(self, name: &#39;str&#39;) -&gt; &#39;Iterable[func_adl_servicex_xaodr21.xAOD.muonsegment_v1.MuonSegment_v1]&#39;
+ |  MuonSegments(self, name: &#39;str&#39;) -&gt; &#39;func_adl_servicex_xaodr21.FADLStream[func_adl_servicex_xaodr21.xAOD.muonsegment_v1.MuonSegment_v1]&#39;
  |  
- |  Muons(self, name: &#39;str&#39;) -&gt; &#39;Iterable[func_adl_servicex_xaodr21.xAOD.muon_v1.Muon_v1]&#39;
+ |  Muons(self, calibrated_collection: &#39;Optional[str]&#39; = None, uncalibrated_collection: &#39;Optional[str]&#39; = None) -&gt; &#39;func_adl_servicex_xaodr21.FADLStream[func_adl_servicex_xaodr21.xAOD.muon_v1.Muon_v1]&#39;
  |  
- |  NeutralParticles(self, name: &#39;str&#39;) -&gt; &#39;Iterable[func_adl_servicex_xaodr21.xAOD.neutralparticle_v1.NeutralParticle_v1]&#39;
+ |  NeutralParticles(self, name: &#39;str&#39;) -&gt; &#39;func_adl_servicex_xaodr21.FADLStream[func_adl_servicex_xaodr21.xAOD.neutralparticle_v1.NeutralParticle_v1]&#39;
  |  
- |  PFOs(self, name: &#39;str&#39;) -&gt; &#39;Iterable[func_adl_servicex_xaodr21.xAOD.pfo_v1.PFO_v1]&#39;
+ |  PFOs(self, name: &#39;str&#39;) -&gt; &#39;func_adl_servicex_xaodr21.FADLStream[func_adl_servicex_xaodr21.xAOD.pfo_v1.PFO_v1]&#39;
  |  
- |  Photons(self, name: &#39;str&#39;) -&gt; &#39;Iterable[func_adl_servicex_xaodr21.xAOD.photon_v1.Photon_v1]&#39;
+ |  Photons(self, calibrated_collection: &#39;Optional[str]&#39; = None, uncalibrated_collection: &#39;Optional[str]&#39; = None) -&gt; &#39;func_adl_servicex_xaodr21.FADLStream[func_adl_servicex_xaodr21.xAOD.photon_v1.Photon_v1]&#39;
  |  
- |  SlowMuons(self, name: &#39;str&#39;) -&gt; &#39;Iterable[func_adl_servicex_xaodr21.xAOD.slowmuon_v1.SlowMuon_v1]&#39;
+ |  SlowMuons(self, name: &#39;str&#39;) -&gt; &#39;func_adl_servicex_xaodr21.FADLStream[func_adl_servicex_xaodr21.xAOD.slowmuon_v1.SlowMuon_v1]&#39;
  |  
- |  TauJets(self, name: &#39;str&#39;) -&gt; &#39;Iterable[func_adl_servicex_xaodr21.xAOD.taujet_v3.TauJet_v3]&#39;
+ |  TauJets(self, calibrated_collection: &#39;Optional[str]&#39; = None, uncalibrated_collection: &#39;Optional[str]&#39; = None) -&gt; &#39;func_adl_servicex_xaodr21.FADLStream[func_adl_servicex_xaodr21.xAOD.taujet_v3.TauJet_v3]&#39;
  |  
- |  TauTracks(self, name: &#39;str&#39;) -&gt; &#39;Iterable[func_adl_servicex_xaodr21.xAOD.tautrack_v1.TauTrack_v1]&#39;
+ |  TauTracks(self, name: &#39;str&#39;) -&gt; &#39;func_adl_servicex_xaodr21.FADLStream[func_adl_servicex_xaodr21.xAOD.tautrack_v1.TauTrack_v1]&#39;
  |  
- |  TrackCaloClusters(self, name: &#39;str&#39;) -&gt; &#39;Iterable[func_adl_servicex_xaodr21.xAOD.trackcalocluster_v1.TrackCaloCluster_v1]&#39;
+ |  TrackCaloClusters(self, name: &#39;str&#39;) -&gt; &#39;func_adl_servicex_xaodr21.FADLStream[func_adl_servicex_xaodr21.xAOD.trackcalocluster_v1.TrackCaloCluster_v1]&#39;
  |  
- |  TrackParticles(self, name: &#39;str&#39;) -&gt; &#39;Iterable[func_adl_servicex_xaodr21.xAOD.trackparticle_v1.TrackParticle_v1]&#39;
+ |  TrackParticles(self, name: &#39;str&#39;) -&gt; &#39;func_adl_servicex_xaodr21.FADLStream[func_adl_servicex_xaodr21.xAOD.trackparticle_v1.TrackParticle_v1]&#39;
  |  
- |  TruthEvents(self, name: &#39;str&#39;) -&gt; &#39;Iterable[func_adl_servicex_xaodr21.xAOD.truthevent_v1.TruthEvent_v1]&#39;
+ |  TruthEvents(self, name: &#39;str&#39;) -&gt; &#39;func_adl_servicex_xaodr21.FADLStream[func_adl_servicex_xaodr21.xAOD.truthevent_v1.TruthEvent_v1]&#39;
  |  
- |  TruthMetaDatas(self, name: &#39;str&#39;) -&gt; &#39;Iterable[func_adl_servicex_xaodr21.xAOD.truthmetadata_v1.TruthMetaData_v1]&#39;
+ |  TruthMetaDatas(self, name: &#39;str&#39;) -&gt; &#39;func_adl_servicex_xaodr21.FADLStream[func_adl_servicex_xaodr21.xAOD.truthmetadata_v1.TruthMetaData_v1]&#39;
  |  
- |  TruthParticles(self, name: &#39;str&#39;) -&gt; &#39;Iterable[func_adl_servicex_xaodr21.xAOD.truthparticle_v1.TruthParticle_v1]&#39;
+ |  TruthParticles(self, name: &#39;str&#39;) -&gt; &#39;func_adl_servicex_xaodr21.FADLStream[func_adl_servicex_xaodr21.xAOD.truthparticle_v1.TruthParticle_v1]&#39;
  |  
- |  TruthVertexs(self, name: &#39;str&#39;) -&gt; &#39;Iterable[func_adl_servicex_xaodr21.xAOD.truthvertex_v1.TruthVertex_v1]&#39;
+ |  TruthVertices(self, name: &#39;str&#39;) -&gt; &#39;func_adl_servicex_xaodr21.FADLStream[func_adl_servicex_xaodr21.xAOD.truthvertex_v1.TruthVertex_v1]&#39;
  |  
- |  Vertexs(self, name: &#39;str&#39;) -&gt; &#39;Iterable[func_adl_servicex_xaodr21.xAOD.vertex_v1.Vertex_v1]&#39;
+ |  Vertices(self, name: &#39;str&#39;) -&gt; &#39;func_adl_servicex_xaodr21.FADLStream[func_adl_servicex_xaodr21.xAOD.vertex_v1.Vertex_v1]&#39;
  |  
  |  ----------------------------------------------------------------------
  |  Data descriptors defined here:
@@ -429,9 +429,6 @@ class Jet_v1(builtins.object)
  |  A class
  |  
  |  Methods defined here:
- |  
- |  Jet_v1(self) -&gt; &#39;func_adl_servicex_xaodr21.xAOD.jet_v1.Jet_v1&#39;
- |      A method
  |  
  |  btagging(self) -&gt; &#39;func_adl_servicex_xaodr21.xAOD.btagging_v1.BTagging_v1&#39;
  |      A method
@@ -500,6 +497,18 @@ class Jet_v1(builtins.object)
  |      A method
  |  
  |  usingStandaloneStore(self) -&gt; &#39;bool&#39;
+ |      A method
+ |  
+ |  ----------------------------------------------------------------------
+ |  Readonly properties defined here:
+ |  
+ |  auxdataConst
+ |      A method
+ |  
+ |  getAttribute
+ |      A method
+ |  
+ |  isAvailable
  |      A method
  |  
  |  ----------------------------------------------------------------------

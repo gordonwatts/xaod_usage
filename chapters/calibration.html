@@ -403,10 +403,21 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
-Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
-Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
-Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
-Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
 </pre></div>
 </div>
 </div>
@@ -821,6 +832,15 @@ class calib_tools(builtins.object)
  |  
  |  default_config = CalibrationEventConfig(jet_collection=&#39;AntiKt4EM...king_point=&#39;Tight&#39;, perform_overlap_removal=True)
  |  default_sys_error = &#39;NOSYS&#39;
+ |  query_get(query: func_adl.object_stream.ObjectStream[~T]) -&gt; func_adl_servicex_xaodr21.calibration_support.CalibrationEventConfig from builtins.type
+ |      Return a copy of the calibration if the query were issued at this point.
+ |      
+ |      Args:
+ |          query (ObjectStream[T]): The query to inspect.
+ |      
+ |      Returns:
+ |          CalibrationEventConfig: The calibration configuration for the query.
+ |  
  |  query_sys_error(query: func_adl.object_stream.ObjectStream[~T], sys_error: str) -&gt; func_adl.object_stream.ObjectStream[~T] from builtins.type
  |      Add metadata to a query to indicate a change in the systematic error for the events.
  |      
@@ -829,7 +849,7 @@ class calib_tools(builtins.object)
  |      
  |          sys_error (str): The systematic error to fetch. Only a single one is possible at any time. The sys error names
  |              are the same as used by the common CP algorithms.
- |          
+ |      
  |      Returns:
  |          ObjectStream[T]: The updated query.
  |      
@@ -845,7 +865,7 @@ class calib_tools(builtins.object)
  |      
  |          calib_config (Optional[CalibrationEventConfig]): The new calibration configuration to use. If specified
  |              will override all calibration configuration options in the query.
- |          
+ |      
  |          jet_collection, ...: Use any property name from the `CalibrationEventConfig` class to override that particular
  |              options for this query. You may specify as many of them as you like.
  |      
