@@ -29,5 +29,5 @@ parts:
     chapters:
     - file: appendix/calibrations
     - file: appendix/py_help
-    - file: appendix/old_access
+    - file: chapters/old_access
     - file: appendix/errors
