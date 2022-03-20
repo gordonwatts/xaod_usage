@@ -9,7 +9,9 @@ logo: logo.png
 # See https://jupyterbook.org/content/execute.html
 execute:
   execute_notebooks: cache
-  timeout: 600
+  # Timeout is large b.c. sometimes when you are running on a very slow internet
+  # connection, this is what it takes.
+  timeout: 1800
 
 # Define the name of the latex output file for PDF builds
 latex:
