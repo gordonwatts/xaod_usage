@@ -1,12 +1,12 @@
 from dataclasses import dataclass
 from pathlib import Path
-
-from func_adl_servicex import SXLocalxAOD, ServiceXSourceXAOD
-from func_adl_servicex_xaodr21 import SXDSAtlasxAODR21, calib_tools
-from func_adl_servicex_xaodr21.event_collection import Event
+from typing import List, Union
 
 import awkward as ak
 import numpy as np
+from func_adl_servicex import ServiceXSourceXAOD, SXLocalxAOD
+from func_adl_servicex_xaodr21 import SXDSAtlasxAODR21, calib_tools
+from func_adl_servicex_xaodr21.event_collection import Event
 
 
 @dataclass
@@ -16,7 +16,7 @@ class sample:
     name: str
 
     # The full rucio dataset name
-    rucio_ds: str
+    rucio_ds: Union[str, List[str]]
 
     # Locally where we can find it
     local_path: Path
@@ -49,7 +49,7 @@ _samples = {
     ),
     "ztautau": sample(
         name="ds_ztautau",
-        rucio_ds="rucio://mc16_13TeV:mc16_13TeV.361108.PowhegPythia8EvtGen_AZNLOCTEQ6L1_Ztautau.deriv.DAOD_PHYS.e3601_e5984_s3126_s3136_r10724_r10726_p4164",
+        rucio_ds="rucio://mc16_13TeV:mc16_13TeV.361108.PowhegPythia8EvtGen_AZNLOCTEQ6L1_Ztautau.deriv.DAOD_PHYS.e3601_e5984_s3126_s3136_r10724_r10726_p4355",
         local_path=Path(
             r"C:\Users\gordo\Code\atlas\data\R21\DAOD_PHYS\361108\DAOD_PHYS.23295108._000430.pool.root.1"
         ),
@@ -63,7 +63,7 @@ _samples = {
     ),
     "bphys": sample(
         name="ds_bphys",
-        rucio_ds="rucio://mc16_13TeV:mc16.999031.P8BEG_23lo_ggX18p4_Upsilon1Smumu_4mu_3pt2.deriv.DAOD_BPHY4.e8304_a875_r10724_r10726_p3712_pUM999999",
+        rucio_ds=["root://eosatlas.cern.ch//eos/atlas/user/d/daits/mc16_13TeV/DAOD_BPHY4/mc16.999031.P8BEG_23lo_ggX18p4_Upsilon1Smumu_4mu_3pt2.deriv.DAOD_BPHY4.e8304_a875_r10724_r10726_p3712_pUM999999/DAOD_BPHY4.999031._000001.pool.root.1"],
         local_path=Path(
             r"C:\Users\gordo\Code\atlas\data\R21\BPHYS\999031\DAOD_BPHY4.999031._000001.pool.root.1"
         ),
@@ -91,7 +91,10 @@ def make_ds(s: sample):
     Returns:
         sample: The sample specification.
     """
-    sx_ds_name = s.rucio_ds + "?files=20"
+    sx_ds_name = s.rucio_ds
+    if isinstance(sx_ds_name, str):
+         sx_ds_name += "?files=20"
+
     if s.typed_access:
         if use_local:
             ds = xAODLocalTyped(s.local_path)
