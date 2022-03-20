@@ -1,262 +1,285 @@
 Traceback (most recent call last):
   File "C:\Users\gordo\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\jupyter_cache\executors\utils.py", line 51, in single_nb_execution
     executenb(
-  File "C:\Users\gordo\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\nbclient\client.py", line 1117, in execute
+  File "C:\Users\gordo\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\nbclient\client.py", line 1204, in execute
     return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
-  File "C:\Users\gordo\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\nbclient\util.py", line 78, in wrapped
+  File "C:\Users\gordo\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\nbclient\util.py", line 84, in wrapped
     return just_run(coro(*args, **kwargs))
-  File "C:\Users\gordo\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\nbclient\util.py", line 57, in just_run
+  File "C:\Users\gordo\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\nbclient\util.py", line 62, in just_run
     return loop.run_until_complete(coro)
   File "C:\Users\gordo\AppData\Local\Programs\Python\Python39\lib\asyncio\base_events.py", line 642, in run_until_complete
     return future.result()
-  File "C:\Users\gordo\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\nbclient\client.py", line 558, in async_execute
+  File "C:\Users\gordo\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\nbclient\client.py", line 663, in async_execute
     await self.async_execute_cell(
-  File "C:\Users\gordo\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\nbclient\client.py", line 862, in async_execute_cell
-    self._check_raise_for_error(cell, exec_reply)
-  File "C:\Users\gordo\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\nbclient\client.py", line 765, in _check_raise_for_error
+  File "C:\Users\gordo\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\nbclient\client.py", line 965, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "C:\Users\gordo\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\nbclient\client.py", line 862, in _check_raise_for_error
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-ditaus = (ds
-          .Select(lambda e: e.DiTauJets("DiTauJets"))
-          .Select(lambda taus: {
-              'pt': taus.Select(lambda t: t.pt() / 1000.0),
-              'eta': taus.Select(lambda t: t.eta()),
-              'phi': taus.Select(lambda t: t.phi()),
-          })
-          .AsAwkwardArray()
-          .value())
+taus = (ds
+        .SelectMany(lambda e: e.DiTauJets("DiTauJets"))
+        .Select(lambda t: t.pt() / 1000.0)
+        .AsAwkwardArray('ditau_pt')
+        .value())
 ------------------
 
 [1;31m---------------------------------------------------------------------------[0m
-[1;31mUnexpectedCharacters[0m                      Traceback (most recent call last)
-[1;32m~\AppData\Local\Temp/ipykernel_43216/3168974109.py[0m in [0;36m<module>[1;34m[0m
-[1;32m----> 1[1;33m ditaus = (ds
-[0m[0;32m      2[0m           [1;33m.[0m[0mSelect[0m[1;33m([0m[1;32mlambda[0m [0me[0m[1;33m:[0m [0me[0m[1;33m.[0m[0mDiTauJets[0m[1;33m([0m[1;34m"DiTauJets"[0m[1;33m)[0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
-[0;32m      3[0m           .Select(lambda taus: {
-[0;32m      4[0m               [1;34m'pt'[0m[1;33m:[0m [0mtaus[0m[1;33m.[0m[0mSelect[0m[1;33m([0m[1;32mlambda[0m [0mt[0m[1;33m:[0m [0mt[0m[1;33m.[0m[0mpt[0m[1;33m([0m[1;33m)[0m [1;33m/[0m [1;36m1000.0[0m[1;33m)[0m[1;33m,[0m[1;33m[0m[1;33m[0m[0m
-[0;32m      5[0m               [1;34m'eta'[0m[1;33m:[0m [0mtaus[0m[1;33m.[0m[0mSelect[0m[1;33m([0m[1;32mlambda[0m [0mt[0m[1;33m:[0m [0mt[0m[1;33m.[0m[0meta[0m[1;33m([0m[1;33m)[0m[1;33m)[0m[1;33m,[0m[1;33m[0m[1;33m[0m[0m
+[1;31mServiceXFatalTransformException[0m           Traceback (most recent call last)
+File [1;32m~\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\servicex\servicex.py:658[0m, in [0;36mServiceXDataset._get_files[1;34m(self, selection_query, data_type, notifier, title)[0m
+[0;32m    657[0m [38;5;66;03m# Reflect the files back up a level.[39;00m
+[1;32m--> 658[0m [38;5;28;01masync[39;00m [38;5;28;01mfor[39;00m r [38;5;129;01min[39;00m stream_local_files:
+[0;32m    659[0m     [38;5;28;01myield[39;00m r
 
-[1;32m~\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\make_it_sync\func_wrapper.py[0m in [0;36mwrapped_call[1;34m(*args, **kwargs)[0m
-[0;32m     61[0m         [1;33m@[0m[0mwraps[0m[1;33m([0m[0mfn[0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
-[0;32m     62[0m         [1;32mdef[0m [0mwrapped_call[0m[1;33m([0m[1;33m*[0m[0margs[0m[1;33m,[0m [1;33m**[0m[0mkwargs[0m[1;33m)[0m[1;33m:[0m[1;33m[0m[1;33m[0m[0m
-[1;32m---> 63[1;33m             [1;32mreturn[0m [0m_sync_version_of_function[0m[1;33m([0m[0mfn[0m[1;33m,[0m [1;33m*[0m[0margs[0m[1;33m,[0m [1;33m**[0m[0mkwargs[0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
-[0m[0;32m     64[0m [1;33m[0m[0m
-[0;32m     65[0m         [1;32mreturn[0m [0mwrapped_call[0m[1;33m[0m[1;33m[0m[0m
+File [1;32m~\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\servicex\servicex.py:771[0m, in [0;36mServiceXDataset._get_files_from_servicex[1;34m(self, request_id, client, minio_adaptor, notifier)[0m
+[0;32m    769[0m [38;5;66;03m# Return the files to anyone that wants them![39;00m
+[1;32m--> 771[0m [38;5;28;01masync[39;00m [38;5;28;01mfor[39;00m info [38;5;129;01min[39;00m stream_downloaded:
+[0;32m    772[0m     [38;5;28;01myield[39;00m info
 
-[1;32m~\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\make_it_sync\func_wrapper.py[0m in [0;36m_sync_version_of_function[1;34m(fn, *args, **kwargs)[0m
-[0;32m     24[0m         [0mfuture[0m [1;33m=[0m [0mexector[0m[1;33m.[0m[0msubmit[0m[1;33m([0m[0mget_data_wrapper[0m[1;33m,[0m [1;33m*[0m[0margs[0m[1;33m,[0m [1;33m**[0m[0mkwargs[0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
-[0;32m     25[0m [1;33m[0m[0m
-[1;32m---> 26[1;33m         [1;32mreturn[0m [0mfuture[0m[1;33m.[0m[0mresult[0m[1;33m([0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
-[0m[0;32m     27[0m [1;33m[0m[0m
-[0;32m     28[0m [1;33m[0m[0m
+File [1;32m~\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\servicex\servicex.py:740[0m, in [0;36mServiceXDataset._download_a_file[1;34m(self, stream, request_id, minio_adaptor, notifier)[0m
+[0;32m    739[0m file_object_list: List[Tuple[[38;5;28mstr[39m, Path]] [38;5;241m=[39m []
+[1;32m--> 740[0m [38;5;28;01masync[39;00m [38;5;28;01mfor[39;00m f [38;5;129;01min[39;00m stream:
+[0;32m    741[0m     copy_to_path [38;5;241m=[39m [38;5;28mself[39m[38;5;241m.[39m_cache[38;5;241m.[39mdata_file_location(request_id, f)
 
-[1;32m~\AppData\Local\Programs\Python\Python39\lib\concurrent\futures\_base.py[0m in [0;36mresult[1;34m(self, timeout)[0m
-[0;32m    443[0m                     [1;32mraise[0m [0mCancelledError[0m[1;33m([0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
-[0;32m    444[0m                 [1;32melif[0m [0mself[0m[1;33m.[0m[0m_state[0m [1;33m==[0m [0mFINISHED[0m[1;33m:[0m[1;33m[0m[1;33m[0m[0m
-[1;32m--> 445[1;33m                     [1;32mreturn[0m [0mself[0m[1;33m.[0m[0m__get_result[0m[1;33m([0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
-[0m[0;32m    446[0m                 [1;32melse[0m[1;33m:[0m[1;33m[0m[1;33m[0m[0m
-[0;32m    447[0m                     [1;32mraise[0m [0mTimeoutError[0m[1;33m([0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
+File [1;32m~\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\servicex\servicex.py:818[0m, in [0;36mServiceXDataset._get_minio_bucket_files_from_servicex[1;34m(self, request_id, client, minio_adaptor, notifier)[0m
+[0;32m    817[0m [38;5;66;03m# Return the minio information.[39;00m
+[1;32m--> 818[0m [38;5;28;01masync[39;00m [38;5;28;01mfor[39;00m info [38;5;129;01min[39;00m stream_new_object:
+[0;32m    819[0m     [38;5;28;01myield[39;00m info
 
-[1;32m~\AppData\Local\Programs\Python\Python39\lib\concurrent\futures\_base.py[0m in [0;36m__get_result[1;34m(self)[0m
-[0;32m    388[0m         [1;32mif[0m [0mself[0m[1;33m.[0m[0m_exception[0m[1;33m:[0m[1;33m[0m[1;33m[0m[0m
-[0;32m    389[0m             [1;32mtry[0m[1;33m:[0m[1;33m[0m[1;33m[0m[0m
-[1;32m--> 390[1;33m                 [1;32mraise[0m [0mself[0m[1;33m.[0m[0m_exception[0m[1;33m[0m[1;33m[0m[0m
-[0m[0;32m    391[0m             [1;32mfinally[0m[1;33m:[0m[1;33m[0m[1;33m[0m[0m
-[0;32m    392[0m                 [1;31m# Break a reference cycle with the exception in self._exception[0m[1;33m[0m[1;33m[0m[1;33m[0m[0m
+File [1;32m~\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\servicex\minio_adaptor.py:181[0m, in [0;36mfind_new_bucket_files[1;34m(adaptor, request_id, update)[0m
+[0;32m    180[0m seen [38;5;241m=[39m []
+[1;32m--> 181[0m [38;5;28;01masync[39;00m [38;5;28;01mfor[39;00m _ [38;5;129;01min[39;00m update:
+[0;32m    182[0m     [38;5;66;03m# Sadly, this is blocking, and so may hold things up[39;00m
+[0;32m    183[0m     files [38;5;241m=[39m cast(List[[38;5;28mstr[39m], adaptor[38;5;241m.[39mget_files(request_id))
 
-[1;32m~\AppData\Local\Programs\Python\Python39\lib\concurrent\futures\thread.py[0m in [0;36mrun[1;34m(self)[0m
-[0;32m     50[0m [1;33m[0m[0m
-[0;32m     51[0m         [1;32mtry[0m[1;33m:[0m[1;33m[0m[1;33m[0m[0m
-[1;32m---> 52[1;33m             [0mresult[0m [1;33m=[0m [0mself[0m[1;33m.[0m[0mfn[0m[1;33m([0m[1;33m*[0m[0mself[0m[1;33m.[0m[0margs[0m[1;33m,[0m [1;33m**[0m[0mself[0m[1;33m.[0m[0mkwargs[0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
-[0m[0;32m     53[0m         [1;32mexcept[0m [0mBaseException[0m [1;32mas[0m [0mexc[0m[1;33m:[0m[1;33m[0m[1;33m[0m[0m
-[0;32m     54[0m             [0mself[0m[1;33m.[0m[0mfuture[0m[1;33m.[0m[0mset_exception[0m[1;33m([0m[0mexc[0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
+File [1;32m~\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\servicex\utils.py:209[0m, in [0;36mstream_unique_updates_only[1;34m(stream)[0m
+[0;32m    208[0m last_p: Optional[TransformTuple] [38;5;241m=[39m [38;5;28;01mNone[39;00m
+[1;32m--> 209[0m [38;5;28;01masync[39;00m [38;5;28;01mfor[39;00m p [38;5;129;01min[39;00m stream:
+[0;32m    210[0m     [38;5;28;01mif[39;00m p [38;5;241m!=[39m last_p:
 
-[1;32m~\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\make_it_sync\func_wrapper.py[0m in [0;36mget_data_wrapper[1;34m(*args, **kwargs)[0m
-[0;32m     19[0m             [0masyncio[0m[1;33m.[0m[0mset_event_loop[0m[1;33m([0m[0mloop[0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
-[0;32m     20[0m             [1;32massert[0m [1;32mnot[0m [0mloop[0m[1;33m.[0m[0mis_running[0m[1;33m([0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
-[1;32m---> 21[1;33m             [1;32mreturn[0m [0mloop[0m[1;33m.[0m[0mrun_until_complete[0m[1;33m([0m[0mfn[0m[1;33m([0m[1;33m*[0m[0margs[0m[1;33m,[0m [1;33m**[0m[0mkwargs[0m[1;33m)[0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
-[0m[0;32m     22[0m [1;33m[0m[0m
-[0;32m     23[0m         [0mexector[0m [1;33m=[0m [0mThreadPoolExecutor[0m[1;33m([0m[0mmax_workers[0m[1;33m=[0m[1;36m1[0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
+File [1;32m~\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\servicex\servicex_adaptor.py:236[0m, in [0;36mtrap_servicex_failures[1;34m(stream)[0m
+[0;32m    232[0m [38;5;124;03m'''[39;00m
+[0;32m    233[0m [38;5;124;03mLooks for any failed files. If it catches one, it will remember it and throw once the stream[39;00m
+[0;32m    234[0m [38;5;124;03mis done. This allows all the files to come down first.[39;00m
+[0;32m    235[0m [38;5;124;03m'''[39;00m
+[1;32m--> 236[0m [38;5;28;01masync[39;00m [38;5;28;01mfor[39;00m p [38;5;129;01min[39;00m stream:
+[0;32m    237[0m     remain, processed, did_fail [38;5;241m=[39m p
 
-[1;32m~\AppData\Local\Programs\Python\Python39\lib\asyncio\base_events.py[0m in [0;36mrun_until_complete[1;34m(self, future)[0m
-[0;32m    640[0m             [1;32mraise[0m [0mRuntimeError[0m[1;33m([0m[1;34m'Event loop stopped before Future completed.'[0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
-[0;32m    641[0m [1;33m[0m[0m
-[1;32m--> 642[1;33m         [1;32mreturn[0m [0mfuture[0m[1;33m.[0m[0mresult[0m[1;33m([0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
-[0m[0;32m    643[0m [1;33m[0m[0m
-[0;32m    644[0m     [1;32mdef[0m [0mstop[0m[1;33m([0m[0mself[0m[1;33m)[0m[1;33m:[0m[1;33m[0m[1;33m[0m[0m
+File [1;32m~\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\servicex\utils.py:197[0m, in [0;36mstream_status_updates[1;34m(stream, notifier)[0m
+[0;32m    193[0m [38;5;124;03m'''[39;00m
+[0;32m    194[0m [38;5;124;03mAs the transformed status goes by, update the notifier with the new[39;00m
+[0;32m    195[0m [38;5;124;03mvalues.[39;00m
+[0;32m    196[0m [38;5;124;03m'''[39;00m
+[1;32m--> 197[0m [38;5;28;01masync[39;00m [38;5;28;01mfor[39;00m p [38;5;129;01min[39;00m stream:
+[0;32m    198[0m     remaining, processed, failed [38;5;241m=[39m p
 
-[1;32m~\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\func_adl\object_stream.py[0m in [0;36mvalue_async[1;34m(self, executor, title)[0m
-[0;32m    381[0m         [1;32mfrom[0m [0mfunc_adl[0m[1;33m.[0m[0mast[0m[1;33m.[0m[0mmeta_data[0m [1;32mimport[0m [0mremove_empty_metadata[0m[1;33m[0m[1;33m[0m[0m
-[0;32m    382[0m [1;33m[0m[0m
-[1;32m--> 383[1;33m         [1;32mreturn[0m [1;32mawait[0m [0mexe[0m[1;33m([0m[0mremove_empty_metadata[0m[1;33m([0m[0mself[0m[1;33m.[0m[0m_q_ast[0m[1;33m)[0m[1;33m,[0m [0mtitle[0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
-[0m[0;32m    384[0m [1;33m[0m[0m
-[0;32m    385[0m     [0mvalue[0m [1;33m=[0m [0mmake_sync[0m[1;33m([0m[0mvalue_async[0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
+File [1;32m~\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\servicex\servicex_adaptor.py:221[0m, in [0;36mtransform_status_stream[1;34m(sa, client, request_id)[0m
+[0;32m    220[0m [38;5;28;01mwhile[39;00m [38;5;129;01mnot[39;00m done:
+[1;32m--> 221[0m     next_processed [38;5;241m=[39m [38;5;28;01mawait[39;00m sa[38;5;241m.[39mget_transform_status(client, request_id)
+[0;32m    222[0m     remaining, _, _ [38;5;241m=[39m next_processed
 
-[1;32m~\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\func_adl_servicex\ServiceX.py[0m in [0;36mexecute_result_async[1;34m(self, a, title)[0m
-[0;32m    176[0m         [1;31m# Run ghe query for real![0m[1;33m[0m[1;33m[0m[1;33m[0m[0m
-[0;32m    177[0m         [0mattr[0m [1;33m=[0m [0mgetattr[0m[1;33m([0m[0mself[0m[1;33m.[0m[0m_ds[0m[1;33m,[0m [0mname[0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
-[1;32m--> 178[1;33m         [1;32mreturn[0m [1;32mawait[0m [0mattr[0m[1;33m([0m[0mq_str[0m[1;33m,[0m [0mtitle[0m[1;33m=[0m[0mtitle[0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
-[0m[0;32m    179[0m [1;33m[0m[0m
-[0;32m    180[0m [1;33m[0m[0m
+File [1;32m~\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\servicex\servicex_adaptor.py:185[0m, in [0;36mServiceXAdaptor.get_transform_status[1;34m(self, client, request_id)[0m
+[0;32m    184[0m [38;5;28;01mif[39;00m [38;5;124m'[39m[38;5;124mstatus[39m[38;5;124m'[39m [38;5;129;01min[39;00m info [38;5;129;01mand[39;00m info[[38;5;124m'[39m[38;5;124mstatus[39m[38;5;124m'[39m] [38;5;241m==[39m [38;5;124m'[39m[38;5;124mFatal[39m[38;5;124m'[39m:
+[1;32m--> 185[0m     [38;5;28;01mraise[39;00m ServiceXFatalTransformException([38;5;124mf[39m[38;5;124m'[39m[38;5;124mTransform status for [39m[38;5;132;01m{[39;00mrequest_id[38;5;132;01m}[39;00m[38;5;124m'[39m
+[0;32m    186[0m                                           [38;5;124m'[39m[38;5;124m is marked [39m[38;5;124m"[39m[38;5;124mFatal[39m[38;5;124m"[39m[38;5;124m.[39m[38;5;124m'[39m)
+[0;32m    188[0m files_remaining [38;5;241m=[39m [38;5;28mself[39m[38;5;241m.[39m_get_transform_stat(info, [38;5;124m'[39m[38;5;124mfiles-remaining[39m[38;5;124m'[39m)
 
-[1;32m~\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\servicex\servicex_utils.py[0m in [0;36mcached_version_of_fn[1;34m(*args, **kwargs)[0m
-[0;32m     47[0m         [1;32mtry[0m[1;33m:[0m[1;33m[0m[1;33m[0m[0m
-[0;32m     48[0m             [0mlogger[0m[1;33m.[0m[0mdebug[0m[1;33m([0m[1;34mf'{h} - processing request'[0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
-[1;32m---> 49[1;33m             [0mresult[0m [1;33m=[0m [1;32mawait[0m [0mfn[0m[1;33m([0m[1;33m*[0m[0margs[0m[1;33m,[0m [1;33m**[0m[0mkwargs[0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
-[0m[0;32m     50[0m             [0msx[0m[1;33m.[0m[0m_cache[0m[1;33m.[0m[0mset_inmem[0m[1;33m([0m[0mh[0m[1;33m,[0m [0mresult[0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
-[0;32m     51[0m         [1;32mfinally[0m[1;33m:[0m[1;33m[0m[1;33m[0m[0m
+[1;31mServiceXFatalTransformException[0m: (ServiceXFatalTransformException(...), 'Transform status for 4d0e41c0-fc56-4c30-a008-15593b02d24b is marked "Fatal".')
 
-[1;32m~\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\servicex\servicex.py[0m in [0;36mget_data_awkward_async[1;34m(self, selection_query, title)[0m
-[0;32m    338[0m     async def get_data_awkward_async(self, selection_query: str,
-[0;32m    339[0m                                      title: Optional[str] = None):
-[1;32m--> 340[1;33m         return self._converter.combine_awkward(await self._data_return(
-[0m[0;32m    341[0m             [0mselection_query[0m[1;33m,[0m [1;32mlambda[0m [0mf[0m[1;33m:[0m [0mself[0m[1;33m.[0m[0m_converter[0m[1;33m.[0m[0mconvert_to_awkward[0m[1;33m([0m[0mf[0m[1;33m)[0m[1;33m,[0m[1;33m[0m[1;33m[0m[0m
-[0;32m    342[0m             title))
+The above exception was the direct cause of the following exception:
 
-[1;32m~\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\backoff\_async.py[0m in [0;36mretry[1;34m(*args, **kwargs)[0m
-[0;32m    131[0m [1;33m[0m[0m
-[0;32m    132[0m             [1;32mtry[0m[1;33m:[0m[1;33m[0m[1;33m[0m[0m
-[1;32m--> 133[1;33m                 [0mret[0m [1;33m=[0m [1;32mawait[0m [0mtarget[0m[1;33m([0m[1;33m*[0m[0margs[0m[1;33m,[0m [1;33m**[0m[0mkwargs[0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
-[0m[0;32m    134[0m             [1;32mexcept[0m [0mexception[0m [1;32mas[0m [0me[0m[1;33m:[0m[1;33m[0m[1;33m[0m[0m
-[0;32m    135[0m                 [0mgiveup_result[0m [1;33m=[0m [1;32mawait[0m [0mgiveup[0m[1;33m([0m[0me[0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
+[1;31mServiceXFatalTransformException[0m           Traceback (most recent call last)
+Input [1;32mIn [2][0m, in [0;36m<cell line: 1>[1;34m()[0m
+[1;32m----> 1[0m taus [38;5;241m=[39m ([43mds[49m
+[0;32m      2[0m [43m        [49m[38;5;241;43m.[39;49m[43mSelectMany[49m[43m([49m[38;5;28;43;01mlambda[39;49;00m[43m [49m[43me[49m[43m:[49m[43m [49m[43me[49m[38;5;241;43m.[39;49m[43mDiTauJets[49m[43m([49m[38;5;124;43m"[39;49m[38;5;124;43mDiTauJets[39;49m[38;5;124;43m"[39;49m[43m)[49m[43m)[49m
+[0;32m      3[0m [43m        [49m[38;5;241;43m.[39;49m[43mSelect[49m[43m([49m[38;5;28;43;01mlambda[39;49;00m[43m [49m[43mt[49m[43m:[49m[43m [49m[43mt[49m[38;5;241;43m.[39;49m[43mpt[49m[43m([49m[43m)[49m[43m [49m[38;5;241;43m/[39;49m[43m [49m[38;5;241;43m1000.0[39;49m[43m)[49m
+[0;32m      4[0m [43m        [49m[38;5;241;43m.[39;49m[43mAsAwkwardArray[49m[43m([49m[38;5;124;43m'[39;49m[38;5;124;43mditau_pt[39;49m[38;5;124;43m'[39;49m[43m)[49m
+[0;32m      5[0m [43m        [49m[38;5;241;43m.[39;49m[43mvalue[49m[43m([49m[43m)[49m)
 
-[1;32m~\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\backoff\_async.py[0m in [0;36mretry[1;34m(*args, **kwargs)[0m
-[0;32m    131[0m [1;33m[0m[0m
-[0;32m    132[0m             [1;32mtry[0m[1;33m:[0m[1;33m[0m[1;33m[0m[0m
-[1;32m--> 133[1;33m                 [0mret[0m [1;33m=[0m [1;32mawait[0m [0mtarget[0m[1;33m([0m[1;33m*[0m[0margs[0m[1;33m,[0m [1;33m**[0m[0mkwargs[0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
-[0m[0;32m    134[0m             [1;32mexcept[0m [0mexception[0m [1;32mas[0m [0me[0m[1;33m:[0m[1;33m[0m[1;33m[0m[0m
-[0;32m    135[0m                 [0mgiveup_result[0m [1;33m=[0m [1;32mawait[0m [0mgiveup[0m[1;33m([0m[0me[0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
+File [1;32m~\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\make_it_sync\func_wrapper.py:63[0m, in [0;36mmake_sync.<locals>.wrapped_call[1;34m(*args, **kwargs)[0m
+[0;32m     61[0m [38;5;129m@wraps[39m(fn)
+[0;32m     62[0m [38;5;28;01mdef[39;00m [38;5;21mwrapped_call[39m([38;5;241m*[39margs, [38;5;241m*[39m[38;5;241m*[39mkwargs):
+[1;32m---> 63[0m     [38;5;28;01mreturn[39;00m _sync_version_of_function(fn, [38;5;241m*[39margs, [38;5;241m*[39m[38;5;241m*[39mkwargs)
 
-[1;32m~\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\servicex\servicex.py[0m in [0;36m_data_return[1;34m(self, selection_query, converter, title, data_format)[0m
-[0;32m    528[0m                                 [0mon[0m [0mthe[0m [0mconverter[0m [0mcall[0m[1;33m.[0m[1;33m[0m[1;33m[0m[0m
-[0;32m    529[0m         '''
-[1;32m--> 530[1;33m         all_data = {
-[0m[0;32m    531[0m             [0mf[0m[1;33m.[0m[0mfile[0m[1;33m:[0m [0mf[0m[1;33m.[0m[0mdata[0m[1;33m[0m[1;33m[0m[0m
-[0;32m    532[0m             [1;32masync[0m [1;32mfor[0m [0mf[0m [1;32min[0m [0mself[0m[1;33m.[0m[0m_stream_return[0m[1;33m([0m[0mselection_query[0m[1;33m,[0m [0mtitle[0m[1;33m,[0m [0mconverter[0m[1;33m,[0m [0mdata_format[0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
+File [1;32m~\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\make_it_sync\func_wrapper.py:26[0m, in [0;36m_sync_version_of_function[1;34m(fn, *args, **kwargs)[0m
+[0;32m     23[0m exector [38;5;241m=[39m ThreadPoolExecutor(max_workers[38;5;241m=[39m[38;5;241m1[39m)
+[0;32m     24[0m future [38;5;241m=[39m exector[38;5;241m.[39msubmit(get_data_wrapper, [38;5;241m*[39margs, [38;5;241m*[39m[38;5;241m*[39mkwargs)
+[1;32m---> 26[0m [38;5;28;01mreturn[39;00m [43mfuture[49m[38;5;241;43m.[39;49m[43mresult[49m[43m([49m[43m)[49m
 
-[1;32m~\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\servicex\servicex.py[0m in [0;36m<dictcomp>[1;34m(.0)[0m
-[0;32m    528[0m                                 [0mon[0m [0mthe[0m [0mconverter[0m [0mcall[0m[1;33m.[0m[1;33m[0m[1;33m[0m[0m
-[0;32m    529[0m         '''
-[1;32m--> 530[1;33m         all_data = {
-[0m[0;32m    531[0m             [0mf[0m[1;33m.[0m[0mfile[0m[1;33m:[0m [0mf[0m[1;33m.[0m[0mdata[0m[1;33m[0m[1;33m[0m[0m
-[0;32m    532[0m             [1;32masync[0m [1;32mfor[0m [0mf[0m [1;32min[0m [0mself[0m[1;33m.[0m[0m_stream_return[0m[1;33m([0m[0mselection_query[0m[1;33m,[0m [0mtitle[0m[1;33m,[0m [0mconverter[0m[1;33m,[0m [0mdata_format[0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
+File [1;32m~\AppData\Local\Programs\Python\Python39\lib\concurrent\futures\_base.py:445[0m, in [0;36mFuture.result[1;34m(self, timeout)[0m
+[0;32m    443[0m     [38;5;28;01mraise[39;00m CancelledError()
+[0;32m    444[0m [38;5;28;01melif[39;00m [38;5;28mself[39m[38;5;241m.[39m_state [38;5;241m==[39m FINISHED:
+[1;32m--> 445[0m     [38;5;28;01mreturn[39;00m [38;5;28;43mself[39;49m[38;5;241;43m.[39;49m[43m__get_result[49m[43m([49m[43m)[49m
+[0;32m    446[0m [38;5;28;01melse[39;00m:
+[0;32m    447[0m     [38;5;28;01mraise[39;00m [38;5;167;01mTimeoutError[39;00m()
 
-[1;32m~\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\servicex\servicex.py[0m in [0;36m_stream_return[1;34m(self, selection_query, title, converter, data_format)[0m
-[0;32m    567[0m                    self._stream_local_files(selection_query, title, data_format))  # type: ignore
-[0;32m    568[0m [1;33m[0m[0m
-[1;32m--> 569[1;33m         [1;32masync[0m [1;32mfor[0m [0mr[0m [1;32min[0m [0mas_data[0m[1;33m:[0m[1;33m[0m[1;33m[0m[0m
-[0m[0;32m    570[0m             [1;32myield[0m [0mr[0m[1;33m[0m[1;33m[0m[0m
-[0;32m    571[0m [1;33m[0m[0m
+File [1;32m~\AppData\Local\Programs\Python\Python39\lib\concurrent\futures\_base.py:390[0m, in [0;36mFuture.__get_result[1;34m(self)[0m
+[0;32m    388[0m [38;5;28;01mif[39;00m [38;5;28mself[39m[38;5;241m.[39m_exception:
+[0;32m    389[0m     [38;5;28;01mtry[39;00m:
+[1;32m--> 390[0m         [38;5;28;01mraise[39;00m [38;5;28mself[39m[38;5;241m.[39m_exception
+[0;32m    391[0m     [38;5;28;01mfinally[39;00m:
+[0;32m    392[0m         [38;5;66;03m# Break a reference cycle with the exception in self._exception[39;00m
+[0;32m    393[0m         [38;5;28mself[39m [38;5;241m=[39m [38;5;28;01mNone[39;00m
 
-[1;32m~\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\servicex\servicex.py[0m in [0;36m<genexpr>[1;34m(.0)[0m
-[0;32m    563[0m                                 [0mon[0m [0mthe[0m [0mconverter[0m [0mcall[0m[1;33m.[0m[1;33m[0m[1;33m[0m[0m
-[0;32m    564[0m         '''
-[1;32m--> 565[1;33m         as_data = (StreamInfoData(f.file, await asyncio.ensure_future(converter(f.path)))
-[0m[0;32m    566[0m                    [1;32masync[0m [1;32mfor[0m [0mf[0m [1;32min[0m[1;33m[0m[1;33m[0m[0m
-[0;32m    567[0m                    self._stream_local_files(selection_query, title, data_format))  # type: ignore
+File [1;32m~\AppData\Local\Programs\Python\Python39\lib\concurrent\futures\thread.py:52[0m, in [0;36m_WorkItem.run[1;34m(self)[0m
+[0;32m     49[0m     [38;5;28;01mreturn[39;00m
+[0;32m     51[0m [38;5;28;01mtry[39;00m:
+[1;32m---> 52[0m     result [38;5;241m=[39m [38;5;28mself[39m[38;5;241m.[39mfn([38;5;241m*[39m[38;5;28mself[39m[38;5;241m.[39margs, [38;5;241m*[39m[38;5;241m*[39m[38;5;28mself[39m[38;5;241m.[39mkwargs)
+[0;32m     53[0m [38;5;28;01mexcept[39;00m [38;5;167;01mBaseException[39;00m [38;5;28;01mas[39;00m exc:
+[0;32m     54[0m     [38;5;28mself[39m[38;5;241m.[39mfuture[38;5;241m.[39mset_exception(exc)
 
-[1;32m~\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\servicex\servicex.py[0m in [0;36m_stream_local_files[1;34m(self, selection_query, title, data_format)[0m
-[0;32m    600[0m              self._get_files(selection_query, data_format, notifier, title))  # type: ignore
-[0;32m    601[0m [1;33m[0m[0m
-[1;32m--> 602[1;33m         [1;32masync[0m [1;32mfor[0m [0mname[0m[1;33m,[0m [0ma_path[0m [1;32min[0m [0mas_files[0m[1;33m:[0m[1;33m[0m[1;33m[0m[0m
-[0m[0;32m    603[0m             [1;32myield[0m [0mStreamInfoPath[0m[1;33m([0m[0mname[0m[1;33m,[0m [0mPath[0m[1;33m([0m[1;32mawait[0m [0ma_path[0m[1;33m)[0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
-[0;32m    604[0m [1;33m[0m[0m
+File [1;32m~\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\make_it_sync\func_wrapper.py:21[0m, in [0;36m_sync_version_of_function.<locals>.get_data_wrapper[1;34m(*args, **kwargs)[0m
+[0;32m     19[0m asyncio[38;5;241m.[39mset_event_loop(loop)
+[0;32m     20[0m [38;5;28;01massert[39;00m [38;5;129;01mnot[39;00m loop[38;5;241m.[39mis_running()
+[1;32m---> 21[0m [38;5;28;01mreturn[39;00m [43mloop[49m[38;5;241;43m.[39;49m[43mrun_until_complete[49m[43m([49m[43mfn[49m[43m([49m[38;5;241;43m*[39;49m[43margs[49m[43m,[49m[43m [49m[38;5;241;43m*[39;49m[38;5;241;43m*[39;49m[43mkwargs[49m[43m)[49m[43m)[49m
 
-[1;32m~\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\servicex\servicex.py[0m in [0;36m<genexpr>[1;34m(.0)[0m
-[0;32m    597[0m         [1;31m# Get all the files[0m[1;33m[0m[1;33m[0m[1;33m[0m[0m
-[0;32m    598[0m         [0mas_files[0m [1;33m=[0m[0;31m [0m[0;31m\[0m[1;33m[0m[1;33m[0m[0m
-[1;32m--> 599[1;33m             (f async for f in
-[0m[0;32m    600[0m              self._get_files(selection_query, data_format, notifier, title))  # type: ignore
-[0;32m    601[0m [1;33m[0m[0m
+File [1;32m~\AppData\Local\Programs\Python\Python39\lib\asyncio\base_events.py:642[0m, in [0;36mBaseEventLoop.run_until_complete[1;34m(self, future)[0m
+[0;32m    639[0m [38;5;28;01mif[39;00m [38;5;129;01mnot[39;00m future[38;5;241m.[39mdone():
+[0;32m    640[0m     [38;5;28;01mraise[39;00m [38;5;167;01mRuntimeError[39;00m([38;5;124m'[39m[38;5;124mEvent loop stopped before Future completed.[39m[38;5;124m'[39m)
+[1;32m--> 642[0m [38;5;28;01mreturn[39;00m [43mfuture[49m[38;5;241;43m.[39;49m[43mresult[49m[43m([49m[43m)[49m
 
-[1;32m~\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\servicex\servicex.py[0m in [0;36m_get_files[1;34m(self, selection_query, data_type, notifier, title)[0m
-[0;32m    637[0m [1;33m[0m[0m
-[0;32m    638[0m             [1;31m# Get a request id - which might be cached, but if not, submit it.[0m[1;33m[0m[1;33m[0m[1;33m[0m[0m
-[1;32m--> 639[1;33m             [0mrequest_id[0m [1;33m=[0m [1;32mawait[0m [0mself[0m[1;33m.[0m[0m_get_request_id[0m[1;33m([0m[0mclient[0m[1;33m,[0m [0mquery[0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
-[0m[0;32m    640[0m [1;33m[0m[0m
-[0;32m    641[0m             [1;31m# Make sure cache status exists (user could have deleted, see #176)[0m[1;33m[0m[1;33m[0m[1;33m[0m[0m
+File [1;32m~\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\func_adl\object_stream.py:383[0m, in [0;36mObjectStream.value_async[1;34m(self, executor, title)[0m
+[0;32m    380[0m [38;5;66;03m# Run it[39;00m
+[0;32m    381[0m [38;5;28;01mfrom[39;00m [38;5;21;01mfunc_adl[39;00m[38;5;21;01m.[39;00m[38;5;21;01mast[39;00m[38;5;21;01m.[39;00m[38;5;21;01mmeta_data[39;00m [38;5;28;01mimport[39;00m remove_empty_metadata
+[1;32m--> 383[0m [38;5;28;01mreturn[39;00m [38;5;28;01mawait[39;00m exe(remove_empty_metadata([38;5;28mself[39m[38;5;241m.[39m_q_ast), title)
 
-[1;32m~\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\servicex\servicex.py[0m in [0;36m_get_request_id[1;34m(self, client, query)[0m
-[0;32m    689[0m         [0mrequest_id[0m [1;33m=[0m [0mself[0m[1;33m.[0m[0m_cache[0m[1;33m.[0m[0mlookup_query[0m[1;33m([0m[0mquery[0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
-[0;32m    690[0m         [1;32mif[0m [0mrequest_id[0m [1;32mis[0m [1;32mNone[0m[1;33m:[0m[1;33m[0m[1;33m[0m[0m
-[1;32m--> 691[1;33m             [0mrequest_info[0m [1;33m=[0m [1;32mawait[0m [0mself[0m[1;33m.[0m[0m_servicex_adaptor[0m[1;33m.[0m[0msubmit_query[0m[1;33m([0m[0mclient[0m[1;33m,[0m [0mquery[0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
-[0m[0;32m    692[0m             [0mrequest_id[0m [1;33m=[0m [0mrequest_info[0m[1;33m[[0m[1;34m'request_id'[0m[1;33m][0m[1;33m[0m[1;33m[0m[0m
-[0;32m    693[0m             [0mself[0m[1;33m.[0m[0m_cache[0m[1;33m.[0m[0mset_query[0m[1;33m([0m[0mquery[0m[1;33m,[0m [0mrequest_id[0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
+File [1;32m~\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\func_adl_servicex\ServiceX.py:178[0m, in [0;36mServiceXDatasetSourceBase.execute_result_async[1;34m(self, a, title)[0m
+[0;32m    176[0m [38;5;66;03m# Run ghe query for real![39;00m
+[0;32m    177[0m attr [38;5;241m=[39m [38;5;28mgetattr[39m([38;5;28mself[39m[38;5;241m.[39m_ds, name)
+[1;32m--> 178[0m [38;5;28;01mreturn[39;00m [38;5;28;01mawait[39;00m attr(q_str, title[38;5;241m=[39mtitle)
 
-[1;32m~\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\func_adl_servicex\local_dataset.py[0m in [0;36msubmit_query[1;34m(self, _, json_query)[0m
-[0;32m     91[0m         [0mtitle[0m [1;33m=[0m [0mjson_query[0m[1;33m[[0m[1;34m'title'[0m[1;33m][0m [1;32mif[0m [1;34m'title'[0m [1;32min[0m [0mjson_query[0m [1;32melse[0m [1;34m''[0m[1;33m[0m[1;33m[0m[0m
-[0;32m     92[0m         file_list = await self._ds.execute_result_async(
-[1;32m---> 93[1;33m             [0mtext_ast_to_python_ast[0m[1;33m([0m[0mquery[0m[1;33m)[0m[1;33m.[0m[0mbody[0m[1;33m[[0m[1;36m0[0m[1;33m][0m[1;33m.[0m[0mvalue[0m[1;33m,[0m[1;33m[0m[1;33m[0m[0m
-[0m[0;32m     94[0m             [0mtitle[0m[1;33m[0m[1;33m[0m[0m
-[0;32m     95[0m         )
+File [1;32m~\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\servicex\servicex_utils.py:49[0m, in [0;36m_wrap_in_memory_sx_cache.<locals>.cached_version_of_fn[1;34m(*args, **kwargs)[0m
+[0;32m     47[0m [38;5;28;01mtry[39;00m:
+[0;32m     48[0m     logger[38;5;241m.[39mdebug([38;5;124mf[39m[38;5;124m'[39m[38;5;132;01m{[39;00mh[38;5;132;01m}[39;00m[38;5;124m - processing request[39m[38;5;124m'[39m)
+[1;32m---> 49[0m     result [38;5;241m=[39m [38;5;28;01mawait[39;00m fn([38;5;241m*[39margs, [38;5;241m*[39m[38;5;241m*[39mkwargs)
+[0;32m     50[0m     sx[38;5;241m.[39m_cache[38;5;241m.[39mset_inmem(h, result)
+[0;32m     51[0m [38;5;28;01mfinally[39;00m:
 
-[1;32m~\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\qastle\translate.py[0m in [0;36mtext_ast_to_python_ast[1;34m(text_ast)[0m
-[0;32m     19[0m [1;33m[0m[0m
-[0;32m     20[0m [1;32mdef[0m [0mtext_ast_to_python_ast[0m[1;33m([0m[0mtext_ast[0m[1;33m)[0m[1;33m:[0m[1;33m[0m[1;33m[0m[0m
-[1;32m---> 21[1;33m     [0mtree[0m [1;33m=[0m [0mparse[0m[1;33m([0m[0mtext_ast[0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
-[0m[0;32m     22[0m     [1;32mreturn[0m [0mTextASTToPythonASTTransformer[0m[1;33m([0m[1;33m)[0m[1;33m.[0m[0mtransform[0m[1;33m([0m[0mtree[0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
+File [1;32m~\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\servicex\servicex.py:340[0m, in [0;36mServiceXDataset.get_data_awkward_async[1;34m(self, selection_query, title)[0m
+[0;32m    336[0m [38;5;129m@functools[39m[38;5;241m.[39mwraps(ServiceXABC[38;5;241m.[39mget_data_awkward_async, updated[38;5;241m=[39m())
+[0;32m    337[0m [38;5;129m@_wrap_in_memory_sx_cache[39m
+[0;32m    338[0m [38;5;28;01masync[39;00m [38;5;28;01mdef[39;00m [38;5;21mget_data_awkward_async[39m([38;5;28mself[39m, selection_query: [38;5;28mstr[39m,
+[0;32m    339[0m                                  title: Optional[[38;5;28mstr[39m] [38;5;241m=[39m [38;5;28;01mNone[39;00m):
+[1;32m--> 340[0m     [38;5;28;01mreturn[39;00m [38;5;28mself[39m[38;5;241m.[39m_converter[38;5;241m.[39mcombine_awkward([38;5;28;01mawait[39;00m [38;5;28mself[39m[38;5;241m.[39m_data_return(
+[0;32m    341[0m         selection_query, [38;5;28;01mlambda[39;00m f: [38;5;28mself[39m[38;5;241m.[39m_converter[38;5;241m.[39mconvert_to_awkward(f),
+[0;32m    342[0m         title))
 
-[1;32m~\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\qastle\parse.py[0m in [0;36mparse[1;34m(text)[0m
-[0;32m     12[0m [1;33m[0m[0m
-[0;32m     13[0m [1;32mdef[0m [0mparse[0m[1;33m([0m[0mtext[0m[1;33m)[0m[1;33m:[0m[1;33m[0m[1;33m[0m[0m
-[1;32m---> 14[1;33m     [1;32mreturn[0m [0mParser[0m[1;33m.[0m[0mparse[0m[1;33m([0m[0mtext[0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
-[0m
-[1;32m~\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\lark\lark.py[0m in [0;36mparse[1;34m(self, text, start, on_error)[0m
-[0;32m    579[0m [1;33m[0m[0m
-[0;32m    580[0m         """
-[1;32m--> 581[1;33m         [1;32mreturn[0m [0mself[0m[1;33m.[0m[0mparser[0m[1;33m.[0m[0mparse[0m[1;33m([0m[0mtext[0m[1;33m,[0m [0mstart[0m[1;33m=[0m[0mstart[0m[1;33m,[0m [0mon_error[0m[1;33m=[0m[0mon_error[0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
-[0m[0;32m    582[0m [1;33m[0m[0m
-[0;32m    583[0m     [1;33m@[0m[0mproperty[0m[1;33m[0m[1;33m[0m[0m
+File [1;32m~\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\backoff\_async.py:133[0m, in [0;36mretry_exception.<locals>.retry[1;34m(*args, **kwargs)[0m
+[0;32m    130[0m details [38;5;241m=[39m (target, args, kwargs, tries, elapsed)
+[0;32m    132[0m [38;5;28;01mtry[39;00m:
+[1;32m--> 133[0m     ret [38;5;241m=[39m [38;5;28;01mawait[39;00m target([38;5;241m*[39margs, [38;5;241m*[39m[38;5;241m*[39mkwargs)
+[0;32m    134[0m [38;5;28;01mexcept[39;00m exception [38;5;28;01mas[39;00m e:
+[0;32m    135[0m     giveup_result [38;5;241m=[39m [38;5;28;01mawait[39;00m giveup(e)
 
-[1;32m~\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\lark\parser_frontends.py[0m in [0;36mparse[1;34m(self, text, start, on_error)[0m
-[0;32m    104[0m         [0mstream[0m [1;33m=[0m [0mtext[0m [1;32mif[0m [0mself[0m[1;33m.[0m[0mskip_lexer[0m [1;32melse[0m [0mLexerThread[0m[1;33m([0m[0mself[0m[1;33m.[0m[0mlexer[0m[1;33m,[0m [0mtext[0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
-[0;32m    105[0m         [0mkw[0m [1;33m=[0m [1;33m{[0m[1;33m}[0m [1;32mif[0m [0mon_error[0m [1;32mis[0m [1;32mNone[0m [1;32melse[0m [1;33m{[0m[1;34m'on_error'[0m[1;33m:[0m [0mon_error[0m[1;33m}[0m[1;33m[0m[1;33m[0m[0m
-[1;32m--> 106[1;33m         [1;32mreturn[0m [0mself[0m[1;33m.[0m[0mparser[0m[1;33m.[0m[0mparse[0m[1;33m([0m[0mstream[0m[1;33m,[0m [0mchosen_start[0m[1;33m,[0m [1;33m**[0m[0mkw[0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
-[0m[0;32m    107[0m [1;33m[0m[0m
-[0;32m    108[0m     [1;32mdef[0m [0mparse_interactive[0m[1;33m([0m[0mself[0m[1;33m,[0m [0mtext[0m[1;33m=[0m[1;32mNone[0m[1;33m,[0m [0mstart[0m[1;33m=[0m[1;32mNone[0m[1;33m)[0m[1;33m:[0m[1;33m[0m[1;33m[0m[0m
+File [1;32m~\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\backoff\_async.py:133[0m, in [0;36mretry_exception.<locals>.retry[1;34m(*args, **kwargs)[0m
+[0;32m    130[0m details [38;5;241m=[39m (target, args, kwargs, tries, elapsed)
+[0;32m    132[0m [38;5;28;01mtry[39;00m:
+[1;32m--> 133[0m     ret [38;5;241m=[39m [38;5;28;01mawait[39;00m target([38;5;241m*[39margs, [38;5;241m*[39m[38;5;241m*[39mkwargs)
+[0;32m    134[0m [38;5;28;01mexcept[39;00m exception [38;5;28;01mas[39;00m e:
+[0;32m    135[0m     giveup_result [38;5;241m=[39m [38;5;28;01mawait[39;00m giveup(e)
 
-[1;32m~\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\lark\parsers\earley.py[0m in [0;36mparse[1;34m(self, lexer, start)[0m
-[0;32m    295[0m                 [0mcolumns[0m[1;33m[[0m[1;36m0[0m[1;33m][0m[1;33m.[0m[0madd[0m[1;33m([0m[0mitem[0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
-[0;32m    296[0m [1;33m[0m[0m
-[1;32m--> 297[1;33m         [0mto_scan[0m [1;33m=[0m [0mself[0m[1;33m.[0m[0m_parse[0m[1;33m([0m[0mlexer[0m[1;33m,[0m [0mcolumns[0m[1;33m,[0m [0mto_scan[0m[1;33m,[0m [0mstart_symbol[0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
-[0m[0;32m    298[0m [1;33m[0m[0m
-[0;32m    299[0m         [1;31m# If the parse was successful, the start[0m[1;33m[0m[1;33m[0m[1;33m[0m[0m
+File [1;32m~\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\servicex\servicex.py:530[0m, in [0;36mServiceXDataset._data_return[1;34m(self, selection_query, converter, title, data_format)[0m
+[0;32m    502[0m [38;5;129m@on_exception[39m(backoff[38;5;241m.[39mconstant, ServiceXUnknownRequestID, interval[38;5;241m=[39m[38;5;241m0.1[39m, max_tries[38;5;241m=[39m[38;5;241m3[39m)
+[0;32m    503[0m [38;5;129m@on_exception[39m(backoff[38;5;241m.[39mconstant,
+[0;32m    504[0m               (ServiceXUnknownDataRequestID, minio[38;5;241m.[39merror[38;5;241m.[39mNoSuchBucket),
+[1;32m   (...)[0m
+[0;32m    508[0m                        title: Optional[[38;5;28mstr[39m],
+[0;32m    509[0m                        data_format: [38;5;28mstr[39m [38;5;241m=[39m [38;5;124m'[39m[38;5;124mroot-file[39m[38;5;124m'[39m) [38;5;241m-[39m[38;5;241m>[39m List[Any]:
+[0;32m    510[0m     [38;5;124;03m'''Given a query, return the data, in a unique order, that hold[39;00m
+[0;32m    511[0m [38;5;124;03m    the data for the query.[39;00m
+[0;32m    512[0m 
+[1;32m   (...)[0m
+[0;32m    528[0m [38;5;124;03m                            on the converter call.[39;00m
+[0;32m    529[0m [38;5;124;03m    '''[39;00m
+[1;32m--> 530[0m     all_data [38;5;241m=[39m {
+[0;32m    531[0m         f[38;5;241m.[39mfile: f[38;5;241m.[39mdata
+[0;32m    532[0m         [38;5;28;01masync[39;00m [38;5;28;01mfor[39;00m f [38;5;129;01min[39;00m [38;5;28mself[39m[38;5;241m.[39m_stream_return(selection_query, title, converter, data_format)
+[0;32m    533[0m     }
+[0;32m    535[0m     [38;5;66;03m# Convert them to the proper format[39;00m
+[0;32m    536[0m 
+[0;32m    537[0m     [38;5;66;03m# Finally, we need them in the proper order so we append them[39;00m
+[0;32m    538[0m     [38;5;66;03m# all together[39;00m
+[0;32m    539[0m     ordered_data [38;5;241m=[39m [all_data[k] [38;5;28;01mfor[39;00m k [38;5;129;01min[39;00m [38;5;28msorted[39m(all_data[38;5;241m.[39mkeys())]
 
-[1;32m~\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\lark\parsers\xearley.py[0m in [0;36m_parse[1;34m(self, stream, columns, to_scan, start_symbol)[0m
-[0;32m    142[0m             [0mself[0m[1;33m.[0m[0mpredict_and_complete[0m[1;33m([0m[0mi[0m[1;33m,[0m [0mto_scan[0m[1;33m,[0m [0mcolumns[0m[1;33m,[0m [0mtransitives[0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
-[0;32m    143[0m [1;33m[0m[0m
-[1;32m--> 144[1;33m             [0mto_scan[0m [1;33m=[0m [0mscan[0m[1;33m([0m[0mi[0m[1;33m,[0m [0mto_scan[0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
-[0m[0;32m    145[0m [1;33m[0m[0m
-[0;32m    146[0m             [1;32mif[0m [0mtoken[0m [1;33m==[0m [1;34m'\n'[0m[1;33m:[0m[1;33m[0m[1;33m[0m[0m
+File [1;32m~\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\servicex\servicex.py:530[0m, in [0;36m<dictcomp>[1;34m(.0)[0m
+[0;32m    502[0m [38;5;129m@on_exception[39m(backoff[38;5;241m.[39mconstant, ServiceXUnknownRequestID, interval[38;5;241m=[39m[38;5;241m0.1[39m, max_tries[38;5;241m=[39m[38;5;241m3[39m)
+[0;32m    503[0m [38;5;129m@on_exception[39m(backoff[38;5;241m.[39mconstant,
+[0;32m    504[0m               (ServiceXUnknownDataRequestID, minio[38;5;241m.[39merror[38;5;241m.[39mNoSuchBucket),
+[1;32m   (...)[0m
+[0;32m    508[0m                        title: Optional[[38;5;28mstr[39m],
+[0;32m    509[0m                        data_format: [38;5;28mstr[39m [38;5;241m=[39m [38;5;124m'[39m[38;5;124mroot-file[39m[38;5;124m'[39m) [38;5;241m-[39m[38;5;241m>[39m List[Any]:
+[0;32m    510[0m     [38;5;124;03m'''Given a query, return the data, in a unique order, that hold[39;00m
+[0;32m    511[0m [38;5;124;03m    the data for the query.[39;00m
+[0;32m    512[0m 
+[1;32m   (...)[0m
+[0;32m    528[0m [38;5;124;03m                            on the converter call.[39;00m
+[0;32m    529[0m [38;5;124;03m    '''[39;00m
+[1;32m--> 530[0m     all_data [38;5;241m=[39m {
+[0;32m    531[0m         f[38;5;241m.[39mfile: f[38;5;241m.[39mdata
+[0;32m    532[0m         [38;5;28;01masync[39;00m [38;5;28;01mfor[39;00m f [38;5;129;01min[39;00m [38;5;28mself[39m[38;5;241m.[39m_stream_return(selection_query, title, converter, data_format)
+[0;32m    533[0m     }
+[0;32m    535[0m     [38;5;66;03m# Convert them to the proper format[39;00m
+[0;32m    536[0m 
+[0;32m    537[0m     [38;5;66;03m# Finally, we need them in the proper order so we append them[39;00m
+[0;32m    538[0m     [38;5;66;03m# all together[39;00m
+[0;32m    539[0m     ordered_data [38;5;241m=[39m [all_data[k] [38;5;28;01mfor[39;00m k [38;5;129;01min[39;00m [38;5;28msorted[39m(all_data[38;5;241m.[39mkeys())]
 
-[1;32m~\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\lark\parsers\xearley.py[0m in [0;36mscan[1;34m(i, to_scan)[0m
-[0;32m    116[0m             [1;32mif[0m [1;32mnot[0m [0mnext_set[0m [1;32mand[0m [1;32mnot[0m [0mdelayed_matches[0m [1;32mand[0m [1;32mnot[0m [0mnext_to_scan[0m[1;33m:[0m[1;33m[0m[1;33m[0m[0m
-[0;32m    117[0m                 [0mconsidered_rules[0m [1;33m=[0m [0mlist[0m[1;33m([0m[0msorted[0m[1;33m([0m[0mto_scan[0m[1;33m,[0m [0mkey[0m[1;33m=[0m[1;32mlambda[0m [0mkey[0m[1;33m:[0m [0mkey[0m[1;33m.[0m[0mrule[0m[1;33m.[0m[0morigin[0m[1;33m.[0m[0mname[0m[1;33m)[0m[1;33m)[0m[1;33m[0m[1;33m[0m[0m
-[1;32m--> 118[1;33m                 raise UnexpectedCharacters(stream, i, text_line, text_column, {item.expect.name for item in to_scan},
-[0m[0;32m    119[0m                                            [0mset[0m[1;33m([0m[0mto_scan[0m[1;33m)[0m[1;33m,[0m [0mstate[0m[1;33m=[0m[0mfrozenset[0m[1;33m([0m[0mi[0m[1;33m.[0m[0ms[0m [1;32mfor[0m [0mi[0m [1;32min[0m [0mto_scan[0m[1;33m)[0m[1;33m,[0m[1;33m[0m[1;33m[0m[0m
-[0;32m    120[0m                                            [0mconsidered_rules[0m[1;33m=[0m[0mconsidered_rules[0m[1;33m[0m[1;33m[0m[0m
+File [1;32m~\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\servicex\servicex.py:569[0m, in [0;36mServiceXDataset._stream_return[1;34m(self, selection_query, title, converter, data_format)[0m
+[0;32m    547[0m [38;5;124;03m'''Given a query, return the data, in the order it arrives back[39;00m
+[0;32m    548[0m [38;5;124;03mconverted as appropriate.[39;00m
+[0;32m    549[0m 
+[1;32m   (...)[0m
+[0;32m    563[0m [38;5;124;03m                        on the converter call.[39;00m
+[0;32m    564[0m [38;5;124;03m'''[39;00m
+[0;32m    565[0m as_data [38;5;241m=[39m (StreamInfoData(f[38;5;241m.[39mfile, [38;5;28;01mawait[39;00m asyncio[38;5;241m.[39mensure_future(converter(f[38;5;241m.[39mpath)))
+[0;32m    566[0m            [38;5;28;01masync[39;00m [38;5;28;01mfor[39;00m f [38;5;129;01min[39;00m
+[0;32m    567[0m            [38;5;28mself[39m[38;5;241m.[39m_stream_local_files(selection_query, title, data_format))  [38;5;66;03m# type: ignore[39;00m
+[1;32m--> 569[0m [38;5;28;01masync[39;00m [38;5;28;01mfor[39;00m r [38;5;129;01min[39;00m as_data:
+[0;32m    570[0m     [38;5;28;01myield[39;00m r
 
-[1;31mUnexpectedCharacters[0m: No terminal matches '<' in the current parser context, at line 1 col 491
+File [1;32m~\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\servicex\servicex.py:565[0m, in [0;36m<genexpr>[1;34m(.0)[0m
+[0;32m    543[0m [38;5;28;01masync[39;00m [38;5;28;01mdef[39;00m [38;5;21m_stream_return[39m([38;5;28mself[39m, selection_query: [38;5;28mstr[39m,
+[0;32m    544[0m                          title: Optional[[38;5;28mstr[39m],
+[0;32m    545[0m                          converter: Callable[[Path], Awaitable[Any]],
+[0;32m    546[0m                          data_format: [38;5;28mstr[39m [38;5;241m=[39m [38;5;124m'[39m[38;5;124mroot-file[39m[38;5;124m'[39m) [38;5;241m-[39m[38;5;241m>[39m AsyncIterator[StreamInfoData]:
+[0;32m    547[0m     [38;5;124;03m'''Given a query, return the data, in the order it arrives back[39;00m
+[0;32m    548[0m [38;5;124;03m    converted as appropriate.[39;00m
+[0;32m    549[0m 
+[1;32m   (...)[0m
+[0;32m    563[0m [38;5;124;03m                            on the converter call.[39;00m
+[0;32m    564[0m [38;5;124;03m    '''[39;00m
+[1;32m--> 565[0m     as_data [38;5;241m=[39m (StreamInfoData(f[38;5;241m.[39mfile, [38;5;28;01mawait[39;00m asyncio[38;5;241m.[39mensure_future(converter(f[38;5;241m.[39mpath)))
+[0;32m    566[0m                [38;5;28;01masync[39;00m [38;5;28;01mfor[39;00m f [38;5;129;01min[39;00m
+[0;32m    567[0m                [38;5;28mself[39m[38;5;241m.[39m_stream_local_files(selection_query, title, data_format))  [38;5;66;03m# type: ignore[39;00m
+[0;32m    569[0m     [38;5;28;01masync[39;00m [38;5;28;01mfor[39;00m r [38;5;129;01min[39;00m as_data:
+[0;32m    570[0m         [38;5;28;01myield[39;00m r
 
-ist 'pt' 'eta' 'phi') (list (call (attr <Array [{ditau_pt: 314}, ... {ditau_pt: 
-                                        ^
-Expected one of: 
-	* LPAR
-	* STRING_LITERAL
-	* NUMERIC_LITERAL
-	* IDENTIFIER
-	* RPAR
+File [1;32m~\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\servicex\servicex.py:602[0m, in [0;36mServiceXDataset._stream_local_files[1;34m(self, selection_query, title, data_format)[0m
+[0;32m    597[0m [38;5;66;03m# Get all the files[39;00m
+[0;32m    598[0m as_files [38;5;241m=[39m \
+[0;32m    599[0m     (f [38;5;28;01masync[39;00m [38;5;28;01mfor[39;00m f [38;5;129;01min[39;00m
+[0;32m    600[0m      [38;5;28mself[39m[38;5;241m.[39m_get_files(selection_query, data_format, notifier, title))  [38;5;66;03m# type: ignore[39;00m
+[1;32m--> 602[0m [38;5;28;01masync[39;00m [38;5;28;01mfor[39;00m name, a_path [38;5;129;01min[39;00m as_files:
+[0;32m    603[0m     [38;5;28;01myield[39;00m StreamInfoPath(name, Path([38;5;28;01mawait[39;00m a_path))
 
-UnexpectedCharacters: No terminal matches '<' in the current parser context, at line 1 col 491
+File [1;32m~\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\servicex\servicex.py:599[0m, in [0;36m<genexpr>[1;34m(.0)[0m
+[0;32m    595[0m notifier [38;5;241m=[39m [38;5;28mself[39m[38;5;241m.[39m_create_notifier(title, [38;5;28;01mTrue[39;00m)
+[0;32m    597[0m [38;5;66;03m# Get all the files[39;00m
+[0;32m    598[0m as_files [38;5;241m=[39m \
+[1;32m--> 599[0m     (f [38;5;28;01masync[39;00m [38;5;28;01mfor[39;00m f [38;5;129;01min[39;00m
+[0;32m    600[0m      [38;5;28mself[39m[38;5;241m.[39m_get_files(selection_query, data_format, notifier, title))  [38;5;66;03m# type: ignore[39;00m
+[0;32m    602[0m [38;5;28;01masync[39;00m [38;5;28;01mfor[39;00m name, a_path [38;5;129;01min[39;00m as_files:
+[0;32m    603[0m     [38;5;28;01myield[39;00m StreamInfoPath(name, Path([38;5;28;01mawait[39;00m a_path))
 
-ist 'pt' 'eta' 'phi') (list (call (attr <Array [{ditau_pt: 314}, ... {ditau_pt: 
-                                        ^
-Expected one of: 
-	* LPAR
-	* STRING_LITERAL
-	* NUMERIC_LITERAL
-	* IDENTIFIER
-	* RPAR
+File [1;32m~\AppData\Local\pypoetry\Cache\virtualenvs\xaod-usage-w68Kx7k0-py3.9\lib\site-packages\servicex\servicex.py:676[0m, in [0;36mServiceXDataset._get_files[1;34m(self, selection_query, data_type, notifier, title)[0m
+[0;32m    673[0m     transform_status [38;5;241m=[39m [38;5;28;01mawait[39;00m [38;5;28mself[39m[38;5;241m.[39m_servicex_adaptor[38;5;241m.[39mget_query_status(client,
+[0;32m    674[0m                                                                      request_id)
+[0;32m    675[0m     [38;5;28mself[39m[38;5;241m.[39m_cache[38;5;241m.[39mremove_query(query)
+[1;32m--> 676[0m     [38;5;28;01mraise[39;00m ServiceXFatalTransformException(
+[0;32m    677[0m         [38;5;124mf[39m[38;5;124m'[39m[38;5;124mServiceX Fatal Error: [39m[38;5;132;01m{[39;00mtransform_status[[38;5;124m"[39m[38;5;124mfailure-info[39m[38;5;124m"[39m][38;5;132;01m}[39;00m[38;5;124m'[39m) [38;5;28;01mfrom[39;00m [38;5;21;01me[39;00m
+[0;32m    679[0m [38;5;28;01mexcept[39;00m ServiceXFailedFileTransform [38;5;28;01mas[39;00m e:
+[0;32m    680[0m     [38;5;28mself[39m[38;5;241m.[39m_cache[38;5;241m.[39mremove_query(query)
 
+[1;31mServiceXFatalTransformException[0m: (ServiceXFatalTransformException(...), 'ServiceX Fatal Error: DID Finder found zero files for dataset mc16_13TeV:mc16_13TeV.361108.PowhegPythia8EvtGen_AZNLOCTEQ6L1_Ztautau.deriv.DAOD_PHYS.e3601_e5984_s3126_s3136_r10724_r10726_p4164?files=20')
+ServiceXFatalTransformException: (ServiceXFatalTransformException(...), 'ServiceX Fatal Error: DID Finder found zero files for dataset mc16_13TeV:mc16_13TeV.361108.PowhegPythia8EvtGen_AZNLOCTEQ6L1_Ztautau.deriv.DAOD_PHYS.e3601_e5984_s3126_s3136_r10724_r10726_p4164?files=20')
 
