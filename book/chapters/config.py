@@ -91,16 +91,17 @@ def make_ds(s: sample):
     Returns:
         sample: The sample specification.
     """
+    sx_ds_name = s.rucio_ds + "?files=20"
     if s.typed_access:
         if use_local:
             ds = xAODLocalTyped(s.local_path)
         else:
-            ds = SXDSAtlasxAODR21(s.rucio_ds + "?files=20", backend=sx_backend_name)
+            ds = SXDSAtlasxAODR21(sx_ds_name, backend=sx_backend_name)
     else:
         if use_local:
             ds = SXLocalxAOD(s.local_path)
         else:
-            ds = ServiceXSourceXAOD(s.rucio_ds, backend=sx_backend_name)
+            ds = ServiceXSourceXAOD(sx_ds_name, backend=sx_backend_name)
     
     # TODO: If we run Overlap Removal, then we must have a PV in the event. Unfortunately,
     # we do not yet know how to filter out events without a PV in them. So we turn off OR
