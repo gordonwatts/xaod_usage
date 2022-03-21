@@ -51,8 +51,6 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -472,26 +470,6 @@ const thebe_selector_output = ".output, .cell_output"
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Found backend type matching &quot;xaod&quot;. Matching by type is depreciated. Please switch to using the &quot;name&quot; keyword in your servicex.yaml file.
-</pre></div>
-</div>
-</div>
 </div>
 </div>
 <div class="section" id="the-calibration-configuration-object">
@@ -547,16 +525,16 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="n">new_jet_selection</span><span class="o">.</span><span class="n">jet_collection</span> <span class="o">=</span> <span class="s1">&#39;AntiKt4EMTopoJets&#39;</span>
 <span class="n">calib_tools</span><span class="o">.</span><span class="n">set_default_config</span><span class="p">(</span><span class="n">new_jet_selection</span><span class="p">)</span>
 
-<span class="n">antikt_jets</span> <span class="o">=</span> <span class="p">(</span><span class="n">ds</span>
-        <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">Jets</span><span class="p">())</span>
-        <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">jets</span><span class="p">:</span> <span class="n">jets</span><span class="o">.</span><span class="n">Where</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="p">(</span><span class="n">j</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">30</span><span class="p">))</span>
-        <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">jets</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s1">&#39;pt&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">j</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span><span class="o">/</span><span class="mf">1000.0</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">jets</span><span class="p">],</span>
-                <span class="s1">&#39;eta&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">j</span><span class="o">.</span><span class="n">eta</span><span class="p">()</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">jets</span><span class="p">],</span>
-                <span class="s1">&#39;phi&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">j</span><span class="o">.</span><span class="n">phi</span><span class="p">()</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">jets</span><span class="p">],</span>
-        <span class="p">})</span>
-        <span class="o">.</span><span class="n">AsAwkwardArray</span><span class="p">()</span>
-        <span class="o">.</span><span class="n">value</span><span class="p">())</span>
+<span class="n">antikt_jets_attempt</span> <span class="o">=</span> <span class="p">(</span><span class="n">ds</span>
+                       <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">Jets</span><span class="p">())</span>
+                       <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">jets</span><span class="p">:</span> <span class="n">jets</span><span class="o">.</span><span class="n">Where</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="p">(</span><span class="n">j</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">30</span><span class="p">))</span>
+                       <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">jets</span><span class="p">:</span> <span class="p">{</span>
+                               <span class="s1">&#39;pt&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">j</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span><span class="o">/</span><span class="mf">1000.0</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">jets</span><span class="p">],</span>
+                               <span class="s1">&#39;eta&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">j</span><span class="o">.</span><span class="n">eta</span><span class="p">()</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">jets</span><span class="p">],</span>
+                               <span class="s1">&#39;phi&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">j</span><span class="o">.</span><span class="n">phi</span><span class="p">()</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">jets</span><span class="p">],</span>
+                       <span class="p">})</span>
+                       <span class="o">.</span><span class="n">AsAwkwardArray</span><span class="p">()</span>
+                       <span class="o">.</span><span class="n">value</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
@@ -564,16 +542,54 @@ const thebe_selector_output = ".output, .cell_output"
 <p>And we can see that the PFlow algorithm returns more jets than the anti-kt4 algorithm. And that they are mostly at lower jet <span class="math notranslate nohighlight">\(p_T\)</span>’s:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">ak</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">pflow_jets</span><span class="o">.</span><span class="n">pt</span><span class="p">)),</span> <span class="nb">len</span><span class="p">(</span><span class="n">ak</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">antikt_jets_attempt</span><span class="o">.</span><span class="n">pt</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1817405, 1817405)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Wait - they are the same. What is going on here?</p>
+<p>The actual reason is one why it is important not to use this feature except under very limited circumstances. If we look at the code that creates this dataset in <code class="docutils literal notranslate"><span class="pre">config.py</span></code>, we’ll see:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">calib_tools</span><span class="o">.</span><span class="n">query_update</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">perform_overlap_removal</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>That line grabs the default <em>at the time of the call to <code class="docutils literal notranslate"><span class="pre">query_update</span></code></em> and saves all its values. That occurred during the initial import at the top of the chapter! So us setting this here did nothing! In order to do this, we need to re-run the initial query creation!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">config</span> <span class="kn">import</span> <span class="n">make_ds</span><span class="p">,</span> <span class="n">_samples</span>
+<span class="n">redone_ds</span> <span class="o">=</span> <span class="n">make_ds</span><span class="p">(</span><span class="n">_samples</span><span class="p">[</span><span class="s2">&quot;zee&quot;</span><span class="p">])</span>
+
+<span class="n">antikt_jets</span> <span class="o">=</span> <span class="p">(</span><span class="n">redone_ds</span>
+               <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">Jets</span><span class="p">())</span>
+               <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">jets</span><span class="p">:</span> <span class="n">jets</span><span class="o">.</span><span class="n">Where</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="p">(</span><span class="n">j</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">30</span><span class="p">))</span>
+               <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">jets</span><span class="p">:</span> <span class="p">{</span>
+                       <span class="s1">&#39;pt&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">j</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span><span class="o">/</span><span class="mf">1000.0</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">jets</span><span class="p">],</span>
+                       <span class="s1">&#39;eta&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">j</span><span class="o">.</span><span class="n">eta</span><span class="p">()</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">jets</span><span class="p">],</span>
+                       <span class="s1">&#39;phi&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">j</span><span class="o">.</span><span class="n">phi</span><span class="p">()</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">jets</span><span class="p">],</span>
+               <span class="p">})</span>
+               <span class="o">.</span><span class="n">AsAwkwardArray</span><span class="p">()</span>
+               <span class="o">.</span><span class="n">value</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">ak</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">pflow_jets</span><span class="o">.</span><span class="n">pt</span><span class="p">)),</span> <span class="nb">len</span><span class="p">(</span><span class="n">ak</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">antikt_jets</span><span class="o">.</span><span class="n">pt</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(25560, 23567)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1817405, 1801797)
 </pre></div>
 </div>
 </div>
 </div>
+<p>Now we see the expected result - two are different. Again - this is a good reason to use other methods than setting the default. All the pitfalls of global variables will hound you!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">ak</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">pflow_jets</span><span class="o">.</span><span class="n">pt</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PFlow&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
@@ -584,7 +600,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/calibration_11_0.png" src="../_images/calibration_11_0.png" />
+<img alt="../_images/calibration_15_0.png" src="../_images/calibration_15_0.png" />
 </div>
 </div>
 <p>We can further see that if we find closest-matching jets in <span class="math notranslate nohighlight">\(\eta-\phi\)</span>, that the algorithms really do gather different amounts of energy (as expected!):</p>
@@ -604,7 +620,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/calibration_14_0.png" src="../_images/calibration_14_0.png" />
+<img alt="../_images/calibration_18_0.png" src="../_images/calibration_18_0.png" />
 </div>
 </div>
 <p>And then we can use <code class="docutils literal notranslate"><span class="pre">calib_tools.reset_config()</span></code> to reset to factory default. Though this is mostly for test harneses and the like.</p>
@@ -648,7 +664,18 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-<p>And we can see there are no differences in the data we’ve pulled here as compared to using the <code class="docutils literal notranslate"><span class="pre">default_config</span></code> technique above:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">ak</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">jetname_in_query_jets</span><span class="o">.</span><span class="n">pt</span><span class="p">)),</span> <span class="nb">len</span><span class="p">(</span><span class="n">ak</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">antikt_jets</span><span class="o">.</span><span class="n">pt</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1801797, 1801797)
+</pre></div>
+</div>
+</div>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ak</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">jetname_in_query_jets</span><span class="o">.</span><span class="n">pt</span> <span class="o">-</span> <span class="n">antikt_jets</span><span class="o">.</span><span class="n">pt</span><span class="p">))</span>
@@ -695,7 +722,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p>You can even set a whole new configuration if you have lots of changes at once. This will override anything you’ve previously set with <code class="docutils literal notranslate"><span class="pre">query_update</span></code> in the query.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">config_in_query_jets</span> <span class="o">=</span> <span class="p">(</span><span class="n">calib_tools</span><span class="o">.</span><span class="n">query_update</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">new_jet_selection</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">config_in_query_jets</span> <span class="o">=</span> <span class="p">(</span><span class="n">calib_tools</span><span class="o">.</span><span class="n">query_update</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">new_jet_selection</span><span class="p">,</span> <span class="n">perform_overlap_removal</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">Jets</span><span class="p">())</span>
         <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">jets</span><span class="p">:</span> <span class="n">jets</span><span class="o">.</span><span class="n">Where</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="p">(</span><span class="n">j</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">30</span><span class="p">))</span>
         <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">jets</span><span class="p">:</span> <span class="p">{</span>
@@ -767,7 +794,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/calibration_35_0.png" src="../_images/calibration_35_0.png" />
+<img alt="../_images/calibration_39_0.png" src="../_images/calibration_39_0.png" />
 </div>
 </div>
 <p>While this works, it clearly can’t be the final way to do this. Espeically given the push model that ATLAS uses for systematic errors. Thoughts welcome at this <a class="reference external" href="https://github.com/gordonwatts/xaod_usage/issues/13">issue on how to implement systematic errors</a> in the ATLAS xAOD system for <code class="docutils literal notranslate"><span class="pre">func_adl</span></code>.</p>
@@ -778,7 +805,6 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">default_jets</span> <span class="o">=</span> <span class="n">calib_tools</span><span class="o">.</span><span class="n">default_config</span><span class="o">.</span><span class="n">jet_collection</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Default jet collection: </span><span class="si">{</span><span class="n">default_jets</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="n">uncalibrated_jets</span> <span class="o">=</span> <span class="p">(</span><span class="n">ds</span>
         <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">Jets</span><span class="p">(</span><span class="n">uncalibrated_collection</span><span class="o">=</span><span class="n">default_jets</span><span class="p">))</span>
         <span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">jets</span><span class="p">:</span> <span class="n">jets</span><span class="o">.</span><span class="n">Where</span><span class="p">(</span><span class="k">lambda</span> <span class="n">j</span><span class="p">:</span> <span class="p">(</span><span class="n">j</span><span class="o">.</span><span class="n">pt</span><span class="p">()</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">30</span><span class="p">))</span>
@@ -789,11 +815,6 @@ const thebe_selector_output = ".output, .cell_output"
         <span class="p">})</span>
         <span class="o">.</span><span class="n">AsAwkwardArray</span><span class="p">()</span>
         <span class="o">.</span><span class="n">value</span><span class="p">())</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Default jet collection: AntiKt4EMPFlowJets
 </pre></div>
 </div>
 </div>
@@ -808,7 +829,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/calibration_39_0.png" src="../_images/calibration_39_0.png" />
+<img alt="../_images/calibration_43_0.png" src="../_images/calibration_43_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -827,7 +848,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/calibration_41_0.png" src="../_images/calibration_41_0.png" />
+<img alt="../_images/calibration_45_0.png" src="../_images/calibration_45_0.png" />
 </div>
 </div>
 </div>
