@@ -93,7 +93,7 @@ def make_ds(s: sample):
     """
     sx_ds_name = s.rucio_ds
     if isinstance(sx_ds_name, str):
-         sx_ds_name += "?files=20"
+         sx_ds_name += "?files=20&get=available"
 
     if s.typed_access:
         if use_local:
