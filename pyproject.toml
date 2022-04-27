@@ -9,10 +9,11 @@ license = "MIT"
 python = ">=3.9,<3.10"
 jupyter-book = "^0.12.0"
 matplotlib = "^3.4.3"
-func-adl-servicex-xaodr21 = { path = "../func_adl_servicex_xaodr21/", develop = true }
 ghp-import = "^2.0.2"
 hist = {extras = ["plot"], version = "^2.5.2"}
 particle = "^0.16.3"
+func-adl-servicex-xaodr21 = "^1.0.21"
+func-adl-servicex = {version = ">=2.0b1", extras = ["local"]}
 
 [tool.poetry.dev-dependencies]
 

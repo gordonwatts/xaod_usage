@@ -1,12 +1,12 @@
 from dataclasses import dataclass
 from pathlib import Path
-
-from func_adl_servicex import SXLocalxAOD
-from func_adl_servicex_xaodr21 import SXDSAtlasxAODR21, calib_tools
-from func_adl_servicex_xaodr21.event_collection import Event
+from typing import List, Union
 
 import awkward as ak
 import numpy as np
+from func_adl_servicex import ServiceXSourceXAOD, SXLocalxAOD
+from func_adl_servicex_xaodr21 import SXDSAtlasxAODR21, calib_tools
+from func_adl_servicex_xaodr21.event_collection import Event
 
 
 @dataclass
@@ -16,44 +16,54 @@ class sample:
     name: str
 
     # The full rucio dataset name
-    rucio_ds: str
+    rucio_ds: Union[str, List[str]]
 
     # Locally where we can find it
     local_path: Path
 
+    # Use typed access?
+    typed_access: bool = True
 
 _samples = {
     "zee": sample(
         name="ds_zee",
-        rucio_ds="mc16_13TeV.361106.PowhegPythia8EvtGen_AZNLOCTEQ6L1_Zee.deriv.DAOD_PHYS.e3601_e5984_s3126_s3136_r10724_r10726_p4164",
+        rucio_ds="rucio://mc16_13TeV:mc16_13TeV.361106.PowhegPythia8EvtGen_AZNLOCTEQ6L1_Zee.deriv.DAOD_PHYS.e3601_e5984_s3126_s3136_r10724_r10726_p4164",
         local_path=Path(
             r"C:\Users\gordo\Code\atlas\data\R21\DAOD_PHYS\361106\DAOD_PHYS.23294912._000216.pool.root.1"
         ),
     ),
+    "zee_untyped": sample(
+        name="ds_zee_untyped",
+        rucio_ds="rucio://mc16_13TeV:mc16_13TeV.361106.PowhegPythia8EvtGen_AZNLOCTEQ6L1_Zee.deriv.DAOD_PHYS.e3601_e5984_s3126_s3136_r10724_r10726_p4164",
+        local_path=Path(
+            r"C:\Users\gordo\Code\atlas\data\R21\DAOD_PHYS\361106\DAOD_PHYS.23294912._000216.pool.root.1"
+        ),
+        typed_access=False,
+    ),
     "zmumu": sample(
         name="ds_zmuumu",
-        rucio_ds="mc16_13TeV.361107.PowhegPythia8EvtGen_AZNLOCTEQ6L1_Zmumu.deriv.DAOD_PHYS.e3601_e5984_s3126_s3136_r10724_r10726_p4164",
+        rucio_ds="rucio://mc16_13TeV:mc16_13TeV.361107.PowhegPythia8EvtGen_AZNLOCTEQ6L1_Zmumu.deriv.DAOD_PHYS.e3601_e5984_s3126_s3136_r10724_r10726_p4164",
         local_path=Path(
             r"C:\Users\gordo\Code\atlas\data\R21\DAOD_PHYS\361107\DAOD_PHYS.23295097._000229.pool.root.1"
         ),
     ),
     "ztautau": sample(
         name="ds_ztautau",
-        rucio_ds="mc16_13TeV.361108.PowhegPythia8EvtGen_AZNLOCTEQ6L1_Ztautau.deriv.DAOD_PHYS.e3601_e5984_s3126_s3136_r10724_r10726_p4164",
+        rucio_ds="rucio://mc16_13TeV:mc16_13TeV.361108.PowhegPythia8EvtGen_AZNLOCTEQ6L1_Ztautau.deriv.DAOD_PHYS.e3601_e5984_s3126_s3136_r10724_r10726_p4355",
         local_path=Path(
             r"C:\Users\gordo\Code\atlas\data\R21\DAOD_PHYS\361108\DAOD_PHYS.23295108._000430.pool.root.1"
         ),
     ),
     "jz2_exot15": sample(
         name="ds_jz3_exot15",
-        rucio_ds="mc16_13TeV.361022.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ2W.deriv.DAOD_EXOT15.e3668_s3126_r9364_r9315_p4696",
+        rucio_ds="rucio://mc16_13TeV:mc16_13TeV.361022.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ2W.deriv.DAOD_EXOT15.e3668_s3126_r9364_r9315_p4696",
         local_path=Path(
             r"C:\Users\gordo\Code\atlas\data\R21\DAOD_PHYS\361022\DAOD_EXOT15.26710681._000512.pool.root.1"
         ),
     ),
     "bphys": sample(
         name="ds_bphys",
-        rucio_ds="mc16.999031.P8BEG_23lo_ggX18p4_Upsilon1Smumu_4mu_3pt2.deriv.DAOD_BPHY4.e8304_a875_r10724_r10726_p3712_pUM999999",
+        rucio_ds=["root://eosatlas.cern.ch//eos/atlas/user/d/daits/mc16_13TeV/DAOD_BPHY4/mc16.999031.P8BEG_23lo_ggX18p4_Upsilon1Smumu_4mu_3pt2.deriv.DAOD_BPHY4.e8304_a875_r10724_r10726_p3712_pUM999999/DAOD_BPHY4.999031._000001.pool.root.1"],
         local_path=Path(
             r"C:\Users\gordo\Code\atlas\data\R21\BPHYS\999031\DAOD_BPHY4.999031._000001.pool.root.1"
         ),
@@ -68,7 +78,8 @@ class xAODLocalTyped(SXLocalxAOD[Event]):
 
 
 # Make the samples available
-use_local = True
+use_local = False
+sx_backend_name = "testing-3-river-xaod"
 
 
 
@@ -81,16 +92,33 @@ def make_ds(s: sample):
     Returns:
         sample: The sample specification.
     """
-    if use_local:
-        ds = xAODLocalTyped(s.local_path)
+    sx_ds_name = s.rucio_ds
+    if isinstance(sx_ds_name, str):
+         sx_ds_name += "?files=20&get=available"
+
+    if s.typed_access:
+        if use_local:
+            ds = xAODLocalTyped(s.local_path)
+        else:
+            ds = SXDSAtlasxAODR21(sx_ds_name, backend=sx_backend_name)
     else:
-        ds = SXDSAtlasxAODR21(s.rucio_ds, backend="dev_xaod")
+        if use_local:
+            ds = SXLocalxAOD(s.local_path)
+        else:
+            ds = ServiceXSourceXAOD(sx_ds_name, backend=sx_backend_name)
+    
+    # TODO: If we run Overlap Removal, then we must have a PV in the event. Unfortunately,
+    # we do not yet know how to filter out events without a PV in them. So we turn off OR
+    # by default for now. When this is fixed, remove the warning in the calibration notebook.
+    ds = calib_tools.query_update(ds, perform_overlap_removal=False)
+
     return ds
 
 
 # Build the individual samples. First, the DAOD_PHYS samples, which use default
 # calibrations.
 ds_zee = make_ds(_samples["zee"])
+ds_zee_untyped = make_ds(_samples["zee_untyped"])
 ds_ztautau = make_ds(_samples["ztautau"])
 ds_bphys = make_ds(_samples["bphys"])
 

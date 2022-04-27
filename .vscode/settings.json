@@ -58,5 +58,6 @@
     "cmake.configureOnOpen": false,
     "restructuredtext.languageServer.disabled": true,
     "jupyter.debugJustMyCode": false,
-    "python.formatting.provider": "black"
+    "python.formatting.provider": "black",
+    "liveServer.settings.port": 5501
 }

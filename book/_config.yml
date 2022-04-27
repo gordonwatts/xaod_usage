@@ -8,7 +8,10 @@ logo: logo.png
 # Force re-execution of notebooks on each build.
 # See https://jupyterbook.org/content/execute.html
 execute:
-  execute_notebooks: off
+  execute_notebooks: cache
+  # Timeout is large b.c. sometimes when you are running on a very slow internet
+  # connection, this is what it takes.
+  timeout: 1800
 
 # Define the name of the latex output file for PDF builds
 latex:
