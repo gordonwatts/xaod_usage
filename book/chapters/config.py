@@ -79,7 +79,7 @@ class xAODLocalTyped(SXLocalxAOD[Event]):
 
 # Make the samples available
 use_local = False
-sx_backend_name = "testing-3-river-xaod"
+sx_backend_name = "xaod_r21"
 
 
 

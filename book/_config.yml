@@ -11,7 +11,11 @@ execute:
   execute_notebooks: cache
   # Timeout is large b.c. sometimes when you are running on a very slow internet
   # connection, this is what it takes.
-  timeout: 1800
+  timeout: 3200
+  # Some are just not ready yet
+  exclude_patterns:
+    - '*photons*'
+    - '*ditaus*'
 
 # Define the name of the latex output file for PDF builds
 latex:

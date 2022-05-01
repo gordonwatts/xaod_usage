@@ -1,6 +1,6 @@
 jupyter-book
 matplotlib
-numpy
-func-adl-servicex
-particle
 hist[plot]
+particle
+func-adl-servicex-xaodr21
+func-adl-servicex[local]
