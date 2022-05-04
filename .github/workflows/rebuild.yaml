@@ -20,9 +20,17 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install poetry
+        poetry env use python
         poetry install
-        pip list
+        poetry run pip list
+    - name: Build servicex file
+      run: |
+        echo "api_endpoints:" > servicex.yaml
+        echo "  - name: xaod_r1" >> servicex.yaml
+        echo "    endpoint: https://forkit" >> servicex.yaml
+        echo "    type: xaod" >> servicex.yaml
+        echo "    token: 1234" >> servicex.yaml
     - name: Build the jupyter Book
       run: |
-        jupyter-book clean --all ./book
-        jupyter-book build --all ./book
+        poetry run jupyter-book clean --all ./book
+        poetry run jupyter-book build --all ./book
