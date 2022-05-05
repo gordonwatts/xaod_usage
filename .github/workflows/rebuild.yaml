@@ -36,6 +36,7 @@ jobs:
         poetry run jupyter-book build -W --keep-going --all ./book
     - name: Archive the log files from the run
       uses: actions/upload-artifact@v3
+      if: always()
       with:
         name: jupyter-book-logs
         path: book/_build/html/reports
