@@ -33,4 +33,4 @@ jobs:
     - name: Build the jupyter Book
       run: |
         poetry run jupyter-book clean --all ./book
-        poetry run jupyter-book build --all ./book
+        poetry run jupyter-book build -W --keep-going --all ./book
