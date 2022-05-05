@@ -1,4 +1,4 @@
-name: Test Run
+name: Book Build Test
 
 on:
   workflow_dispatch:
@@ -8,7 +8,7 @@ on:
       default: '3.9'
 
 jobs:
-  publish:
+  build:
     runs-on: ubuntu-latest
 
     steps:
