@@ -28,9 +28,10 @@ jobs:
       run: |
         echo "api_endpoints:" > servicex.yaml
         echo "  - name: xaod_r21" >> servicex.yaml
-        echo "    endpoint: $SX_NAME" >> servicex.yaml
+        echo "    endpoint: $$SX_NAME" >> servicex.yaml
         echo "    type: xaod" >> servicex.yaml
-        echo "    token: $SX_TOKEN" >> servicex.yaml
+        echo "    token: $$SX_TOKEN" >> servicex.yaml
+        cat servicex.yaml
     - name: Build the jupyter Book
       run: |
         poetry run jupyter-book clean --all ./book
