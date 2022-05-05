@@ -2,10 +2,11 @@ name: Book Build Test
 
 on:
   workflow_dispatch:
-    python-version:
-      description: 'Python Version'
-      required: true
-      default: '3.9'
+    inputs:
+      python-version:
+        description: 'Python Version'
+        required: true
+        default: '3.9'
 
 jobs:
   build:
