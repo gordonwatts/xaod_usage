@@ -25,12 +25,15 @@ jobs:
         poetry install
         poetry run pip list
     - name: Build servicex file
+      env:
+        SX_NAME: ${{ secrets.SX_NAME }}
+        SX_TOKEN: ${{ secrets.SX_TOKEN }}
       run: |
         echo "api_endpoints:" > servicex.yaml
         echo "  - name: xaod_r21" >> servicex.yaml
-        echo "    endpoint: ${{ secrets.SX_NAME }}" >> servicex.yaml
+        echo "    endpoint: $SX_NAME" >> servicex.yaml
         echo "    type: xaod" >> servicex.yaml
-        echo "    token: ${{ secrets.SX_TOKEN }}" >> servicex.yaml
+        echo "    token: $SX_TOKEN" >> servicex.yaml
         cat servicex.yaml
     - name: Build the jupyter Book
       run: |
