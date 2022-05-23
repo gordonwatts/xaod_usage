@@ -26,11 +26,13 @@ jobs:
         poetry run pip list
     - name: Build servicex file
       env:
+        BOGUS: fork
         SX_NAME: ${{ secrets.SX_NAME }}
         SX_TOKEN: ${{ secrets.SX_TOKEN }}
       run: |
         echo "api_endpoints:" > servicex.yaml
         echo "  - name: xaod_r21" >> servicex.yaml
+        echo "    fork: $BOGUS" >> servicex.yaml
         echo "    endpoint: $SX_NAME" >> servicex.yaml
         echo "    type: xaod" >> servicex.yaml
         echo "    token: $SX_TOKEN" >> servicex.yaml
