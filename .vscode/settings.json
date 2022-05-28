@@ -26,6 +26,7 @@
         "hadronizes",
         "lhmedium",
         "Localx",
+        "matplotlib",
         "missinget",
         "mypy",
         "NNPDF",
