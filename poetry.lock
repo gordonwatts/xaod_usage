@@ -451,7 +451,7 @@ test = ["pytest (>=3.9)", "pytest-asyncio", "pytest-mock", "pytest-cov", "covera
 
 [[package]]
 name = "func-adl-servicex-xaodr21"
-version = "1.1.4.21.2.209b1"
+version = "1.1.4.21.2.209"
 description = "func-adl typed datasets for Servicex for xAOD R21 21.2.209"
 category = "main"
 optional = false
