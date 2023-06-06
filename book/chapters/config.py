@@ -24,6 +24,7 @@ class sample:
     # Use typed access?
     typed_access: bool = True
 
+
 _samples = {
     "zee": sample(
         name="ds_zee",
@@ -63,12 +64,15 @@ _samples = {
     ),
     "bphys": sample(
         name="ds_bphys",
-        rucio_ds=["root://eosatlas.cern.ch//eos/atlas/user/d/daits/mc16_13TeV/DAOD_BPHY4/mc16.999031.P8BEG_23lo_ggX18p4_Upsilon1Smumu_4mu_3pt2.deriv.DAOD_BPHY4.e8304_a875_r10724_r10726_p3712_pUM999999/DAOD_BPHY4.999031._000001.pool.root.1"],
+        rucio_ds=[
+            "root://eosatlas.cern.ch//eos/atlas/user/d/daits/mc16_13TeV/DAOD_BPHY4/mc16.999031.P8BEG_23lo_ggX18p4_Upsilon1Smumu_4mu_3pt2.deriv.DAOD_BPHY4.e8304_a875_r10724_r10726_p3712_pUM999999/DAOD_BPHY4.999031._000001.pool.root.1"
+        ],
         local_path=Path(
             r"C:\Users\gordo\Code\atlas\data\R21\BPHYS\999031\DAOD_BPHY4.999031._000001.pool.root.1"
         ),
     ),
 }
+
 
 # Base for a typed local xAOD ServiceX dataset
 # (local ==> Will run on a docker container on this machine)
@@ -82,7 +86,6 @@ use_local = False
 sx_backend_name = "xaod_r21"
 
 
-
 def make_ds(s: sample):
     """Create the a datasample, local or remote, as requested.
 
@@ -94,7 +97,7 @@ def make_ds(s: sample):
     """
     sx_ds_name = s.rucio_ds
     if isinstance(sx_ds_name, str):
-         sx_ds_name += "?files=20&get=available"
+        sx_ds_name += "?files=20&get=available"
 
     if s.typed_access:
         if use_local:
@@ -106,7 +109,7 @@ def make_ds(s: sample):
             ds = SXLocalxAOD(s.local_path)
         else:
             ds = ServiceXSourceXAOD(sx_ds_name, backend=sx_backend_name)
-    
+
     # TODO: If we run Overlap Removal, then we must have a PV in the event. Unfortunately,
     # we do not yet know how to filter out events without a PV in them. So we turn off OR
     # by default for now. When this is fixed, remove the warning in the calibration notebook.
@@ -126,8 +129,7 @@ ds_bphys = make_ds(_samples["bphys"])
 # required to do overlap removal. So for now we'll turn that off until
 # we understand what the proper thing to do here is.
 ds_zmumu = calib_tools.query_update(
-    make_ds(_samples["zmumu"]),
-    perform_overlap_removal=False
+    make_ds(_samples["zmumu"]), perform_overlap_removal=False
 )
 
 # To demonstrate some features of jets, we need an older R21 sample (which contains
@@ -168,7 +170,7 @@ def match_eta_phi(jets, jets_to_match) -> ak.Record:
     # TODO: Missing wrap around fro phi
     delta_phi = np.abs(pair_phi[:, :, :]["0"] - pair_phi[:, :, :]["1"])
 
-    delta = delta_eta ** 2 + delta_phi ** 2
+    delta = delta_eta**2 + delta_phi**2
 
     # TODO: remove anything larger that 0.2*0.2
     best_match = ak.argmin(delta, axis=2)
