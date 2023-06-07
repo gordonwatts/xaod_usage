@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from pathlib import Path
-from typing import List, Union
+from typing import Any, Callable, List, Union
 
 import awkward as ak
 import numpy as np
@@ -25,6 +25,9 @@ class sample:
     # Which release (21, 24)?
     release: str
 
+    # The calibration defaults to apply (e.g. PHYS or PHYSLITE).
+    default_calib: str = "PHYS"
+
     # Use typed access?
     typed_access: bool = True
 
@@ -32,17 +35,17 @@ class sample:
 _samples = {
     "zee_r21": sample(
         name="ds_zee",
-        rucio_ds="rucio://mc16_13TeV.361106.PowhegPythia8EvtGen_AZNLOCTEQ6L1_Zee.deriv.DAOD_PHYS.e3601_s3126_r10724_p5313",
+        rucio_ds="rucio://mc16_13TeV:mc16_13TeV.361106.PowhegPythia8EvtGen_AZNLOCTEQ6L1_Zee.deriv.DAOD_PHYS.e3601_s3126_r10724_p5313",
         local_path=Path(
-            r"C:\Users\gordo\Code\atlas\data\R21\DAOD_PHYS\361106\DAOD_PHYS.23294912._000216.pool.root.1"
+            r"C:\Users\gordo\Code\atlas\data\R21\DAOD_PHYS\361106\DAOD_PHYS.30943882._001876.pool.root.1"
         ),
         release="21",
     ),
     "zee_untyped_r21": sample(
         name="ds_zee_untyped",
-        rucio_ds="rucio://mc16_13TeV:mc16_13TeV.361106.PowhegPythia8EvtGen_AZNLOCTEQ6L1_Zee.deriv.DAOD_PHYS.e3601_e5984_s3126_s3136_r10724_r10726_p4164",
+        rucio_ds="rucio://mc16_13TeV:mc16_13TeV.361106.PowhegPythia8EvtGen_AZNLOCTEQ6L1_Zee.deriv.DAOD_PHYS.e3601_s3126_r10724_p5313",
         local_path=Path(
-            r"C:\Users\gordo\Code\atlas\data\R21\DAOD_PHYS\361106\DAOD_PHYS.23294912._000216.pool.root.1"
+            r"C:\Users\gordo\Code\atlas\data\R21\DAOD_PHYS\361106\DAOD_PHYS.30943882._001876.pool.root.1"
         ),
         release="21",
         typed_access=False,
@@ -123,7 +126,9 @@ def make_ds(s: sample):
         sx_ds_name += "?files=20&get=available"
 
     if use_local and not s.local_path.exists():
-        return None
+        raise FileNotFoundError(
+            f"Data file for sample {s.name}, {s.local_path}, is not found!"
+        )
 
     if s.typed_access:
         if use_local:
@@ -131,6 +136,9 @@ def make_ds(s: sample):
                 ds = xAODLocalTypedR21(s.local_path)
             else:
                 ds = xAODLocalTypedR24(s.local_path)
+            ds = calib_tools.query_update(
+                ds, calib_config=calib_tools.default_config(s.default_calib)
+            )
         else:
             ds = SXDSAtlasxAODR21(sx_ds_name, backend=sx_backend_name)
     else:
@@ -144,23 +152,40 @@ def make_ds(s: sample):
     # by default for now. When this is fixed, remove the warning in the calibration notebook.
     ds = calib_tools.query_update(ds, perform_overlap_removal=False)
 
+    assert ds is not None, "`ds` is None - which should not be possible."
+
     return ds
 
 
-# Build the individual samples. First, the DAOD_PHYS samples, which use default
-# calibrations.
-ds_zee_r21 = make_ds(_samples["zee_r21"])
-ds_zee_untyped_r21 = make_ds(_samples["zee_untyped_r21"])
-ds_ztautau_r21 = make_ds(_samples["ztautau_r21"])
-ds_bphys_r21 = make_ds(_samples["bphys_r21"])
-ds_ttbar_r22 = make_ds(_samples["ttbar_r22"])
+def __getattr__(name: str) -> Any:
+    """Look to see if we can find a dataset that they are asking for
+
+    * Name must start with `ds_`
+    * Name must be in the list of known datasets (see `_samples`).
+    * Otherwise, raise an `AttributeError`
+
+    Args:
+        name (str): The name of the dataset to look for
+
+    Raises:
+        AttributeError: The dataset is not found.
+
+    Returns:
+        Any: The dataset object.
+    """
+    if not name.startswith("ds_"):
+        raise AttributeError(f"Dataset {name} is not defined.")
+    if name[3:] not in _samples:
+        raise AttributeError(f"Dataset {name} is not defined.")
+    return make_ds(_samples[name[3:]])
+
 
 # Turns out the muon events don't all have a primary vertex, which is
 # required to do overlap removal. So for now we'll turn that off until
 # we understand what the proper thing to do here is.
-ds_zmumu = calib_tools.query_update(
-    make_ds(_samples["zmumu"]), perform_overlap_removal=False
-)
+# ds_zmumu = calib_tools.query_update(
+#     make_ds(_samples["zmumu_r21"]), perform_overlap_removal=False
+# )
 
 # To demonstrate some features of jets, we need an older R21 sample (which contains
 # topo clusters). Default calibration is different for this guy.
