@@ -20,3 +20,16 @@ jupyter-book clean --all ./book
 ```
 
 And then follow the build instructions above.
+
+## Development
+
+### Testing New Type Packages
+
+This package can be used to test/develop new typing packages. When you are doing that:
+
+1. Create a new python environment that contains `poetry`
+1. `pip install -e .` in the `xaod_usage` directory.
+1. `pip uninstall func_adl_x...` - uninstall any type packages that were installed
+1. `cd` into each directory that contains a type package you want to install and do a `pip install -e .`
+
+Now you can regenerate the type packages at will and test them in the scripts.
