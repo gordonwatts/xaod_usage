@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Callable, List, Union
+from typing import Any, List, Union
 
 import awkward as ak
 import numpy as np
