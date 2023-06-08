@@ -6,6 +6,7 @@ import awkward as ak
 import numpy as np
 from func_adl_servicex import ServiceXSourceXAOD, SXLocalxAOD
 from func_adl_servicex_xaodr21 import SXDSAtlasxAODR21, calib_tools
+from func_adl_servicex_xaodr21 import atlas_release as atlas_release_r21
 from func_adl_servicex_xaodr21.event_collection import Event as EventR21
 from func_adl_servicex_xaodr24.event_collection import Event as EventR24
 
@@ -84,13 +85,21 @@ _samples = {
         ),
         release="21",
     ),
+    "ttbar_r21": sample(
+        name="ds_ttbar",
+        rucio_ds="mc16_13TeV.410470.PhPy8EG_A14_ttbar_hdamp258p75_nonallhad.deriv.DAOD_PHYS.e6337_e5984_a875_r10724_r10726_p4355",
+        local_path=Path(
+            r"C:\Users\gordo\Code\atlas\data\R21\DAOD_PHYS\410470\DAOD_PHYS.23597022._001158.pool.root.1"
+        ),
+        release="21",
+    ),
     "ttbar_r22": sample(
         name="ds_ttbar",
         rucio_ds=[],
         local_path=Path(
             r"C:\Users\gordo\Code\atlas\data\asg\mc_410470_ttbar.DAOD_PHYS.22.2.110.pool.root.1"
         ),
-        release="21",
+        release="22",
     ),
 }
 
@@ -99,7 +108,12 @@ _samples = {
 # (local ==> Will run on a docker container on this machine)
 class xAODLocalTypedR21(SXLocalxAOD[EventR21]):
     def __init__(self, file_path: Path):
-        super().__init__(file_path, item_type=EventR21)
+        super().__init__(
+            file_path,
+            item_type=EventR21,
+            docker_image="gitlab-registry.cern.ch/atlas/athena/analysisbase",
+            docker_tag=atlas_release_r21,
+        )
 
 
 class xAODLocalTypedR24(SXLocalxAOD[EventR24]):
