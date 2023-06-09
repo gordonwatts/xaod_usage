@@ -5,9 +5,15 @@ from typing import Any, List, Union
 import awkward as ak
 import numpy as np
 from func_adl_servicex import ServiceXSourceXAOD, SXLocalxAOD
-from func_adl_servicex_xaodr21 import SXDSAtlasxAODR21, calib_tools
+from func_adl_servicex_xaodr21 import SXDSAtlasxAODR21
 from func_adl_servicex_xaodr21 import atlas_release as atlas_release_r21
+from func_adl_servicex_xaodr21 import calib_tools as calib_tools_r21
 from func_adl_servicex_xaodr21.event_collection import Event as EventR21
+from func_adl_servicex_xaodr22 import atlas_release as atlas_release_r22
+from func_adl_servicex_xaodr22 import calib_tools as calib_tools_r22
+from func_adl_servicex_xaodr22.event_collection import Event as EventR22
+from func_adl_servicex_xaodr24 import atlas_release as atlas_release_r24
+from func_adl_servicex_xaodr24 import calib_tools as calib_tools_r24
 from func_adl_servicex_xaodr24.event_collection import Event as EventR24
 
 
@@ -101,6 +107,14 @@ _samples = {
         ),
         release="22",
     ),
+    "ttbar_r24": sample(
+        name="ds_ttbar",
+        rucio_ds=[],
+        local_path=Path(
+            r"C:\Users\gordo\Code\atlas\data\asg\mc_410470_ttbar.DAOD_PHYS.22.2.110.pool.root.1"
+        ),
+        release="24",
+    ),
 }
 
 
@@ -116,9 +130,24 @@ class xAODLocalTypedR21(SXLocalxAOD[EventR21]):
         )
 
 
+class xAODLocalTypedR22(SXLocalxAOD[EventR22]):
+    def __init__(self, file_path: Path):
+        super().__init__(
+            file_path,
+            item_type=EventR21,
+            docker_image="gitlab-registry.cern.ch/atlas/athena/analysisbase",
+            docker_tag=atlas_release_r22,
+        )
+
+
 class xAODLocalTypedR24(SXLocalxAOD[EventR24]):
     def __init__(self, file_path: Path):
-        super().__init__(file_path, item_type=EventR24)
+        super().__init__(
+            file_path,
+            item_type=EventR24,
+            docker_image="gitlab-registry.cern.ch/atlas/athena/analysisbase",
+            docker_tag=atlas_release_r24,
+        )
 
 
 # Make the samples available
@@ -148,11 +177,21 @@ def make_ds(s: sample):
         if use_local:
             if s.release == "21":
                 ds = xAODLocalTypedR21(s.local_path)
-            else:
+                ds = calib_tools_r21.query_update(
+                    ds, calib_config=calib_tools_r21.default_config(s.default_calib)
+                )
+            elif s.release == "22":
+                ds = xAODLocalTypedR22(s.local_path)
+                ds = calib_tools_r22.query_update(
+                    ds, calib_config=calib_tools_r22.default_config(s.default_calib)
+                )
+            elif s.release == "24":
                 ds = xAODLocalTypedR24(s.local_path)
-            ds = calib_tools.query_update(
-                ds, calib_config=calib_tools.default_config(s.default_calib)
-            )
+                ds = calib_tools_r24.query_update(
+                    ds, calib_config=calib_tools_r24.default_config(s.default_calib)
+                )
+            else:
+                raise NotImplementedError(f'Release "{s.release}" is not supported.')
         else:
             ds = SXDSAtlasxAODR21(sx_ds_name, backend=sx_backend_name)
     else:
@@ -164,7 +203,12 @@ def make_ds(s: sample):
     # TODO: If we run Overlap Removal, then we must have a PV in the event. Unfortunately,
     # we do not yet know how to filter out events without a PV in them. So we turn off OR
     # by default for now. When this is fixed, remove the warning in the calibration notebook.
-    ds = calib_tools.query_update(ds, perform_overlap_removal=False)
+    if s.release == "21":
+        ds = calib_tools_r21.query_update(ds, perform_overlap_removal=False)
+    elif s.release == "22":
+        ds = calib_tools_r22.query_update(ds, perform_overlap_removal=False)
+    elif s.release == "24":
+        ds = calib_tools_r24.query_update(ds, perform_overlap_removal=False)
 
     assert ds is not None, "`ds` is None - which should not be possible."
 
