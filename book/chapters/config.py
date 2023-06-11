@@ -48,6 +48,22 @@ _samples = {
         ),
         release="21",
     ),
+    "zee_r22": sample(
+        name="ds_zee",
+        rucio_ds="rucio://mc21_13p6TeV:mc21_13p6TeV.601189.PhPy8EG_AZNLO_Zee.deriv.DAOD_PHYS.e8392_e7400_s3775_r13504_r13491_p5057",
+        local_path=Path(
+            r"C:\Users\gordo\Code\atlas\data\R22\DAOD_PHYS\DAOD_PHYS.28628223._000007.pool.root.1"
+        ),
+        release="22",
+    ),
+    "zee_r24": sample(
+        name="ds_zee",
+        rucio_ds="rucio://mc21_13p6TeV:mc21_13p6TeV.601189.PhPy8EG_AZNLO_Zee.deriv.DAOD_PHYS.e8392_e7400_s3775_r13504_r13491_p5057",
+        local_path=Path(
+            r"C:\Users\gordo\Code\atlas\data\R22\DAOD_PHYS\DAOD_PHYS.28628223._000007.pool.root.1"
+        ),
+        release="24",
+    ),
     "zee_untyped_r21": sample(
         name="ds_zee_untyped",
         rucio_ds="rucio://mc16_13TeV:mc16_13TeV.361106.PowhegPythia8EvtGen_AZNLOCTEQ6L1_Zee.deriv.DAOD_PHYS.e3601_s3126_r10724_p5313",
