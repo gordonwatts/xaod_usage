@@ -50,17 +50,17 @@ _samples = {
     ),
     "zee_r22": sample(
         name="ds_zee",
-        rucio_ds="rucio://mc21_13p6TeV:mc21_13p6TeV.601189.PhPy8EG_AZNLO_Zee.deriv.DAOD_PHYS.e8392_e7400_s3775_r13504_r13491_p5057",
+        rucio_ds="rucio://mc21_13p6TeV:mc21_13p6TeV.601189.PhPy8EG_AZNLO_Zee.deriv.DAOD_PHYS.e8453_s3873_r13829_p5631",
         local_path=Path(
-            r"C:\Users\gordo\Code\atlas\data\R22\DAOD_PHYS\DAOD_PHYS.28628223._000007.pool.root.1"
+            r"C:\Users\gordo\Code\atlas\data\R22\DAOD_PHYS\DAOD_PHYS.33080389._000029.pool.root.1"
         ),
         release="22",
     ),
     "zee_r24": sample(
         name="ds_zee",
-        rucio_ds="rucio://mc21_13p6TeV:mc21_13p6TeV.601189.PhPy8EG_AZNLO_Zee.deriv.DAOD_PHYS.e8392_e7400_s3775_r13504_r13491_p5057",
+        rucio_ds="rucio://mc21_13p6TeV:mc21_13p6TeV.601189.PhPy8EG_AZNLO_Zee.deriv.DAOD_PHYS.e8453_s3873_r13829_p5631",
         local_path=Path(
-            r"C:\Users\gordo\Code\atlas\data\R22\DAOD_PHYS\DAOD_PHYS.28628223._000007.pool.root.1"
+            r"C:\Users\gordo\Code\atlas\data\R22\DAOD_PHYS\DAOD_PHYS.33080389._000029.pool.root.1"
         ),
         release="24",
     ),
