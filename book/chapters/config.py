@@ -1,12 +1,19 @@
 from dataclasses import dataclass
 from pathlib import Path
-from typing import List, Union
+from typing import Any, List, Union
 
 import awkward as ak
 import numpy as np
 from func_adl_servicex import ServiceXSourceXAOD, SXLocalxAOD
-from func_adl_servicex_xaodr21 import SXDSAtlasxAODR21, calib_tools
+from func_adl_servicex_xaodr21 import SXDSAtlasxAODR21
+from func_adl_servicex_xaodr21 import atlas_release as atlas_release_r21
+from func_adl_servicex_xaodr21 import calib_tools as calib_tools_r21
 from func_adl_servicex_xaodr21.event_collection import Event as EventR21
+from func_adl_servicex_xaodr22 import atlas_release as atlas_release_r22
+from func_adl_servicex_xaodr22 import calib_tools as calib_tools_r22
+from func_adl_servicex_xaodr22.event_collection import Event as EventR22
+from func_adl_servicex_xaodr24 import atlas_release as atlas_release_r24
+from func_adl_servicex_xaodr24 import calib_tools as calib_tools_r24
 from func_adl_servicex_xaodr24.event_collection import Event as EventR24
 
 
@@ -23,7 +30,10 @@ class sample:
     local_path: Path
 
     # Which release (21, 24)?
-    release: str 
+    release: str
+
+    # The calibration defaults to apply (e.g. PHYS or PHYSLITE).
+    default_calib: str = "PHYS"
 
     # Use typed access?
     typed_access: bool = True
@@ -32,17 +42,33 @@ class sample:
 _samples = {
     "zee_r21": sample(
         name="ds_zee",
-        rucio_ds="rucio://mc16_13TeV:mc16_13TeV.361106.PowhegPythia8EvtGen_AZNLOCTEQ6L1_Zee.deriv.DAOD_PHYS.e3601_e5984_s3126_r10201_r10210_p5313",
+        rucio_ds="rucio://mc16_13TeV:mc16_13TeV.361106.PowhegPythia8EvtGen_AZNLOCTEQ6L1_Zee.deriv.DAOD_PHYS.e3601_s3126_r10724_p5313",
         local_path=Path(
-            r"C:\Users\gordo\Code\atlas\data\R21\DAOD_PHYS\361106\DAOD_PHYS.23294912._000216.pool.root.1"
+            r"C:\Users\gordo\Code\atlas\data\R21\DAOD_PHYS\361106\DAOD_PHYS.30943882._001876.pool.root.1"
         ),
-        release="21"
+        release="21",
+    ),
+    "zee_r22": sample(
+        name="ds_zee",
+        rucio_ds="rucio://mc21_13p6TeV:mc21_13p6TeV.601189.PhPy8EG_AZNLO_Zee.deriv.DAOD_PHYS.e8453_s3873_r13829_p5631",
+        local_path=Path(
+            r"C:\Users\gordo\Code\atlas\data\R22\DAOD_PHYS\DAOD_PHYS.33080389._000029.pool.root.1"
+        ),
+        release="22",
+    ),
+    "zee_r24": sample(
+        name="ds_zee",
+        rucio_ds="rucio://mc21_13p6TeV:mc21_13p6TeV.601189.PhPy8EG_AZNLO_Zee.deriv.DAOD_PHYS.e8453_s3873_r13829_p5631",
+        local_path=Path(
+            r"C:\Users\gordo\Code\atlas\data\R22\DAOD_PHYS\DAOD_PHYS.33080389._000029.pool.root.1"
+        ),
+        release="24",
     ),
     "zee_untyped_r21": sample(
         name="ds_zee_untyped",
-        rucio_ds="rucio://mc16_13TeV:mc16_13TeV.361106.PowhegPythia8EvtGen_AZNLOCTEQ6L1_Zee.deriv.DAOD_PHYS.e3601_e5984_s3126_s3136_r10724_r10726_p4164",
+        rucio_ds="rucio://mc16_13TeV:mc16_13TeV.361106.PowhegPythia8EvtGen_AZNLOCTEQ6L1_Zee.deriv.DAOD_PHYS.e3601_s3126_r10724_p5313",
         local_path=Path(
-            r"C:\Users\gordo\Code\atlas\data\R21\DAOD_PHYS\361106\DAOD_PHYS.23294912._000216.pool.root.1"
+            r"C:\Users\gordo\Code\atlas\data\R21\DAOD_PHYS\361106\DAOD_PHYS.30943882._001876.pool.root.1"
         ),
         release="21",
         typed_access=False,
@@ -73,18 +99,38 @@ _samples = {
     ),
     "bphys_r21": sample(
         name="ds_bphys",
-        rucio_ds=["root://eosatlas.cern.ch//eos/atlas/user/d/daits/mc16_13TeV/DAOD_BPHY4/mc16.999031.P8BEG_23lo_ggX18p4_Upsilon1Smumu_4mu_3pt2.deriv.DAOD_BPHY4.e8304_a875_r10724_r10726_p3712_pUM999999/DAOD_BPHY4.999031._000001.pool.root.1"],
+        rucio_ds=[
+            "root://eosatlas.cern.ch//eos/atlas/user/d/daits/mc16_13TeV/DAOD_BPHY4/mc16.999031.P8BEG_23lo_ggX18p4_Upsilon1Smumu_4mu_3pt2.deriv.DAOD_BPHY4.e8304_a875_r10724_r10726_p3712_pUM999999/DAOD_BPHY4.999031._000001.pool.root.1"
+        ],
         local_path=Path(
             r"C:\Users\gordo\Code\atlas\data\R21\BPHYS\999031\DAOD_BPHY4.999031._000001.pool.root.1"
+        ),
+        release="21",
+    ),
+    "ttbar_r21": sample(
+        name="ds_ttbar",
+        rucio_ds="mc16_13TeV.410470.PhPy8EG_A14_ttbar_hdamp258p75_nonallhad.deriv.DAOD_PHYS.e6337_e5984_a875_r10724_r10726_p4355",
+        local_path=Path(
+            r"C:\Users\gordo\Code\atlas\data\R21\DAOD_PHYS\410470\DAOD_PHYS.23597022._001158.pool.root.1"
         ),
         release="21",
     ),
     "ttbar_r22": sample(
         name="ds_ttbar",
         rucio_ds=[],
-        local_path=Path(r"C:\Users\gordo\Code\atlas\data\asg\mc_410470_ttbar.DAOD_PHYS.22.2.110.pool.root.1"),
-        release="21",
-    )
+        local_path=Path(
+            r"C:\Users\gordo\Code\atlas\data\asg\mc_410470_ttbar.DAOD_PHYS.22.2.110.pool.root.1"
+        ),
+        release="22",
+    ),
+    "ttbar_r24": sample(
+        name="ds_ttbar",
+        rucio_ds=[],
+        local_path=Path(
+            r"C:\Users\gordo\Code\atlas\data\asg\mc_410470_ttbar.DAOD_PHYS.22.2.110.pool.root.1"
+        ),
+        release="24",
+    ),
 }
 
 
@@ -92,12 +138,32 @@ _samples = {
 # (local ==> Will run on a docker container on this machine)
 class xAODLocalTypedR21(SXLocalxAOD[EventR21]):
     def __init__(self, file_path: Path):
-        super().__init__(file_path, item_type=EventR21)
+        super().__init__(
+            file_path,
+            item_type=EventR21,
+            docker_image="gitlab-registry.cern.ch/atlas/athena/analysisbase",
+            docker_tag=atlas_release_r21,
+        )
+
+
+class xAODLocalTypedR22(SXLocalxAOD[EventR22]):
+    def __init__(self, file_path: Path):
+        super().__init__(
+            file_path,
+            item_type=EventR21,
+            docker_image="gitlab-registry.cern.ch/atlas/athena/analysisbase",
+            docker_tag=atlas_release_r22,
+        )
 
 
 class xAODLocalTypedR24(SXLocalxAOD[EventR24]):
     def __init__(self, file_path: Path):
-        super().__init__(file_path, item_type=EventR24)
+        super().__init__(
+            file_path,
+            item_type=EventR24,
+            docker_image="gitlab-registry.cern.ch/atlas/athena/analysisbase",
+            docker_tag=atlas_release_r24,
+        )
 
 
 # Make the samples available
@@ -116,17 +182,32 @@ def make_ds(s: sample):
     """
     sx_ds_name = s.rucio_ds
     if isinstance(sx_ds_name, str):
-         sx_ds_name += "?files=20&get=available"
+        sx_ds_name += "?files=20&get=available"
 
     if use_local and not s.local_path.exists():
-        return None
+        raise FileNotFoundError(
+            f"Data file for sample {s.name}, {s.local_path}, is not found!"
+        )
 
     if s.typed_access:
         if use_local:
             if s.release == "21":
                 ds = xAODLocalTypedR21(s.local_path)
-            else:
+                ds = calib_tools_r21.query_update(
+                    ds, calib_config=calib_tools_r21.default_config(s.default_calib)
+                )
+            elif s.release == "22":
+                ds = xAODLocalTypedR22(s.local_path)
+                ds = calib_tools_r22.query_update(
+                    ds, calib_config=calib_tools_r22.default_config(s.default_calib)
+                )
+            elif s.release == "24":
                 ds = xAODLocalTypedR24(s.local_path)
+                ds = calib_tools_r24.query_update(
+                    ds, calib_config=calib_tools_r24.default_config(s.default_calib)
+                )
+            else:
+                raise NotImplementedError(f'Release "{s.release}" is not supported.')
         else:
             ds = SXDSAtlasxAODR21(sx_ds_name, backend=sx_backend_name)
     else:
@@ -138,25 +219,46 @@ def make_ds(s: sample):
     # TODO: If we run Overlap Removal, then we must have a PV in the event. Unfortunately,
     # we do not yet know how to filter out events without a PV in them. So we turn off OR
     # by default for now. When this is fixed, remove the warning in the calibration notebook.
-    ds = calib_tools.query_update(ds, perform_overlap_removal=False)
+    if s.release == "21":
+        ds = calib_tools_r21.query_update(ds, perform_overlap_removal=False)
+    elif s.release == "22":
+        ds = calib_tools_r22.query_update(ds, perform_overlap_removal=False)
+    elif s.release == "24":
+        ds = calib_tools_r24.query_update(ds, perform_overlap_removal=False)
+
+    assert ds is not None, "`ds` is None - which should not be possible."
 
     return ds
 
 
-# Build the individual samples. First, the DAOD_PHYS samples, which use default
-# calibrations.
-ds_zee_r21 = make_ds(_samples["zee_r21"])
-ds_zee_untyped_r21 = make_ds(_samples["zee_untyped_r21"])
-ds_ztautau_r21 = make_ds(_samples["ztautau_r21"])
-ds_bphys_r21 = make_ds(_samples["bphys_r21"])
-ds_ttbar_r22 = make_ds(_samples["ttbar_r22"])
+def __getattr__(name: str) -> Any:
+    """Look to see if we can find a dataset that they are asking for
+
+    * Name must start with `ds_`
+    * Name must be in the list of known datasets (see `_samples`).
+    * Otherwise, raise an `AttributeError`
+
+    Args:
+        name (str): The name of the dataset to look for
+
+    Raises:
+        AttributeError: The dataset is not found.
+
+    Returns:
+        Any: The dataset object.
+    """
+    if not name.startswith("ds_"):
+        raise AttributeError(f"Dataset {name} is not defined.")
+    if name[3:] not in _samples:
+        raise AttributeError(f"Dataset {name} is not defined.")
+    return make_ds(_samples[name[3:]])
+
 
 # Turns out the muon events don't all have a primary vertex, which is
 # required to do overlap removal. So for now we'll turn that off until
 # we understand what the proper thing to do here is.
-# ds_zmumu_r21 = calib_tools.query_update(
-#     make_ds(_samples["zmumu_r21"]),
-#     perform_overlap_removal=False
+# ds_zmumu = calib_tools.query_update(
+#     make_ds(_samples["zmumu_r21"]), perform_overlap_removal=False
 # )
 
 # To demonstrate some features of jets, we need an older R21 sample (which contains
@@ -196,7 +298,7 @@ def match_eta_phi(jets, jets_to_match) -> ak.Record:
     # TODO: Missing wrap around fro phi
     delta_phi = np.abs(pair_phi[:, :, :]["0"] - pair_phi[:, :, :]["1"])
 
-    delta = delta_eta ** 2 + delta_phi ** 2
+    delta = delta_eta**2 + delta_phi**2
 
     # TODO: remove anything larger that 0.2*0.2
     best_match = ak.argmin(delta, axis=2)
