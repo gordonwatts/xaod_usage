@@ -1,7 +1,7 @@
 from servicex import deliver, dataset
 
 def get_dataset(jet_info_per_event):
-    """Sends request for dataset to servicex backend. Pass in FuncADLQueryPHYSLITE and returns dictionary of files in dataset."""
+    """Sends request for dataset to servicex backend. Pass in FuncADLQueryPHYSLITE and returns list of files in dataset."""
     spec = {
         'Sample': [{
             'Name': "func_adl_xAOD",
@@ -14,6 +14,6 @@ def get_dataset(jet_info_per_event):
             'Codegen': 'atlasr22',
         }]
     }
-    files = deliver(spec, servicex_name="atlasr22")
+    files = deliver(spec, servicex_name="atlasr22")['func_adl_xAOD']
     assert files is not None, "No files returned from deliver! Internal error"
     return files
