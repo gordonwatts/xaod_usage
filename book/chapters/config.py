@@ -64,7 +64,7 @@ def get_files(query, s: sample):
     
     Args:
         query: FuncADLQueryPHYSLITE
-        s: sample class with dataset to call from
+         s (sample): The sample to create
 
     Returns:
         List of files returned from servicex backend
