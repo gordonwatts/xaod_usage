@@ -59,7 +59,7 @@ _samples = {
 # sx_f means servicex-frontend documentation dataset, need to find a better name for this, will update after I learn how to find ds names
 sx_f = _samples["sx_f"]
 
-def get_files(query, s: sample):
+def deliver_files(query, s: sample):
     """Sends request for data to servicex backend.
     
     Args:
